@@ -197,12 +197,12 @@ $(document).on('click', '.confirm-search-person-test', function(e){
                     $("#person-"+i).data("PersonData", person);
                 });
             } else {
-                QB.Phone.Notifications.Add("politie", "MDT", "There are no search results!");
+                QB.Phone.Notifications.Add("politie", "MDT", "Результатов не найдено!");
                 $(".person-search-results").html("");
             }
         });
     } else {
-        QB.Phone.Notifications.Add("politie", "MDT", "There are no search results!");
+        QB.Phone.Notifications.Add("politie", "MDT", "Результатов не найдено!");
         $(".person-search-results").html("");
     }
 });
@@ -223,12 +223,12 @@ $(document).on('click', '.confirm-search-person-house', function(e){
                     $("#personhouse-"+i).data("HouseData", house);
                 });
             } else {
-                QB.Phone.Notifications.Add("politie", "MDT", "There are no search results!");
+                QB.Phone.Notifications.Add("politie", "MDT", "Результатов не найдено!");
                 $(".person-search-results").html("");
             }
         });
     } else {
-        QB.Phone.Notifications.Add("politie", "MDT", "There are no search results!");
+        QB.Phone.Notifications.Add("politie", "MDT", "Результатов не найдено!");
         $(".person-search-results").html("");
     }
 });
@@ -253,13 +253,13 @@ $(document).on('click', '.confirm-search-vehicle', function(e){
                         Flagged = "Yes";
                     }
                     
-                    var VehicleElement = '<div class="vehicle-search-result"> <div class="vehicle-search-result-name">'+vehicle.label+'</div> <div class="vehicle-search-result-plate">License Plate: '+vehicle.plate+'</div> <div class="vehicle-opensplit"></div> &nbsp; <div class="vehicle-search-result-owner">Owner: '+vehicle.owner+'</div> &nbsp; <div class="vehicle-search-result-apk">MOT: '+APK+'</div> <div class="vehicle-search-result-warrant">Signaled: '+Flagged+'</div> </div>'
+                    var VehicleElement = '<div class="vehicle-search-result"> <div class="vehicle-search-result-name">'+vehicle.label+'</div> <div class="vehicle-search-result-plate">Госномер: '+vehicle.plate+'</div> <div class="vehicle-opensplit"></div> &nbsp; <div class="vehicle-search-result-owner">Владелец: '+vehicle.owner+'</div> &nbsp; <div class="vehicle-search-result-apk">Техосмотр: '+APK+'</div> <div class="vehicle-search-result-warrant">В розыске: '+Flagged+'</div> </div>'
                     $(".vehicle-search-results").append(VehicleElement);
                 });
             }
         });
     } else {
-        QB.Phone.Notifications.Add("politie", "MDT", "There are no search results!");
+        QB.Phone.Notifications.Add("politie", "MDT", "Результатов не найдено!");
         $(".vehicle-search-results").html("");
     }
 });
@@ -278,10 +278,10 @@ $(document).on('click', '.scan-search-vehicle', function(e){
                 Flagged = "Yes";
             }
 
-            var VehicleElement = '<div class="vehicle-search-result"> <div class="vehicle-search-result-name">'+vehicle.label+'</div> <div class="vehicle-search-result-plate">License Plate: '+vehicle.plate+'</div> <div class="vehicle-opensplit"></div> &nbsp; <div class="vehicle-search-result-owner">Owner: '+vehicle.owner+'</div> &nbsp; <div class="vehicle-search-result-apk">MOT: '+APK+'</div> <div class="vehicle-search-result-warrant">Signaled: '+Flagged+'</div> </div>'
+            var VehicleElement = '<div class="vehicle-search-result"> <div class="vehicle-search-result-name">'+vehicle.label+'</div> <div class="vehicle-search-result-plate">Госномер: '+vehicle.plate+'</div> <div class="vehicle-opensplit"></div> &nbsp; <div class="vehicle-search-result-owner">Владелец: '+vehicle.owner+'</div> &nbsp; <div class="vehicle-search-result-apk">Техосмотр: '+APK+'</div> <div class="vehicle-search-result-warrant">В розыске: '+Flagged+'</div> </div>'
             $(".vehicle-search-results").append(VehicleElement);
         } else {
-            QB.Phone.Notifications.Add("politie", "MDT", "No vehicle nearby!");
+            QB.Phone.Notifications.Add("politie", "MDT", "Рядом нет машин!");
             $(".vehicle-search-results").append("");
         }
     });
@@ -291,11 +291,11 @@ AddPoliceAlert = function(data) {
     var randId = Math.floor((Math.random() * 10000) + 1);
     var AlertElement = '';
     if (data.alert.coords != undefined && data.alert.coords != null) {
-        AlertElement = '<div class="meos-alert" id="alert-'+randId+'"> <span class="meos-alert-new" style="margin-bottom: 1vh;">NEW</span> <p class="meos-alert-type">Alert: '+data.alert.title+'</p> <p class="meos-alert-description">'+data.alert.description+'</p> <hr> <div class="meos-location-button">LOCATION</div> </div>';
+        AlertElement = '<div class="meos-alert" id="alert-'+randId+'"> <span class="meos-alert-new" style="margin-bottom: 1vh;">НОВОЕ</span> <p class="meos-alert-type">Тревога: '+data.alert.title+'</p> <p class="meos-alert-description">'+data.alert.description+'</p> <hr> <div class="meos-location-button">МЕСТОПОЛОЖЕНИЕ</div> </div>';
     } else {
-        AlertElement = '<div class="meos-alert" id="alert-'+randId+'"> <span class="meos-alert-new" style="margin-bottom: 1vh;">NEW</span> <p class="meos-alert-type">Alert: '+data.alert.title+'</p> <p class="meos-alert-description">'+data.alert.description+'</p></div>';
+        AlertElement = '<div class="meos-alert" id="alert-'+randId+'"> <span class="meos-alert-new" style="margin-bottom: 1vh;">НОВОЕ</span> <p class="meos-alert-type">Тревога: '+data.alert.title+'</p> <p class="meos-alert-description">'+data.alert.description+'</p></div>';
     }
-    $(".meos-recent-alerts").html('<div class="meos-recent-alert" id="recent-alert-'+randId+'"><span class="meos-recent-alert-title">Alert: '+data.alert.title+'</span><p class="meos-recent-alert-description">'+data.alert.description+'</p></div>');
+    $(".meos-recent-alerts").html('<div class="meos-recent-alert" id="recent-alert-'+randId+'"><span class="meos-recent-alert-title">Тревога: '+data.alert.title+'</span><p class="meos-recent-alert-description">'+data.alert.description+'</p></div>');
     if (data.alert.title == "Assistance colleague") {
         $(".meos-recent-alert").css({"background-color":"#d30404"}); 
         $(".meos-recent-alert").addClass("emergency button");
@@ -315,10 +315,10 @@ $(document).on('click', '.meos-recent-alert', function(e){
                 alert: alertData,
             }));
         } else {
-            QB.Phone.Notifications.Add("politie", "MDT", "This alert doesn't have a GPS location!");
+            QB.Phone.Notifications.Add("politie", "MDT", "У этой тревоги нет GPS-координат!");
         }
     }else {
-        QB.Phone.Notifications.Add("politie", "MDT", "There are no alerts available.");
+        QB.Phone.Notifications.Add("politie", "MDT", "Нет доступных оповещений.");
     }
 });
 
@@ -332,6 +332,6 @@ $(document).on('click', '.meos-location-button', function(e){
 
 $(document).on('click', '.meos-clear-alerts', function(e){
     $(".meos-alerts").html("");
-    $(".meos-recent-alerts").html('<div class="meos-recent-alert"> <span class="meos-recent-alert-title">You don\'t have any alerts!</span></div>');
-    QB.Phone.Notifications.Add("politie", "MDT", "All alerts have been deleted!");
+    $(".meos-recent-alerts").html('<div class="meos-recent-alert"> <span class="meos-recent-alert-title">У вас пока нет оповещений!</span></div>');
+    QB.Phone.Notifications.Add("politie", "MDT", "Все оповещения удалены!");
 });

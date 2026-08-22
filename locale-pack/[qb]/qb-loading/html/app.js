@@ -5,14 +5,14 @@ const { ref } = Vue
 const load = Vue.createApp({
   setup () {
     return {
-      CarouselText1: 'Предметы, транспорт, работы и банды настраиваются в папке shared.',
-      CarouselSubText1: 'Photo captured by: Markyoo#8068',
-      CarouselText2: 'Дополнительные данные игроков добавляются через файл qb-core/player.lua.',
-      CarouselSubText2: 'Photo captured by: ihyajb#9723',
-      CarouselText3: 'Все настройки сервера находятся в файлах config.lua.',
-      CarouselSubText3: 'Photo captured by: FLAPZ[INACTIV]#9925',
-      CarouselText4: 'Нужна помощь? Заходите в наше сообщество: discord.gg/qbcore',
-      CarouselSubText4: 'Photo captured by: Robinerino#1312',
+      CarouselText1: 'Добро пожаловать на Brighton Union! Ролевой сервер, где каждый сам пишет свою историю.',
+      CarouselSubText1: '',
+      CarouselText2: 'Устраивайтесь на работу, покупайте недвижимость и машины — живите полной жизнью.',
+      CarouselSubText2: '',
+      CarouselText3: 'Общайтесь голосом с другими игроками: чем дальше собеседник, тем громче нужно говорить.',
+      CarouselSubText3: '',
+      CarouselText4: 'Уважайте других игроков и соблюдайте правила штата. Приятной игры!',
+      CarouselSubText4: '',
 
       DownloadTitle: 'Загрузка Brighton Union',
       DownloadDesc: "Скачиваем ресурсы и файлы, необходимые для игры на Brighton Union. \n\nКогда загрузка завершится, вы окажетесь на сервере, и этот экран исчезнет. Пожалуйста, не выходите и не выключайте компьютер. ",

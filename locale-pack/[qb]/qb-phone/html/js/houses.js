@@ -44,7 +44,7 @@ function SetupPlayerHouses(Houses) {
             if (house.garage.length > 0) {
                 HouseDetails = '<i class="fas fa-key"></i>&nbsp;&nbsp;' + TotalKeyholders + '&nbsp&nbsp&nbsp&nbsp<i class="fas fa-warehouse"></i>&nbsp;&nbsp;&nbsp;<i class="fas fa-check"></i>';
             }
-            var elem = '<div class="myhouses-house" id="house-' + id + '"><div class="myhouse-house-icon"><i class="fas fa-home"></i></div> <div class="myhouse-house-titel">' + house.label + ' | Tier ' + house.tier + '</div> <div class="myhouse-house-details">' + HouseDetails + '</div> </div>';
+            var elem = '<div class="myhouses-house" id="house-' + id + '"><div class="myhouse-house-icon"><i class="fas fa-home"></i></div> <div class="myhouse-house-titel">' + house.label + ' | Класс ' + house.tier + '</div> <div class="myhouse-house-details">' + HouseDetails + '</div> </div>';
             $(".house-app-myhouses-container").append(elem);
             $("#house-" + id).data('HouseData', house)
         });
