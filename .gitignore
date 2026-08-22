@@ -1,0 +1,13 @@
+# Server binaries and runtime data (not part of the repository)
+server/
+txData/
+cache/
+crash/
+run/
+
+# Logs
+*.log
+
+# Secrets — never commit these
+server.cfg.local
+.env
