@@ -44,7 +44,7 @@ end
 local function createPeds()
     if pedSpawned then return end
     local defaultTargetIcon = 'fas fa-shopping-cart'
-    local defaultTargetLabel = 'Открыть магазин'
+    local defaultTargetLabel = 'Магазин'
 
     for k, v in pairs(Config.Locations) do
         if not v.ped then
