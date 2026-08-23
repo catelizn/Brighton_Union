@@ -43,7 +43,7 @@ local itemOverrides = {
     weapon_flaregun              = { label = 'Сигнальный пистолет', description = 'Пистолет для запуска сигнальных ракет' },
     weapon_marksmanpistol        = { label = 'Снайперский пистолет', description = 'Очень точный пистолет для стрельбы одной рукой' },
     weapon_revolver              = { label = 'Револьвер', description = 'Пистолет с вращающимся барабаном, позволяющий сделать несколько выстрелов без перезарядки' },
-    weapon_revolver_mk2          = { label = 'Violence', description = 'da Violence' },
+    weapon_revolver_mk2          = { label = 'Револьвер Mk II', description = 'Мощный револьвер с барабаном на шесть патронов' },
     weapon_doubleaction          = { label = 'Револьвер двойного действия', description = 'Револьвер двойного действия' },
     weapon_snspistol_mk2         = { label = 'SNS Пистолет Mk II', description = 'SNS Пистолет Mk II' },
     weapon_raypistol             = { label = 'Up-n-Atomizer', description = 'Up-n-Atomizer' },

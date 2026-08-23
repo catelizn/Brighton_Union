@@ -64,12 +64,12 @@ const InventoryContainer = Vue.createApp({
                 errorSlot: null,
                 // Player Inventory
                 playerInventory: {},
-                inventoryLabel: "Inventory",
+                inventoryLabel: "Инвентарь",
                 totalWeight: 0,
                 // Other inventory
                 otherInventory: {},
                 otherInventoryName: "",
-                otherInventoryLabel: "Drop",
+                otherInventoryLabel: "Другое",
                 otherInventoryMaxWeight: 1000000,
                 otherInventorySlots: 100,
                 isShopInventory: false,
@@ -877,6 +877,12 @@ const InventoryContainer = Vue.createApp({
                         if (key === "type" && value === "Class C Driver License") {
                             valueStr = "Водительские права категории C";
                         }
+                        if (key === "gender") {
+                            valueStr = value === 0 ? "Мужской" : value === 1 ? "Женский" : value;
+                        }
+                        if (key === "nationality" && value === "Russian Federation") {
+                            valueStr = "Россия";
+                        }
                         if (key === "attachments") {
                             valueStr = Object.keys(value).length > 0 ? "true" : "false";
                         }
@@ -894,6 +900,8 @@ const InventoryContainer = Vue.createApp({
                 firstname: "Имя",
                 lastname: "Фамилия",
                 birthdate: "Дата рождения",
+                gender: "Пол",
+                nationality: "Национальность",
                 type: "Тип",
                 citizenid: "ID персонажа",
                 serialnumber: "Серийный номер",

@@ -15,11 +15,11 @@
                 <div class="sidebar">
                     <div class="sidebar-header">
                         {{ playerName }}<br />
-                        Cash: <span class="positive-balance">${{ formatCurrency(playerCash) }}</span>
+                        Наличные: <span class="positive-balance">${{ formatCurrency(playerCash) }}</span>
                     </div>
                     <div class="sidebar-accounts">
                         <ul>
-                            <li v-for="account in accounts" :key="account.name" :class="{ 'sidebar-selected': account.name === selectedAccountStatement }" @click="selectAccount(account)">{{ account.name }}: <span class="positive-balance">${{ formatCurrency(account.balance) }}</span></li>
+                            <li v-for="account in accounts" :key="account.name" :class="{ 'sidebar-selected': account.name === selectedAccountStatement }" @click="selectAccount(account)">{{ accountLabel(account) }}: <span class="positive-balance">${{ formatCurrency(account.balance) }}</span></li>
                         </ul>
                     </div>
                     <button class="action-button" @click="closeApplication()">Выйти</button>
@@ -50,7 +50,7 @@
                             <div class="money-title">Управление деньгами</div>
                             <label for="fromAccount">Счёт:</label>
                             <select id="fromAccount" v-model="selectedMoneyAccount">
-                                <option v-for="account in accounts" :key="account.name" :value="account">{{ account.name }}</option>
+                                <option v-for="account in accounts" :key="account.name" :value="account">{{ accountLabel(account) }}</option>
                             </select>
                             <label for="amount">Сумма:</label>
                             <input type="number" id="amount" v-model="selectedMoneyAmount" />
@@ -71,11 +71,11 @@
                         <div v-if="transferType === 'internal'" class="transfer-options">
                             <label for="internalFrom">Счёт:</label>
                             <select id="internalFrom" v-model="internalFromAccount">
-                                <option v-for="account in accounts" :key="account.name" :value="account">{{ account.name }}</option>
+                                <option v-for="account in accounts" :key="account.name" :value="account">{{ accountLabel(account) }}</option>
                             </select>
                             <label for="internalTo">Счёт:</label>
                             <select id="internalTo" v-model="internalToAccount">
-                                <option v-for="account in accounts" :key="account.name" :value="account">{{ account.name }}</option>
+                                <option v-for="account in accounts" :key="account.name" :value="account">{{ accountLabel(account) }}</option>
                             </select>
                             <label for="internalAmount">Сумма:</label>
                             <input type="number" id="internalAmount" v-model="internalTransferAmount" />
@@ -88,7 +88,7 @@
                             <input type="text" id="externalAccountNumber" v-model="externalAccountNumber" />
                             <label for="externalFrom">Счёт:</label>
                             <select id="externalFrom" v-model="externalFromAccount">
-                                <option v-for="account in accounts" :key="account.name" :value="account">{{ account.name }}</option>
+                                <option v-for="account in accounts" :key="account.name" :value="account">{{ accountLabel(account) }}</option>
                             </select>
                             <label for="externalAmount">Сумма:</label>
                             <input type="number" id="externalAmount" v-model="externalTransferAmount" />
@@ -128,7 +128,7 @@
                             </div>
                             <div class="options-inputs">
                                 <select id="editAccount" v-model="editAccount">
-                                    <option v-for="account in accounts.filter(a => a.type === 'shared')" :key="account.name" :value="account">{{ account.name }}</option>
+                                    <option v-for="account in accounts.filter(a => a.type === 'shared')" :key="account.name" :value="account">{{ accountLabel(account) }}</option>
                                 </select>
                                 <input type="text" id="editAccountName" v-model="editAccountName" />
                             </div>
@@ -145,7 +145,7 @@
                             </div>
                             <div class="options-inputs">
                                 <select id="manageAccountName" v-model="manageAccountName">
-                                    <option v-for="account in accounts.filter(a => a.type === 'shared')" :key="account.name" :value="account">{{ account.name }}</option>
+                                    <option v-for="account in accounts.filter(a => a.type === 'shared')" :key="account.name" :value="account">{{ accountLabel(account) }}</option>
                                 </select>
                                 <div class="combo-input">
                                     <input type="text" id="manageUserName" v-model="manageUserName" @input="filterUsers" @focus="showUsersDropdown = true" @blur="hideDropdown" />
@@ -170,11 +170,11 @@
                 <div class="sidebar">
                     <div class="sidebar-header">
                         {{ playerName }}<br />
-                        Cash: <span class="positive-balance">${{ formatCurrency(playerCash) }}</span>
+                        Наличные: <span class="positive-balance">${{ formatCurrency(playerCash) }}</span>
                     </div>
                     <div class="sidebar-accounts">
                         <ul>
-                            <li v-for="account in accounts" :key="account.name">{{ account.name }}: <span class="positive-balance">${{ formatCurrency(account.balance) }}</span></li>
+                            <li v-for="account in accounts" :key="account.name">{{ accountLabel(account) }}: <span class="positive-balance">${{ formatCurrency(account.balance) }}</span></li>
                         </ul>
                     </div>
                     <button class="action-button" @click="closeApplication()">Выйти</button>
@@ -186,7 +186,7 @@
                             <div class="money-title">Снять</div>
                             <label for="fromAccount">Счёт:</label>
                             <select id="fromAccount" v-model="selectedMoneyAccount">
-                                <option v-for="account in accounts" :key="account.name" :value="account">{{ account.name }}</option>
+                                <option v-for="account in accounts" :key="account.name" :value="account">{{ accountLabel(account) }}</option>
                             </select>
                             <label for="amount">Сумма:</label>
                             <input type="number" id="amount" v-model="selectedMoneyAmount" />
@@ -208,8 +208,8 @@
                     <button @click="appendNumber(0)">0</button>
                 </div>
                 <div class="card-buttons">
-                    <button class="action-button" @click="enteredPin = ''">Clear</button>
-                    <button class="action-button" @click="pinPrompt(enteredPin)">Submit</button>
+                    <button class="action-button" @click="enteredPin = ''">Очистить</button>
+                    <button class="action-button" @click="pinPrompt(enteredPin)">Подтвердить</button>
                 </div>
             </div>
         </div>
