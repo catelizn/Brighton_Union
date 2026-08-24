@@ -1,0 +1,145 @@
+:root {
+    --bu-bg: #16191B;
+    --bu-surface: #2A3036;
+    --bu-border: #3A434B;
+    --bu-accent: #2E5A44;
+    --bu-accent-bright: #6BB38A;
+    --bu-text: #E2E8F0;
+    --bu-text-dim: #9AA7B4;
+    --bu-success: #3E8E5A;
+    --bu-danger: #D64545;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+    color: var(--bu-text);
+    user-select: none;
+    overflow: hidden;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(7, 7, 7, 0.55);
+}
+
+.overlay.visible {
+    display: flex;
+}
+
+.panel {
+    width: 520px;
+    max-height: 82vh;
+    background: var(--bu-bg);
+    border: 1px solid var(--bu-border);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--bu-border);
+}
+
+.header-title {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: var(--bu-text-dim);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.notice {
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--bu-text-dim);
+}
+
+.flats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    padding: 0 14px 14px 14px;
+    overflow-y: auto;
+}
+
+.flat {
+    background: var(--bu-surface);
+    border: 1px solid var(--bu-border);
+    border-radius: 8px;
+    padding: 10px 4px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--bu-text);
+}
+
+.flat:hover {
+    border-color: var(--bu-accent-bright);
+}
+
+/* серый — куплена другим игроком */
+.flat.owned-other {
+    background: #23282D;
+    border-color: var(--bu-border);
+    color: var(--bu-text-dim);
+    cursor: default;
+}
+
+/* нейтральный — свободна, с ценой */
+.flat.free {
+    border-color: var(--bu-border);
+}
+
+.flat-price {
+    display: block;
+    margin-top: 4px;
+    font-size: 10px;
+    color: var(--bu-text-dim);
+}
+
+/* зелёный — моя квартира */
+.flat.mine {
+    border-color: var(--bu-success);
+    background: var(--bu-accent);
+    color: var(--bu-text);
+}
+
+.panel-footer {
+    padding: 0 14px 14px 14px;
+}
+
+.leave-button {
+    width: 100%;
+    padding: 10px;
+    background: var(--bu-surface);
+    border: 1px solid var(--bu-border);
+    border-radius: 6px;
+    color: var(--bu-text);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.leave-button:hover {
+    border-color: var(--bu-accent-bright);
+}

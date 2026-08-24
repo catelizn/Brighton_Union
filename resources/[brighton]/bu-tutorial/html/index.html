@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Путь новичка</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="overlay" class="overlay">
+        <div class="panel">
+            <div class="panel-header">
+                <div class="npc-avatar" id="npc-avatar">?</div>
+                <div class="panel-title">
+                    <div class="npc-name" id="npc-name">Mike Ford</div>
+                    <div class="quest-label" id="quest-label">Путь новичка</div>
+                </div>
+                <button class="close-button" id="close-button">&times;</button>
+            </div>
+            <div class="quest-progress">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-text" id="progress-text">0 / 8</div>
+            </div>
+            <div class="stages" id="stages"></div>
+            <div class="panel-footer">
+                <button class="advance-button" id="advance-button">Продолжить</button>
+            </div>
+        </div>
+    </div>
+    <div id="toast" class="toast"></div>
+    <div id="arrival" class="arrival">
+        <div class="arrival-card">
+            <div class="arrival-logo">BU</div>
+            <div class="arrival-title">Лос-Сантос</div>
+            <div class="arrival-subtitle">Международный аэропорт Лос-Сантоса</div>
+            <div class="arrival-flight">Рейс BU-77 прибыл по расписанию</div>
+            <div class="arrival-hint">Тебя встречает Mike Ford — подойди к нему у выхода из терминала</div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

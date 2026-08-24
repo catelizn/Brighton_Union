@@ -6,14 +6,21 @@ local isPlayerInsideBankZone = false
 -- Functions
 
 local function OpenBank()
-    QBCore.Functions.TriggerCallback('qb-banking:server:openBank', function(accounts, statements, playerData)
-        SetNuiFocus(true, true)
-        SendNUIMessage({
-            action = 'openBank',
-            accounts = accounts,
-            statements = statements,
-            playerData = playerData
-        })
+    QBCore.Functions.TriggerCallback('qb-banking:server:isBankOpen', function(open)
+        if not open then
+            QBCore.Functions.Notify('Банк закрыт. Режим работы: 09:00–21:00. Банкоматы работают круглосуточно.', 'error', 5000)
+            return
+        end
+        QBCore.Functions.TriggerCallback('qb-banking:server:openBank', function(accounts, statements, playerData, accountNumber)
+            playerData.accountNumber = accountNumber
+            SetNuiFocus(true, true)
+            SendNUIMessage({
+                action = 'openBank',
+                accounts = accounts,
+                statements = statements,
+                playerData = playerData
+            })
+        end)
     end)
 end
 

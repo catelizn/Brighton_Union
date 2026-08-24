@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Документы</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="overlay" class="overlay">
+        <div class="panel">
+            <div class="panel-header">
+                <span class="header-title">Документы</span>
+                <button class="close-button" id="close-button">&times;</button>
+            </div>
+            <div class="tab-bar">
+                <button class="tab active" data-docTab="passport">Паспорт</button>
+                <button class="tab" data-docTab="licenses">Лицензии</button>
+                <button class="tab" data-docTab="driving">Права на транспорт</button>
+            </div>
+            <div id="doc-passport" class="doc-content"></div>
+            <div id="doc-licenses" class="doc-content hidden"></div>
+            <div id="doc-driving" class="doc-content hidden"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

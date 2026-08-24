@@ -5,7 +5,7 @@ Config.BillingCommissions = { -- This is a percentage (0.10) == 10%
 Config.TweetDuration = 12 -- How many hours to load tweets (12 will load the past 12 hours of tweets)
 Config.RepeatTimeout = 2000
 Config.CallRepeats = 10
-Config.OpenPhone = 'M'
+Config.OpenPhone = 'UP'
 
 -- Set this to true if you wish to use Fivemerr (https://fivemerr.com/) for media uploads.
 -- Ensure to add your API key to server/main.lua
@@ -169,6 +169,50 @@ Config.PhoneApplications = {
         job = 'police',
         blockedjobs = {},
         slot = 15,
+        Alerts = 0,
+    },
+    ['rental'] = {
+        app = 'rental',
+        color = '#2E5A44',
+        icon = 'fas fa-car-side',
+        tooltipText = 'Аренда',
+        tooltipPos = 'bottom',
+        job = false,
+        blockedjobs = {},
+        slot = 16,
+        Alerts = 0,
+    },
+    ['parking'] = {
+        app = 'parking',
+        color = '#D97706',
+        icon = 'fas fa-parking',
+        tooltipText = 'Парковка',
+        tooltipPos = 'bottom',
+        job = false,
+        blockedjobs = {},
+        slot = 17,
+        Alerts = 0,
+    },
+    ['taxi'] = {
+        app = 'taxi',
+        color = '#EAB308',
+        icon = 'fas fa-taxi',
+        tooltipText = 'Такси',
+        tooltipPos = 'bottom',
+        job = false,
+        blockedjobs = {},
+        slot = 18,
+        Alerts = 0,
+    },
+    ['documents'] = {
+        app = 'documents',
+        color = '#4A7BA6',
+        icon = 'fas fa-id-card',
+        tooltipText = 'Документы',
+        tooltipPos = 'bottom',
+        job = false,
+        blockedjobs = {},
+        slot = 19,
         Alerts = 0,
     },
 }

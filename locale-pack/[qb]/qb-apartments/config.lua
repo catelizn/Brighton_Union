@@ -1,5 +1,5 @@
 Apartments = {}
-Apartments.Starting = true
+Apartments.Starting = false -- новички начинают в аэропорту (bu-tutorial), квартиры покупаются через маркер
 Apartments.SpawnOffset = 30
 Apartments.Locations = {
     ["apartment1"] = {

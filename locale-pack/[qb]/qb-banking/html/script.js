@@ -54,7 +54,7 @@ const bankingApp = Vue.createApp({
         openBank(bankData) {
             const playerData = bankData.playerData;
             this.playerName = playerData.charinfo.firstname;
-            this.accountNumber = playerData.citizenid;
+            this.accountNumber = playerData.accountNumber || playerData.citizenid;
             this.playerCash = playerData.money.cash;
             this.accounts = [];
             bankData.accounts.forEach((account) => {
@@ -82,7 +82,7 @@ const bankingApp = Vue.createApp({
         openATM(bankData) {
             const playerData = bankData.playerData;
             this.playerName = playerData.charinfo.firstname;
-            this.accountNumber = playerData.citizenid;
+            this.accountNumber = playerData.accountNumber || playerData.citizenid;
             this.playerCash = playerData.money.cash;
             this.accounts = [];
             bankData.accounts.forEach((account) => {

@@ -1,0 +1,110 @@
+.rental-app {
+    display: none;
+    height: 100%;
+}
+
+.rental-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 1.2vh 1.5vh;
+    background-color: #16191B;
+    color: #E2E8F0;
+    font-weight: 600;
+    border-bottom: 1px solid #3A434B;
+}
+
+.rental-header i {
+    color: #6BB38A;
+}
+
+.rental-body {
+    padding: 1.5vh;
+}
+
+.rental-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vh;
+    padding: 4vh 1vh;
+    color: #9AA7B4;
+    font-size: 1.5vh;
+    text-align: center;
+}
+
+.rental-empty i {
+    font-size: 4vh;
+    color: #3A434B;
+}
+
+.rental-card {
+    display: flex;
+    gap: 1.2vh;
+    background-color: #2A3036;
+    border: 1px solid #3A434B;
+    border-radius: 1vh;
+    padding: 1.4vh;
+    color: #E2E8F0;
+}
+
+.rental-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5vh;
+    height: 5vh;
+    background-color: #2E5A44;
+    border-radius: 1vh;
+}
+
+.rental-card-icon i {
+    color: #6BB38A;
+    font-size: 2.2vh;
+}
+
+.rental-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vh;
+}
+
+.rental-card-label {
+    font-weight: 600;
+    font-size: 1.7vh;
+}
+
+.rental-card-plate {
+    color: #9AA7B4;
+    font-size: 1.4vh;
+}
+
+.rental-card-time {
+    color: #EAB308;
+    font-size: 1.4vh;
+}
+
+.parking-app {
+    display: none;
+    height: 100%;
+}
+
+.taxi-app {
+    display: none;
+    height: 100%;
+}
+
+.parking-button {
+    background-color: #2E5A44;
+    border: 1px solid #3A434B;
+    border-radius: 0.6vh;
+    color: #E2E8F0;
+    font-size: 1.3vh;
+    padding: 0.6vh 0.9vh;
+    cursor: pointer;
+    align-self: center;
+}
+
+.parking-button:hover {
+    background-color: #3E8E5A;
+}

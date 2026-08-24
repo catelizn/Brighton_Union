@@ -138,6 +138,54 @@ QBCore.Shared.Jobs = {
 			['4'] = { name = 'Manager', isboss = true, payment = 150 },
 		},
 	},
+	postman = {
+		label = 'Почтальон',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = { ['0'] = { name = 'Почтальон', payment = 0 } },
+	},
+	lumberjack = {
+		label = 'Лесоруб',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = { ['0'] = { name = 'Лесоруб', payment = 0 } },
+	},
+	mushroompicker = {
+		label = 'Грибник',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = { ['0'] = { name = 'Грибник', payment = 0 } },
+	},
+	miner = {
+		label = 'Шахтёр',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = { ['0'] = { name = 'Шахтёр', payment = 0 } },
+	},
+	oilworker = {
+		label = 'Нефтяник',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = { ['0'] = { name = 'Нефтяник', payment = 0 } },
+	},
+	butcher = {
+		label = 'Мясник',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = { ['0'] = { name = 'Мясник', payment = 0 } },
+	},
+	fisherman = {
+		label = 'Рыбак',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = { ['0'] = { name = 'Рыбак', payment = 0 } },
+	},
+	hunter = {
+		label = 'Охотник',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = { ['0'] = { name = 'Охотник', payment = 0 } },
+	},
 }
 
 -- Brighton Union: Russian localization overrides

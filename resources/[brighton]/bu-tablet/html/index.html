@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Планшет</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="overlay" class="overlay">
+        <div class="tablet">
+            <div class="tablet-statusbar">
+                <span class="statusbar-time" id="statusbar-time">12:00</span>
+                <span class="statusbar-title">Brighton Union</span>
+                <span class="statusbar-right">📶 🔋 87%</span>
+            </div>
+            <div id="view-home" class="view">
+                <div class="profile-card">
+                    <div class="profile-avatar" id="profile-avatar">?</div>
+                    <div class="profile-info">
+                        <div class="profile-name" id="profile-name">—</div>
+                        <div class="profile-job" id="profile-job">—</div>
+                    </div>
+                    <div class="profile-money">
+                        <div class="money-line"><span class="money-label">Наличные</span><span class="money-value" id="money-cash">$0</span></div>
+                        <div class="money-line"><span class="money-label">Банк</span><span class="money-value" id="money-bank">$0</span></div>
+                    </div>
+                </div>
+                <div class="apps-grid">
+                    <div class="app" data-app="documents">
+                        <div class="app-icon app-icon-docs">📄</div>
+                        <div class="app-label">Документы</div>
+                    </div>
+                    <div class="app" data-app="vehicles">
+                        <div class="app-icon app-icon-cars">🚗</div>
+                        <div class="app-label">Транспорт</div>
+                    </div>
+                    <div class="app" data-app="marketplace">
+                        <div class="app-icon app-icon-market">🛒</div>
+                        <div class="app-label">Маркетплейс</div>
+                    </div>
+                    <div class="app" data-app="news">
+                        <div class="app-icon app-icon-news">📰</div>
+                        <div class="app-label">Weazel News</div>
+                    </div>
+                    <div class="app" data-app="family">
+                        <div class="app-icon app-icon-family">👪</div>
+                        <div class="app-label">Семья</div>
+                    </div>
+                    <div class="app" data-app="faction">
+                        <div class="app-icon app-icon-faction">🏛</div>
+                        <div class="app-label">Фракция</div>
+                    </div>
+                    <div class="app" data-app="taxi">
+                        <div class="app-icon app-icon-taxi">🚖</div>
+                        <div class="app-label">Brighton Taxi</div>
+                    </div>
+                    <div class="app" data-app="trucker">
+                        <div class="app-icon app-icon-trucker">🚚</div>
+                        <div class="app-label">Дальнобой</div>
+                    </div>
+                </div>
+            </div>
+            <div id="view-documents" class="view view-app hidden">
+                <div class="app-header">
+                    <button class="back-button" data-back="home">←</button>
+                    <span class="app-title">Документы</span>
+                </div>
+                <div class="app-content">
+                    <div class="tab-bar">
+                        <button class="tab active" data-tab="personal">Личные данные</button>
+                        <button class="tab" data-tab="licenses">Лицензии и права</button>
+                    </div>
+                    <div id="documents-personal"></div>
+                    <div id="documents-list" class="hidden"></div>
+                </div>
+            </div>
+            <div id="view-vehicles" class="view view-app hidden">
+                <div class="app-header">
+                    <button class="back-button" data-back="home">←</button>
+                    <span class="app-title">Транспорт</span>
+                </div>
+                <div class="app-content" id="vehicles-list"></div>
+            </div>
+            <div id="view-marketplace" class="view view-app hidden">
+                <div class="app-header">
+                    <button class="back-button" data-back="home">←</button>
+                    <span class="app-title">Маркетплейс</span>
+                </div>
+                <div class="app-content">
+                    <div class="tab-bar">
+                        <button class="tab active" data-tab="shop">Витрина</button>
+                        <button class="tab" data-tab="mine">Мои лоты</button>
+                    </div>
+                    <div id="mp-shop"></div>
+                    <div id="mp-mine" class="hidden"></div>
+                </div>
+            </div>
+            <div id="view-news" class="view view-app hidden">
+                <div class="app-header">
+                    <button class="back-button" data-back="home">←</button>
+                    <span class="app-title">Weazel News</span>
+                </div>
+                <div class="app-content">
+                    <div class="tab-bar">
+                        <button class="tab active" data-tab="feed">Лента</button>
+                        <button class="tab" data-tab="submit">Подать объявление</button>
+                    </div>
+                    <div id="news-feed"></div>
+                    <div id="news-submit" class="hidden">
+                        <div class="mp-form">
+                            <label id="news-price-label">Цена объявления: $500</label>
+                            <textarea id="news-text" rows="3" maxlength="100" placeholder="Текст объявления (3–100 символов)"></textarea>
+                            <button class="mp-button buy" id="news-send">Опубликовать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="view-family" class="view view-app hidden">
+                <div class="app-header">
+                    <button class="back-button" data-back="home">←</button>
+                    <span class="app-title" id="family-title">Семья</span>
+                </div>
+                <div class="app-content">
+                    <div class="tab-bar" id="family-tabs">
+                        <button class="tab active" data-famtab="info">Обзор</button>
+                        <button class="tab" data-famtab="members">Участники</button>
+                        <button class="tab" data-famtab="money">Казна</button>
+                        <button class="tab" data-famtab="logs">Логи</button>
+                        <button class="tab" data-famtab="contracts">Контракты</button>
+                        <button class="tab" data-famtab="garage">Гараж</button>
+                    </div>
+                    <div id="family-content"></div>
+                </div>
+            </div>
+            <div id="view-faction" class="view view-app hidden">
+                <div class="app-header">
+                    <button class="back-button" data-back="home">←</button>
+                    <span class="app-title" id="faction-title">Фракция</span>
+                </div>
+                <div class="app-content">
+                    <div class="tab-bar" id="faction-tabs">
+                        <button class="tab active" data-famtab="info">Обзор</button>
+                        <button class="tab" data-famtab="members">Участники</button>
+                        <button class="tab" data-famtab="money">Казна</button>
+                        <button class="tab" data-famtab="logs">Логи</button>
+                        <button class="tab" data-famtab="contracts">Контракты</button>
+                        <button class="tab" data-famtab="garage">Гараж</button>
+                    </div>
+                    <div id="faction-content"></div>
+                </div>
+            </div>
+            <div id="view-taxi" class="view view-app hidden">
+                <div class="app-header">
+                    <button class="back-button" data-back="home">←</button>
+                    <span class="app-title">Brighton Taxi</span>
+                </div>
+                <div class="app-content">
+                    <div class="tab-bar">
+                        <button class="tab active" data-taxitab="orders">Заказы</button>
+                        <button class="tab" data-taxitab="mine">Мой заказ</button>
+                    </div>
+                    <div id="taxi-orders"></div>
+                    <div id="taxi-mine" class="hidden"></div>
+                </div>
+            </div>
+            <div id="view-trucker" class="view view-app hidden">
+                <div class="app-header">
+                    <button class="back-button" data-back="home">←</button>
+                    <span class="app-title">Дальнобой</span>
+                </div>
+                <div class="app-content">
+                    <div class="tab-bar">
+                        <button class="tab active" data-trucktab="business">Заказы бизнесов</button>
+                        <button class="tab" data-trucktab="routes">Маршруты NPC</button>
+                        <button class="tab" data-trucktab="mine">Мой рейс</button>
+                    </div>
+                    <div id="trucker-orders"></div>
+                    <div id="trucker-routes" class="hidden"></div>
+                    <div id="trucker-mine" class="hidden"></div>
+                </div>
+            </div>
+            <div class="dock">
+                <div class="app dock-app" data-app="documents">
+                    <div class="app-icon app-icon-docs">📄</div>
+                    <div class="app-label">Документы</div>
+                </div>
+                <div class="app dock-app" data-app="vehicles">
+                    <div class="app-icon app-icon-cars">🚗</div>
+                    <div class="app-label">Транспорт</div>
+                </div>
+                <div class="app dock-app" data-app="marketplace">
+                    <div class="app-icon app-icon-market">🛒</div>
+                    <div class="app-label">Маркет</div>
+                </div>
+                <div class="app dock-app" data-app="news">
+                    <div class="app-icon app-icon-news">📰</div>
+                    <div class="app-label">Новости</div>
+                </div>
+                <div class="app dock-app" data-app="family">
+                    <div class="app-icon app-icon-family">👪</div>
+                    <div class="app-label">Семья</div>
+                </div>
+                <div class="app dock-app" data-app="faction">
+                    <div class="app-icon app-icon-faction">🏛</div>
+                    <div class="app-label">Фракция</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

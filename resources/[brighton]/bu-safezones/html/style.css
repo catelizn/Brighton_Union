@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    user-select: none;
+}
+
+/* Индикатор у миникарты: палитра Brighton Union, зелёный акцент */
+.zone-badge {
+    position: absolute;
+    right: 33vh;
+    bottom: 6.5vh;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: rgba(22, 25, 27, 0.88);
+    border: 1px solid #3A434B;
+    border-left: 3px solid #6BB38A;
+    border-radius: 6px;
+    font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+}
+
+.zone-badge.visible {
+    display: flex;
+}
+
+.zone-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3E8E5A;
+    box-shadow: 0 0 8px rgba(107, 179, 138, 0.8);
+}
+
+.zone-icon {
+    color: #6BB38A;
+    font-size: 13px;
+}
+
+.zone-text {
+    color: #E2E8F0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.zone-name {
+    color: #9AA7B4;
+    font-size: 11px;
+    margin-left: 4px;
+}

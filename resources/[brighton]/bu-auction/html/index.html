@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Аукционный дом</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="overlay" class="overlay">
+        <div class="panel">
+            <div class="panel-header">
+                <span class="header-title">Аукционный дом Brighton Union</span>
+                <button class="close-button" id="close-button">&times;</button>
+            </div>
+            <div class="tab-bar">
+                <button class="tab active" data-auctionTab="live">Торги</button>
+                <button class="tab" data-auctionTab="sell">Выставить лот</button>
+            </div>
+            <div id="auction-live" class="content"></div>
+            <div id="auction-sell" class="content hidden">
+                <div class="form">
+                    <label>Тип лота</label>
+                    <select id="sell-type">
+                        <option value="business">Бизнес</option>
+                        <option value="house">Дом</option>
+                        <option value="apartment">Квартира</option>
+                        <option value="vehicle">Машина</option>
+                        <option value="item">Предмет</option>
+                    </select>
+                    <label>Лот</label>
+                    <select id="sell-lot"></select>
+                    <label>Стартовая цена, $</label>
+                    <input type="number" id="sell-price" min="1000" value="10000" />
+                    <label>Длительность, минут (1–60)</label>
+                    <input type="number" id="sell-duration" min="1" max="60" value="5" />
+                    <button class="button buy" id="sell-create">Выставить на аукцион</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

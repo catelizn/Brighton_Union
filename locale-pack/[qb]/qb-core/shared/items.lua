@@ -386,6 +386,18 @@ QBCore.Shared.Items = {
     item_bench = {name = "item_bench", label = "Workbench", weight = 15000, type = "item", image = "workbench.png", unique = true, useable = true, shouldClose = false, combinable = nil, description = "A workbench to craft items."},
     attachment_bench = {name = "attachment_bench", label = "Attachment Workbench", weight = 15000, type = "item", image = "attworkbench.png", unique = true, useable = true, shouldClose = false, combinable = nil, description = "A workbench for crafting attachments."},
 
+    -- Brighton Union items
+    hunting_license = {name = "hunting_license", label = "Лицензия на охоту", weight = 0, type = "item", image = "weapon_license.png", unique = true, useable = false, shouldClose = false, combinable = nil, description = "Разрешение на охоту"},
+    fishing_license = {name = "fishing_license", label = "Лицензия на рыбалку", weight = 0, type = "item", image = "fishingrod.png", unique = true, useable = false, shouldClose = false, combinable = nil, description = "Разрешение на рыбную ловлю"},
+    letter = {name = "letter", label = "Письмо", weight = 100, type = "item", image = "stickynote.png", unique = false, useable = false, shouldClose = false, combinable = nil, description = "Письмо для доставки"},
+    wood = {name = "wood", label = "Древесина", weight = 2000, type = "item", image = "woodcamo_attachment.png", unique = false, useable = false, shouldClose = false, combinable = nil, description = "Свежесрубленная древесина"},
+    mushroom = {name = "mushroom", label = "Гриб", weight = 200, type = "item", image = "weed_nutrition.png", unique = false, useable = false, shouldClose = false, combinable = nil, description = "Съедобный гриб"},
+    ore = {name = "ore", label = "Руда", weight = 3000, type = "item", image = "iron.png", unique = false, useable = false, shouldClose = false, combinable = nil, description = "Добытая руда"},
+    oil = {name = "oil", label = "Нефть", weight = 3000, type = "item", image = "jerry_can.png", unique = false, useable = false, shouldClose = false, combinable = nil, description = "Сырая нефть"},
+    deer_meat = {name = "deer_meat", label = "Оленина", weight = 2000, type = "item", image = "sandwich.png", unique = false, useable = true, shouldClose = true, combinable = nil, description = "Свежая оленина"},
+    fish = {name = "fish", label = "Рыба", weight = 1000, type = "item", image = "fish.png", unique = false, useable = false, shouldClose = false, combinable = nil, description = "Свежая рыба"},
+    raw_meat = {name = "raw_meat", label = "Сырое мясо", weight = 1500, type = "item", image = "tosti.png", unique = false, useable = false, shouldClose = false, combinable = nil, description = "Сырое мясо"},
+
 }
 
 -- Brighton Union: Russian localization overrides

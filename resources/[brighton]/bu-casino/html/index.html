@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Казино</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="overlay" class="overlay">
+        <div class="panel">
+            <div class="panel-header">
+                <span class="header-title">Казино Diamond</span>
+                <div class="header-right">
+                    <span class="cash-label">Наличные: <span id="cash">$0</span></span>
+                    <button class="close-button" id="close-button">&times;</button>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" data-game="roulette">Рулетка</button>
+                <button class="tab" data-game="slots">Игровые автоматы</button>
+                <button class="tab" data-game="blackjack">Блэкджек</button>
+                <button class="tab" data-game="poker">Покер</button>
+                <button class="tab" data-game="mafia">Мафия</button>
+            </div>
+
+            <div id="game-roulette" class="game">
+                <div class="roulette-wheel" id="roulette-wheel">—</div>
+                <div class="bet-grid" id="bet-grid"></div>
+                <div class="bet-controls">
+                    <input type="number" id="bet-amount" min="50" value="100" step="50" />
+                    <button class="action-button" id="spin-roulette">Крутить</button>
+                </div>
+            </div>
+
+            <div id="game-slots" class="game hidden">
+                <div class="slot-machine">
+                    <div class="reel" id="reel-1">7</div>
+                    <div class="reel" id="reel-2">7</div>
+                    <div class="reel" id="reel-3">7</div>
+                </div>
+                <div class="bet-controls">
+                    <input type="number" id="slot-amount" min="50" value="100" step="50" />
+                    <button class="action-button" id="spin-slots">Крутить</button>
+                </div>
+            </div>
+
+            <div id="game-blackjack" class="game hidden">
+                <div class="bj-area">
+                    <div class="bj-label">Дилер: <span id="dealer-value"></span></div>
+                    <div class="bj-cards" id="dealer-cards"></div>
+                </div>
+                <div class="bj-area">
+                    <div class="bj-label">Ты: <span id="player-value"></span></div>
+                    <div class="bj-cards" id="player-cards"></div>
+                </div>
+                <div class="bet-controls bj-controls">
+                    <input type="number" id="bj-amount" min="50" value="100" step="50" />
+                    <button class="action-button" id="bj-start">Сдать</button>
+                    <button class="action-button bj-alt" id="bj-hit" disabled>Взять</button>
+                    <button class="action-button bj-alt" id="bj-stand" disabled>Хватит</button>
+                </div>
+            </div>
+
+            <div id="game-poker" class="game hidden">
+                <div id="poker-lobby" class="casino-section">
+                    <div class="casino-section-title">Столы покера (Техасский холдем)</div>
+                    <div id="poker-tables"></div>
+                    <div class="bet-controls">
+                        <input type="number" id="poker-buyin" min="500" value="1000" step="100" />
+                        <button class="action-button" id="poker-create">Создать стол</button>
+                    </div>
+                </div>
+                <div id="poker-table-view" class="casino-section hidden">
+                    <div class="casino-section-title">Стол покера</div>
+                    <div id="poker-community"></div>
+                    <div id="poker-hand"></div>
+                    <div id="poker-seats"></div>
+                    <div id="poker-pot"></div>
+                    <div class="bet-controls">
+                        <button class="action-button" id="poker-fold">Фолд</button>
+                        <button class="action-button" id="poker-check">Чек/Колл</button>
+                        <button class="action-button" id="poker-raise">Рейз</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="game-mafia" class="game hidden">
+                <div id="mafia-lobby" class="casino-section">
+                    <div class="casino-section-title">Мафия (только игроки)</div>
+                    <div id="mafia-rooms"></div>
+                    <button class="action-button" id="mafia-create">Создать комнату</button>
+                </div>
+                <div id="mafia-game-view" class="casino-section hidden">
+                    <div class="casino-section-title" id="mafia-status"></div>
+                    <div id="mafia-players"></div>
+                    <div id="mafia-targets"></div>
+                    <div id="mafia-log"></div>
+                </div>
+            </div>
+
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

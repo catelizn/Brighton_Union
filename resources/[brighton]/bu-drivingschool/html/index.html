@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Автошкола</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="overlay" class="overlay">
+        <div class="panel">
+            <div class="panel-header">
+                <span class="header-title">Школа вождения</span>
+                <button class="close-button" id="close-button">&times;</button>
+            </div>
+
+            <div id="view-list" class="view">
+                <div class="notice">Выбери категорию. Для наземных категорий сначала сдай теорию.</div>
+                <div class="theory-row" id="theory-row"></div>
+                <div class="categories" id="categories"></div>
+            </div>
+
+            <div id="view-theory" class="view hidden">
+                <div class="exam-card">
+                    <div class="exam-title">Теоретический экзамен</div>
+                    <div class="theory-questions" id="theory-questions"></div>
+                    <button class="pay-button bank" id="theory-submit">Сдать теорию</button>
+                </div>
+            </div>
+
+            <div id="view-exam" class="view hidden">
+                <div class="exam-card">
+                    <div class="exam-title" id="exam-title">Экзамен</div>
+                    <div class="exam-progress">
+                        <div class="exam-progress-track">
+                            <div class="exam-progress-fill" id="exam-progress-fill"></div>
+                        </div>
+                        <div class="exam-progress-text" id="exam-progress-text">0 / 0</div>
+                    </div>
+                    <div class="exam-hint">Следуй по маркеру. Если выйдешь из машины — экзамен отменится.</div>
+                    <button class="cancel-button" id="cancel-button">Отменить экзамен</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

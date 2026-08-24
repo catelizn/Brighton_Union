@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="./css/trucker.css">
     <link rel="stylesheet" href="./css/gallery.css">
     <link rel="stylesheet" href="./css/camera.css">
+    <link rel="stylesheet" href="./css/rental.css">
 
     <!-- CDN's -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> <!-- JQuery -->
@@ -515,6 +516,30 @@
                                 <span id="trucker-jobinfo-nojob-text">Сейчас вы не на смене</span>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="rental-app">
+                        <div class="rental-header">
+                            <i class="fas fa-car-side"></i>
+                            <span>Аренда транспорта</span>
+                        </div>
+                        <div class="rental-body" id="rental-body"></div>
+                    </div>
+
+                    <div class="parking-app">
+                        <div class="rental-header">
+                            <i class="fas fa-parking"></i>
+                            <span>Парковка</span>
+                        </div>
+                        <div class="rental-body" id="parking-body"></div>
+                    </div>
+
+                    <div class="taxi-app">
+                        <div class="rental-header">
+                            <i class="fas fa-taxi"></i>
+                            <span>Такси</span>
+                        </div>
+                        <div class="rental-body" id="taxi-body"></div>
                     </div>
 
                     <div class="lawyers-app">
@@ -1132,7 +1157,9 @@
         <script src="./js/trucker.js"></script>
         <script src="./js/gallery.js"></script>
         <script src="./js/camera.js"></script>
-        <script type="text/javascript">$('#whatsapp-openedchat-message').emojioneArea({inline: true, searchPosition: "bottom", shortnames: true})</script>
+        <script src="./js/rental.js"></script>
+        <script src="./js/parking.js"></script>
+        <script src="./js/taxi.js"></script>        <script type="text/javascript">$('#whatsapp-openedchat-message').emojioneArea({inline: true, searchPosition: "bottom", shortnames: true})</script>
         <!-- <script type="text/javascript">$('#tweet-new-message').emojioneArea({pickerPostion: 'bottom' ,inline: true, shortnames: true})</script> -->
     </body>
 </html>
