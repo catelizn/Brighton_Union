@@ -8,7 +8,7 @@ Inside the hall the player picks a lot from what they actually own (validated se
 
 ## Bidding
 
-Any player except the seller can bid; the minimum bid is the higher of the start price and the current bid +10%. Funds are checked at bid time, money is charged only when the auction ends.
+Any player except the seller can bid; the bid is the current price (or the start price) plus a 10% step, with ×1/×3/×5 multipliers. Funds are checked at bid time, money is charged only when the auction ends. A bid in the last 60 seconds extends the timer by a minute (anti-snipe).
 
 ## Settlement
 

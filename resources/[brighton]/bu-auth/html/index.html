@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Brighton Union</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="bg-image"></div>
+    <div class="bg-vignette"></div>
+
+    <div class="panel" id="panel">
+        <div class="brand">
+            <div class="brand-logo">BU</div>
+            <div class="brand-name">Brighton Union</div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" id="tab-login">Вход</button>
+            <button class="tab" id="tab-register">Регистрация</button>
+        </div>
+
+        <div class="form">
+            <input type="text" id="username" maxlength="16" placeholder="Логин" autocomplete="off" />
+            <input type="password" id="password" maxlength="32" placeholder="Пароль" />
+            <div class="error" id="error"></div>
+            <button class="submit" id="submit">Войти</button>
+        </div>
+
+        <div class="foot">Made by catelizn</div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

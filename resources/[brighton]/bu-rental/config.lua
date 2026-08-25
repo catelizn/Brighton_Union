@@ -1,10 +1,10 @@
 Config = Config or {}
 
--- Прокат транспорта в аэропорту Лос-Сантоса: Jack Carter
+-- Прокат транспорта на верхнем ярусе аэропорта Лос-Сантос: Steve Carter
 Config.Stand = {
     model = 'a_m_y_business_03',
     npcName = 'Steve Carter',
-    coords = vector4(-1026.0, -2728.0, 13.8, 240.0),
+    coords = vector4(-1043.0, -2730.0, 28.6, 150.0),
     scenario = 'WORLD_HUMAN_CLIPBOARD',
     blip = {
         sprite = 225,
@@ -12,7 +12,8 @@ Config.Stand = {
         scale = 0.7,
         name = 'Прокат транспорта'
     },
-    spawn = vector4(-1014.0, -2708.0, 13.8, 150.0),
+    spawn = vector4(-1041.0, -2726.0, 28.6, 90.0),
+    returnPoint = vector3(-1040.0, -2728.0, 28.6),
     returnDistance = 25.0
 }
 

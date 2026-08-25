@@ -7,7 +7,8 @@ description 'Family system (Brighton Union)'
 version '1.0.0'
 
 shared_scripts {
-    'config.lua'
+    'config.lua',
+    '@oxmysql/lib/MySQL.lua'
 }
 
 client_scripts {
@@ -20,6 +21,7 @@ server_scripts {
 
 dependencies {
     'qb-core',
-    'qb-target',
-    'qb-input'
+    'bu-interact',
+    'qb-input',
+    'oxmysql'
 }

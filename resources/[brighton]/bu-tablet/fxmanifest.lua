@@ -7,7 +7,8 @@ description 'Personal tablet for players (Brighton Union)'
 version '1.0.0'
 
 shared_scripts {
-    'config.lua'
+    'config.lua',
+    '@oxmysql/lib/MySQL.lua'
 }
 
 client_scripts {
@@ -28,5 +29,7 @@ files {
 
 dependencies {
     'qb-core',
-    'bu-properties'
+    'bu-properties',
+    'bu-interact',
+    'oxmysql'
 }

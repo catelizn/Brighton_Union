@@ -1,10 +1,19 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
 local spawned = false
+local menuOpen = false
+
+local function closeMenu()
+    if not menuOpen then return end
+    menuOpen = false
+    SetNuiFocus(false, false)
+    SendNUIMessage({ type = 'bu:rental:close' })
+end
 
 local function openMenu()
     QBCore.Functions.TriggerCallback('bu-rental:server:getVehicles', function(data)
         if not data then return end
+        menuOpen = true
         SendNUIMessage({ type = 'bu:rental:open', data = data })
         SetNuiFocus(true, true)
     end)
@@ -12,46 +21,21 @@ end
 
 local function spawnStand()
     if spawned then return end
-    local model = Config.Stand.model
-    local coords = Config.Stand.coords
 
-    RequestModel(model)
-    while not HasModelLoaded(model) do Wait(0) end
+    exports['bu-interact']:spawnPed(Config.Stand.model, Config.Stand.coords, {
+        label = Config.TargetLabel,
+        scenario = Config.Stand.scenario,
+        blip = Config.Stand.blip,
+        action = openMenu
+    })
 
-    local ped = CreatePed(0, model, coords.x, coords.y, coords.z, coords.w, false, false)
-    FreezeEntityPosition(ped, true)
-    SetEntityInvincible(ped, true)
-    SetBlockingOfNonTemporaryEvents(ped, true)
-    TaskStartScenarioInPlace(ped, Config.Stand.scenario, 0, true)
-
-    local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
-    SetBlipSprite(blip, Config.Stand.blip.sprite)
-    SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, Config.Stand.blip.scale)
-    SetBlipColour(blip, Config.Stand.blip.color)
-    SetBlipAsShortRange(blip, true)
-    BeginTextCommandSetBlipName('STRING')
-    AddTextComponentSubstringPlayerName(Config.Stand.blip.name)
-    EndTextCommandSetBlipName(blip)
-
-    exports['qb-target']:AddTargetEntity(ped, {
-        options = {
-            {
-                icon = 'fas fa-car-side',
-                label = Config.TargetLabel,
-                action = function()
-                    openMenu()
-                end
-            },
-            {
-                icon = 'fas fa-undo-alt',
-                label = Config.ReturnLabel,
-                action = function()
-                    TriggerServerEvent('bu-rental:server:returnVehicle')
-                end
-            }
-        },
-        distance = 2.5
+    -- Точка возврата арендованного транспорта рядом со стойкой
+    exports['bu-interact']:addPoint(Config.Stand.returnPoint, 1.5, {
+        label = Config.ReturnLabel,
+        color = { 74, 123, 166, 150 },
+        action = function()
+            TriggerServerEvent('bu-rental:server:returnVehicle')
+        end
     })
 
     spawned = true
@@ -68,13 +52,23 @@ RegisterNetEvent('bu-rental:client:notify', function(message, notifyType)
     QBCore.Functions.Notify(message, notifyType or 'primary', 6000)
 end)
 
+-- ESC закрывает меню даже когда NuiFocus перехватывает клавиши
+CreateThread(function()
+    while true do
+        Wait(0)
+        if menuOpen and IsControlJustPressed(0, 202) then
+            closeMenu()
+        end
+    end
+end)
+
 RegisterNUICallback('rent', function(data, cb)
-    SetNuiFocus(false, false)
+    closeMenu()
     TriggerServerEvent('bu-rental:server:rent', data.vehicleId, data.hours, data.payment)
     cb('ok')
 end)
 
 RegisterNUICallback('close', function(_, cb)
-    SetNuiFocus(false, false)
+    closeMenu()
     cb('ok')
 end)

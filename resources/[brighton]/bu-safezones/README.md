@@ -6,7 +6,7 @@ Peaceful areas where weapons are unusable: Legion Square, city hall, hospital, b
 
 - A single 500 ms client loop checks whether the player is inside any configured zone.
 - Inside a zone the equipped weapon is holstered and attack/aim/melee controls are disabled for that frame.
-- Instead of chat spam, a small **"ЗЕЛЁНАЯ ЗОНА"** badge with the zone name appears next to the minimap, styled with the Brighton Union palette. It disappears the moment the player leaves.
+- Instead of chat spam, a compact **"ЗЕЛЁНАЯ ЗОНА"** strip with the zone name sits above the minimap, stretched to its width and styled with the Brighton Union palette. It disappears the moment the player leaves.
 - Friendly fire is already off in QBCore; this layer only removes the weapon threat.
 
 ## Config

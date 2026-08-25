@@ -37,6 +37,23 @@ local function interiorCoords(building, number)
     return { x = door.x, y = door.y, z = door.z - offset }
 end
 
+local function shellFor(interiorId)
+    local interiors = currentBuilding and currentBuilding.interiors or Config.Interiors
+    for i = 1, #interiors do
+        if interiors[i].id == interiorId then return interiors[i].shell end
+    end
+    return 'CreateApartmentFurnished'
+end
+
+local function spawnFlatObjects(building, number, coords)
+    local flat = building.flats[number]
+    local interiorId = flat and flat.interior or 'standard'
+    local result = exports['qb-interior'][shellFor(interiorId)](coords)
+    if result and result[1] then
+        houseObjects = result[1]
+    end
+end
+
 local function leaveApartment()
     if not inside then return end
 
@@ -61,21 +78,21 @@ end
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     for i = 1, #Config.Buildings do
         local building = Config.Buildings[i]
-        exports['qb-target']:AddCircleZone('bu_apt_' .. building.key, vec3(building.door.x, building.door.y, building.door.z), 1.0, {
-            name = 'bu_apt_' .. building.key,
-            useZ = true,
-            debugPoly = false
-        }, {
-            options = {
-                {
-                    icon = 'fas fa-building',
-                    label = Config.TargetLabel,
-                    action = function()
-                        openMenu()
-                    end
-                }
-            },
-            distance = 2.0
+        local door = building.door
+
+        exports['bu-interact']:addPoint(vec3(door.x, door.y, door.z), 1.0, {
+            label = Config.TargetLabel .. ': ' .. building.label,
+            action = function()
+                openMenu()
+            end
+        })
+
+        exports['bu-interact']:addBlip(vec3(door.x, door.y, door.z), {
+            sprite = 475,
+            color = 2,
+            scale = 0.7,
+            name = building.label,
+            shortRange = false
         })
     end
 end)
@@ -101,10 +118,7 @@ RegisterNUICallback('enter', function(data, cb)
     Wait(500)
 
     local coords = interiorCoords(building, number)
-    local result = exports['qb-interior']:CreateApartmentFurnished(coords)
-    if result and result[1] then
-        houseObjects = result[1]
-    end
+    spawnFlatObjects(building, number, coords)
 
     inside = true
     currentFlat = number
@@ -118,6 +132,22 @@ RegisterNUICallback('enter', function(data, cb)
     })
     SetNuiFocus(true, true)
     cb('ok')
+end)
+
+-- Покупка мебели из меню квартиры
+RegisterNUICallback('interior', function(data, cb)
+    TriggerServerEvent('bu-apartments:server:buyInterior', currentBuilding.key, currentFlat, data.interior)
+    cb('ok')
+end)
+
+-- Мебель куплена: перестраиваем интерьер прямо под игроком
+RegisterNetEvent('bu-apartments:client:interiorChanged', function(interiorId)
+    if not inside or not currentBuilding then return end
+    currentBuilding.flats[currentFlat].interior = interiorId
+    exports['qb-interior']:DespawnInterior(houseObjects, function()
+        houseObjects = {}
+        spawnFlatObjects(currentBuilding, currentFlat, interiorCoords(currentBuilding, currentFlat))
+    end)
 end)
 
 RegisterNUICallback('leave', function(_, cb)

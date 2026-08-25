@@ -1,9 +1,9 @@
 # Server binaries and runtime data (not part of the repository)
-server/
-txData/
-cache/
-crash/
-run/
+/server/
+/txData/
+/cache/
+/crash/
+/run/
 
 # Logs
 *.log

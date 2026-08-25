@@ -7,7 +7,8 @@ description 'Driving and flight school with exams (Brighton Union)'
 version '1.0.0'
 
 shared_scripts {
-    'config.lua'
+    'config.lua',
+    '@oxmysql/lib/MySQL.lua'
 }
 
 client_scripts {
@@ -28,6 +29,7 @@ files {
 
 dependencies {
     'qb-core',
-    'qb-target',
-    'qb-vehiclekeys'
+    'bu-interact',
+    'qb-vehiclekeys',
+    'oxmysql'
 }

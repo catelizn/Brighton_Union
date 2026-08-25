@@ -102,8 +102,12 @@ Config.Jobs = {
         licenseLabel = 'Лицензия на рыбалку (мэрия)',
         hire = { model = 'a_m_y_beach_01', coords = vector4(-1593.0, -1114.0, 1.5, 180.0), scenario = 'WORLD_HUMAN_STAND_MOBILE' },
         zones = {
-            { coords = vector3(-1593.0, -1114.0, 1.5), radius = 25.0, label = 'Ловить рыбу' },
-            { coords = vector3(-3240.0, 980.0, 8.0), radius = 25.0, label = 'Ловить рыбу' }
+            { coords = vector3(-1593.0, -1114.0, 1.5), radius = 25.0, label = 'Ловить рыбу', minLevel = 0,
+              fish = { { name = 'Бычок', price = 20 }, { name = 'Сельдь', price = 30 } } },
+            { coords = vector3(-3240.0, 980.0, 8.0), radius = 25.0, label = 'Ловить рыбу', minLevel = 3,
+              fish = { { name = 'Окунь', price = 45 }, { name = 'Судак', price = 60 } } },
+            { coords = vector3(-275.0, 6630.0, 7.0), radius = 25.0, label = 'Ловить рыбу', minLevel = 6,
+              fish = { { name = 'Лосось', price = 85 }, { name = 'Тунец', price = 130 } } }
         }
     },
     hunter = {
@@ -115,6 +119,49 @@ Config.Jobs = {
         hire = { model = 'a_m_m_hillbilly_01', coords = vector4(-1611.0, 5280.0, 18.0, 180.0), scenario = 'WORLD_HUMAN_STAND_MOBILE' },
         zone = vector3(-1611.0, 5280.0, 18.0),
         zoneRadius = 120.0
+    },
+    farmer = {
+        label = 'Фермер',
+        item = 'vegetable',
+        basePay = 45,
+        xp = 25,
+        hire = { model = 'a_m_m_farmer_01', coords = vector4(1980.0, 4890.0, 45.0, 180.0), scenario = 'WORLD_HUMAN_STAND_MOBILE' },
+        zones = {
+            { coords = vector3(1980.0, 4890.0, 45.0), radius = 40.0, label = 'Собирать урожай' }
+        }
+    },
+    garbage = {
+        label = 'Мусорщик',
+        item = 'garbage_bag',
+        basePay = 40,
+        xp = 25,
+        hire = { model = 's_m_m_janitor', coords = vector4(-350.0, -1540.0, 27.0, 180.0), scenario = 'WORLD_HUMAN_STAND_MOBILE' },
+        zones = {
+            { coords = vector3(-350.0, -1540.0, 27.0), radius = 30.0, label = 'Собирать мусор' },
+            { coords = vector3(180.0, -1330.0, 29.0), radius = 30.0, label = 'Собирать мусор' },
+            { coords = vector3(430.0, -980.0, 28.0), radius = 30.0, label = 'Собирать мусор' }
+        }
+    },
+    collector = {
+        label = 'Инкассатор',
+        basePay = 120,
+        xp = 30,
+        hire = { model = 's_m_m_security_01', coords = vector4(245.0, 215.0, 106.0, 90.0), scenario = 'WORLD_HUMAN_STAND_MOBILE' },
+        routeLabel = 'Инкассировать точку',
+        route = {
+            vector3(149.05, -1041.3, 29.37),
+            vector3(-265.0, -963.6, 31.2),
+            vector3(332.0, -590.0, 43.0),
+            vector3(-350.0, -140.0, 39.0),
+            vector3(-1150.0, -1500.0, 4.0),
+            vector3(245.0, 215.0, 106.0)
+        }
+    },
+    firefighter = {
+        label = 'Пожарный',
+        basePay = 100,
+        xp = 30,
+        hire = { model = 's_m_y_fireman_01', coords = vector4(208.0, -1640.0, 29.8, 180.0), scenario = 'WORLD_HUMAN_STAND_MOBILE' }
     }
 }
 
@@ -129,7 +176,8 @@ Config.Market = {
         { job = 'miner',          model = 'a_m_y_business_03', label = 'Скупка руды',      offset = vector3(5.0, 0.0, 0.0) },
         { job = 'oilworker',      model = 'a_m_y_hipster_01',  label = 'Скупка нефти',     offset = vector3(7.5, 0.0, 0.0) },
         { job = 'butcher',        model = 's_m_y_shop_mask',   label = 'Мясная лавка',     offset = vector3(10.0, 0.0, 0.0) },
-        { job = 'fisherman',      model = 's_m_y_baywatch_01', label = 'Рыбная лавка',     offset = vector3(12.5, 0.0, 0.0) }
+        { job = 'fisherman',      model = 's_m_y_baywatch_01', label = 'Рыбная лавка',     offset = vector3(12.5, 0.0, 0.0) },
+        { job = 'farmer',         model = 'a_m_y_business_02', label = 'Овощная лавка',    offset = vector3(15.0, 0.0, 0.0) }
     },
     prices = {
         ['wood'] = 15,
@@ -137,7 +185,8 @@ Config.Market = {
         ['ore'] = 25,
         ['oil'] = 30,
         ['raw_meat'] = 20,
-        ['fish'] =18
+        ['fish'] =18,
+        ['vegetable'] = 18
     }
 }
 
@@ -150,7 +199,7 @@ Config.Taxi = {
         { label = 'Мэрия',          coords = vector3(-265.0, -963.6, 31.2) },
         { label = 'Больница',       coords = vector3(332.0, -590.0, 43.0) },
         { label = 'Банк',           coords = vector3(149.05, -1041.3, 29.37) },
-        { label = 'Автошкола',      coords = vector3(640.0, 1120.0, 285.0) },
+        { label = 'Автошкола',      coords = vector3(240.4, -1379.8, 32.0) },
         { label = 'Аэропорт ЛС',    coords = vector3(-1035.0, -2730.0, 13.8) },
         { label = 'Пляж Веспуччи',  coords = vector3(-1170.0, -1550.0, 4.0) },
         { label = 'Палето-Бэй',     coords = vector3(80.0, 6424.0, 31.6) },

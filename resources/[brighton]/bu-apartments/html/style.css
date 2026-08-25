@@ -143,3 +143,41 @@ body {
 .leave-button:hover {
     border-color: var(--bu-accent-bright);
 }
+
+/* Мебель */
+.interior-section {
+    padding: 0 14px 8px 14px;
+}
+
+.interior-section.hidden {
+    display: none;
+}
+
+.interior-title {
+    font-size: 12px;
+    color: var(--bu-text-dim);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.interior-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.interior-button {
+    padding: 9px 12px;
+    background: var(--bu-surface);
+    border: 1px solid var(--bu-border);
+    border-radius: 6px;
+    color: var(--bu-text);
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.interior-button:hover {
+    border-color: var(--bu-accent-bright);
+}

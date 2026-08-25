@@ -41,14 +41,14 @@ function renderLive(auctions) {
             <div class="auction-bid">${auction.currentBid > 0 ? 'Текущая ставка: $' + Number(auction.currentBid).toLocaleString('ru-RU') + ' (' + auction.bidderName + ')' : 'Стартовая цена: $' + Number(auction.startPrice).toLocaleString('ru-RU')}</div>
             <div class="auction-row">
                 <span class="auction-sub">${auction.isMine ? 'Твой лот' : ''}</span>
-                ${!auction.isMine ? `<button class="button buy" data-bid="${auction.id}">Сделать ставку</button>` : ''}
+                ${!auction.isMine ? `<button class="button buy" data-bid="${auction.id}" data-mult="1">Ставка</button><button class="button buy" data-bid="${auction.id}" data-mult="3">×3</button><button class="button buy" data-bid="${auction.id}" data-mult="5">×5</button>` : ''}
             </div>
         `;
         container.appendChild(card);
     });
 
     container.querySelectorAll('[data-bid]').forEach((button) => {
-        button.addEventListener('click', () => post('bid', { id: Number(button.dataset.bid) }));
+        button.addEventListener('click', () => post('bid', { id: Number(button.dataset.bid), mult: Number(button.dataset.mult || 1) }));
     });
 }
 

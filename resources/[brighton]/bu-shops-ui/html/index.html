@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Магазин</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="shop-window" id="shop-window">
+        <div class="shop-header">
+            <div class="shop-logo">24/7</div>
+            <div class="shop-title" id="shop-title">Магазин</div>
+            <div class="shop-esc">ESC — закрыть</div>
+        </div>
+
+        <div class="chips" id="chips"></div>
+
+        <div class="search-row">
+            <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+            <input type="text" id="search" placeholder="Поиск по товарам" autocomplete="off" />
+        </div>
+
+        <div class="products" id="products"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

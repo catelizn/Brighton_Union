@@ -35,14 +35,14 @@ local itemOverrides = {
     weapon_pistol_mk2            = { label = 'Пистолет Mk II', description = 'Улучшенный пистолет для стрельбы одной рукой' },
     weapon_combatpistol          = { label = 'Боевой пистолет', description = 'Боевая версия пистолета для стрельбы одной рукой' },
     weapon_appistol              = { label = 'AP Пистолет', description = 'Небольшой автоматический пистолет' },
-    weapon_stungun               = { label = 'Тазер', description = 'Оружие, стреляющее электродами на проводах и вызывающее временный паралич' },
+    weapon_stungun               = { label = 'Тазер', description = 'Бьёт током по проводам — парализует на пару секунд' },
     weapon_pistol50              = { label = 'Пистолет .50', description = 'Пистолет калибра .50 для стрельбы двумя руками' },
     weapon_snspistol             = { label = 'SNS Пистолет', description = 'Очень маленький пистолет, который легко спрятать' },
     weapon_heavypistol           = { label = 'Тяжёлый пистолет', description = 'Массивный пистолет для стрельбы одной рукой' },
     weapon_vintagepistol         = { label = 'Винтажный пистолет', description = 'Антикварный пистолет для стрельбы одной рукой' },
     weapon_flaregun              = { label = 'Сигнальный пистолет', description = 'Пистолет для запуска сигнальных ракет' },
     weapon_marksmanpistol        = { label = 'Снайперский пистолет', description = 'Очень точный пистолет для стрельбы одной рукой' },
-    weapon_revolver              = { label = 'Револьвер', description = 'Пистолет с вращающимся барабаном, позволяющий сделать несколько выстрелов без перезарядки' },
+    weapon_revolver              = { label = 'Револьвер', description = 'Револьвер с барабаном: несколько выстрелов без перезарядки' },
     weapon_revolver_mk2          = { label = 'Револьвер Mk II', description = 'Мощный револьвер с барабаном на шесть патронов' },
     weapon_doubleaction          = { label = 'Револьвер двойного действия', description = 'Револьвер двойного действия' },
     weapon_snspistol_mk2         = { label = 'SNS Пистолет Mk II', description = 'SNS Пистолет Mk II' },
@@ -58,7 +58,7 @@ local itemOverrides = {
     weapon_smg_mk2               = { label = 'ПП Mk II', description = 'ПП Mk II' },
     weapon_assaultsmg            = { label = 'Штурмовой ПП', description = 'Штурмовая версия лёгкого ручного пулемёта' },
     weapon_combatpdw             = { label = 'Боевой PDW', description = 'Боевая версия лёгкого ручного пулемёта' },
-    weapon_machinepistol         = { label = 'Tec-9', description = 'Самозарядный пистолет с возможностью стрельбы очередями' },
+    weapon_machinepistol         = { label = 'Tec-9', description = 'Пистолет, стреляющий очередями' },
     weapon_minismg               = { label = 'Мини ПП', description = 'Миниатюрный лёгкий ручной пулемёт' },
     weapon_raycarbine            = { label = 'Unholy Hellbringer', description = 'Unholy Hellbringer' },
 
@@ -69,7 +69,7 @@ local itemOverrides = {
     weapon_bullpupshotgun        = { label = 'Буллпап-дробовик', description = 'Компактное ружьё для стрельбы дробью' },
     weapon_musket                = { label = 'Мушкет', description = 'Лёгкое ружьё с длинным стволом, заряжается с дула' },
     weapon_heavyshotgun          = { label = 'Тяжёлый дробовик', description = 'Большое ружьё для стрельбы дробью' },
-    weapon_dbshotgun             = { label = 'Двустволка', description = 'Ружьё с двумя стволами, позволяющее сделать два выстрела подряд' },
+    weapon_dbshotgun             = { label = 'Двустволка', description = 'Двуствольное ружьё — два выстрела подряд' },
     weapon_autoshotgun           = { label = 'Автоматический дробовик', description = 'Дробовик, способный вести непрерывный огонь' },
     weapon_pumpshotgun_mk2       = { label = 'Помповый дробовик Mk II', description = 'Помповый дробовик Mk II' },
     weapon_combatshotgun         = { label = 'Боевой дробовик', description = 'Боевой дробовик' },
@@ -106,7 +106,7 @@ local itemOverrides = {
     weapon_grenadelauncher       = { label = 'Гранатомёт', description = 'Оружие, стреляющее крупнокалиберными снарядами' },
     weapon_grenadelauncher_smoke = { label = 'Дымовой гранатомёт', description = 'Выпускает много дыма при взрыве' },
     weapon_minigun               = { label = 'Миниган', description = 'Портативный шестиствольный пулемёт со скорострельностью до 6000 выстрелов в минуту' },
-    weapon_firework              = { label = 'Пусковая установка фейерверков', description = 'Устройство, создающее эффектный взрыв при поджигании' },
+    weapon_firework              = { label = 'Пусковая установка фейерверков', description = 'Палит фейерверком — зажигай фитиль' },
     weapon_railgun               = { label = 'Рельсотрон', description = 'Оружие, разгоняющее снаряды электромагнитным полем' },
     weapon_railgunxm3            = { label = 'Рельсотрон XM3', description = 'Оружие, разгоняющее снаряды электромагнитным полем' },
     weapon_hominglauncher        = { label = 'Самонаводящийся гранатомёт', description = 'Оружие с электронным наведением на цель' },
@@ -235,12 +235,12 @@ local itemOverrides = {
     -- Materials
     plastic                      = { label = 'Пластик', description = 'Сдавайте на переработку!' },
     metalscrap                   = { label = 'Металлолом', description = 'Из этого наверняка можно сделать что-то полезное' },
-    copper                       = { label = 'Медь', description = 'Кусок металла, который наверняка пригодится' },
-    aluminum                     = { label = 'Алюминий', description = 'Кусок металла, который наверняка пригодится' },
+    copper                       = { label = 'Медь', description = 'Скупщики платят за медь неплохо' },
+    aluminum                     = { label = 'Алюминий', description = 'Лёгкий и ходовой металл' },
     aluminumoxide                = { label = 'Алюминиевый порошок', description = 'Порошок для смешивания' },
-    iron                         = { label = 'Железо', description = 'Кусок металла, который наверняка пригодится' },
+    iron                         = { label = 'Железо', description = 'Пригодится в кузне' },
     ironoxide                    = { label = 'Железный порошок', description = 'Порошок для смешивания.' },
-    steel                        = { label = 'Сталь', description = 'Кусок металла, который наверняка пригодится' },
+    steel                        = { label = 'Сталь', description = 'Крепче железа — и в скупке дороже' },
     rubber                       = { label = 'Резина', description = 'Из резины можно сделать даже резиновую уточку :D' },
     glass                        = { label = 'Стекло', description = 'Очень хрупкое, осторожнее' },
 
@@ -352,5 +352,17 @@ for name, data in pairs(itemOverrides) do
     if item then
         if data.label then item.label = data.label end
         if data.description then item.description = data.description end
+    end
+end
+
+-- Новые предметы Brighton Union (ресурсы работ)
+local newItems = {
+    vegetable = { name = 'vegetable', label = 'Овощи', weight = 500, type = 'item', image = 'vegetable.png', usable = false, shouldClose = false, canRemove = true, description = 'Свежие овощи с фермы' },
+    garbage_bag = { name = 'garbage_bag', label = 'Пакет мусора', weight = 500, type = 'item', image = 'garbage_bag.png', usable = false, shouldClose = false, canRemove = true, description = 'Собранный городской мусор' }
+}
+
+for name, data in pairs(newItems) do
+    if not QBCore.Shared.Items[name] then
+        QBCore.Shared.Items[name] = data
     end
 end

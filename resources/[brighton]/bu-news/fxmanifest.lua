@@ -10,6 +10,11 @@ server_scripts {
     'server/main.lua'
 }
 
+shared_scripts {
+    '@oxmysql/lib/MySQL.lua'
+}
+
 dependencies {
-    'qb-core'
+    'qb-core',
+    'oxmysql'
 }

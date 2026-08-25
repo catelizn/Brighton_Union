@@ -8,6 +8,7 @@ const viewFamily = document.getElementById('view-family');
 const viewFaction = document.getElementById('view-faction');
 const viewTaxi = document.getElementById('view-taxi');
 const viewTrucker = document.getElementById('view-trucker');
+const viewDarknet = document.getElementById('view-darknet');
 
 const docIcons = {
     'fa-id-card': '🪪',
@@ -25,7 +26,7 @@ function post(action, data) {
 }
 
 function showView(view) {
-    [viewHome, viewDocuments, viewVehicles, viewMarketplace, viewNews, viewFamily, viewFaction, viewTaxi, viewTrucker].forEach((element) => element.classList.add('hidden'));
+    [viewHome, viewDocuments, viewVehicles, viewMarketplace, viewNews, viewFamily, viewFaction, viewTaxi, viewTrucker, viewDarknet].forEach((element) => element.classList.add('hidden'));
     view.classList.remove('hidden');
 }
 
@@ -151,6 +152,10 @@ window.addEventListener('message', (event) => {
         truckerData = message.data;
         renderTrucker();
     }
+
+    if (message.type === 'bu:darknet:list') {
+        renderDarknet(message.data);
+    }
 });
 
 document.querySelectorAll('.app').forEach((app) => {
@@ -187,6 +192,10 @@ document.querySelectorAll('.app').forEach((app) => {
             showView(viewTrucker);
             switchTruckerTab('business');
             post('truckerList');
+        }
+        if (target === 'darknet') {
+            showView(viewDarknet);
+            post('darknetList');
         }
     });
 });
@@ -264,16 +273,19 @@ function renderFamCreate() {
     document.getElementById('fam-create-button').addEventListener('click', () => {
         const name = document.getElementById('fam-name').value.trim();
         if (!name) return;
-        famAction({ action: 'create', name: name, familyType: famSection });
+        famAction({ action: 'create', name: name, familyType: 'family' });
     });
 }
 
 function renderFamInfo() {
     const container = document.getElementById(famSection + '-content');
-    const kind = famData.type === 'faction' ? 'Фракция' : 'Семья';
+    const kind = famData.type === 'faction' ? 'Фракция' : famData.type === 'gang' ? 'Банда' : 'Семья';
     const contractLine = famData.activeContract
         ? `Активный контракт: ${famData.activeContract.label} (взял: ${famData.activeContract.taker})`
         : 'Активных контрактов нет';
+    const territoriesLine = famData.territories && famData.territories.length > 0
+        ? famData.territories.join(', ')
+        : 'нет';
     container.innerHTML = `
         <div class="fam-card">
             <div class="fam-name">${famData.name}</div>
@@ -282,6 +294,8 @@ function renderFamInfo() {
         <div class="fam-row"><span>Мой ранг</span><span>${famData.rank}</span></div>
         <div class="fam-row"><span>Участников</span><span>${famData.memberCount}</span></div>
         <div class="fam-row"><span>Казна</span><span>$${Number(famData.money).toLocaleString('ru-RU')}</span></div>
+        <div class="fam-row"><span>Офис</span><span>${famData.office || 'не назначен'}</span></div>
+        <div class="fam-row"><span>Территории</span><span>${territoriesLine}</span></div>
         <div class="fam-row"><span>Контракт</span><span>${contractLine}</span></div>
     `;
 }
@@ -495,6 +509,40 @@ document.querySelectorAll('#family-tabs .tab, #faction-tabs .tab').forEach((tab)
     tab.addEventListener('click', () => switchFamTab(tab.dataset.famtab));
 });
 
+function renderDarknet(data) {
+    if (!data) return;
+
+    const notice = document.getElementById('darknet-notice');
+    const list = document.getElementById('darknet-list');
+
+    const cooldown = data.cooldownLeft > 0
+        ? `Между заказами подожди ${Math.ceil(data.cooldownLeft / 60)} мин.`
+        : 'Оплата наличными, выдача — в точке на карте.';
+    notice.textContent = data.pending
+        ? `Ждёт выдачи: ${data.pending.label}. Забери в точке на карте.`
+        : cooldown;
+
+    list.innerHTML = '';
+    data.items.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'fam-card';
+        card.innerHTML = `
+            <div class="fam-name">${item.label}</div>
+            <div class="fam-type">$${Number(item.price).toLocaleString('ru-RU')}</div>
+            <div class="fam-actions">
+                <button class="mp-button buy" data-darknet-buy="${item.id}">Заказать</button>
+            </div>
+        `;
+        list.appendChild(card);
+    });
+
+    list.querySelectorAll('[data-darknet-buy]').forEach((button) => {
+        button.addEventListener('click', () => {
+            post('darknetBuy', { item: button.dataset.darknetBuy });
+        });
+    });
+}
+
 // ============================================================
 // Brighton Taxi
 // ============================================================
@@ -693,29 +741,65 @@ function itemImage(image) {
     return `<img src="nui://qb-inventory/html/images/${image}" onerror="this.remove()" />`;
 }
 
+let mpFilter = 'all';
+
 function renderMpShop(list) {
+    const filters = document.getElementById('mp-filters');
+    if (filters && filters.children.length === 0) {
+        const chips = [
+            { key: 'all', label: 'Все' },
+            { key: 'item', label: 'Предметы' },
+            { key: 'property', label: 'Недвижимость' },
+            { key: 'rentveh', label: 'Аренда' },
+            { key: 'fav', label: 'Избранное' }
+        ];
+        chips.forEach((chip) => {
+            const button = document.createElement('button');
+            button.className = 'mp-chip' + (chip.key === mpFilter ? ' active' : '');
+            button.textContent = chip.label;
+            button.addEventListener('click', () => {
+                mpFilter = chip.key;
+                post('mpList');
+            });
+            filters.appendChild(button);
+        });
+    }
+    filters.querySelectorAll('.mp-chip').forEach((chip) => {
+        const key = chip.textContent === 'Все' ? 'all' : chip.textContent === 'Предметы' ? 'item' : chip.textContent === 'Недвижимость' ? 'property' : chip.textContent === 'Аренда' ? 'rentveh' : 'fav';
+        chip.classList.toggle('active', key === mpFilter);
+    });
+
     const container = document.getElementById('mp-shop');
     container.innerHTML = '';
-    if (!list || list.length === 0) {
-        container.innerHTML = '<div class="empty-note">На витрине пока пусто. Стань первым продавцом!</div>';
+
+    const visible = (list || []).filter((listing) => {
+        if (mpFilter === 'all') return true;
+        if (mpFilter === 'fav') return listing.isFavourite;
+        return listing.lotType === mpFilter;
+    });
+
+    if (!visible || visible.length === 0) {
+        container.innerHTML = '<div class="empty-note">Здесь пока пусто.</div>';
         return;
     }
-    list.forEach((listing) => {
+
+    visible.forEach((listing) => {
         const card = document.createElement('div');
         card.className = 'mp-card';
 
         if (listing.lotType === 'rentveh') {
-            const imageHtml = '🚗';
             const available = listing.available !== false;
             const total = listing.price * listing.amount;
             card.innerHTML = `
-                <div class="mp-image">${imageHtml}</div>
+                <div class="mp-image">🚗</div>
                 <div class="mp-info">
                     <div class="mp-title">${listing.itemLabel}</div>
-                    <div class="mp-sub">Аренда: ${listing.amount} ч • Владелец: ${listing.sellerName}</div>
-                    <div class="mp-price">$${Number(listing.price).toLocaleString('ru-RU')}/час • Итого $${Number(total).toLocaleString('ru-RU')}</div>
+                    <div class="mp-sub">Аренда: ${listing.amount} ч • ${listing.sellerName}</div>
+                    <div class="mp-price">$${Number(listing.price).toLocaleString('ru-RU')}/час</div>
+                    <div class="mp-meta">👁 ${listing.views || 0} • ☆ ${listing.favouritesCount || 0}</div>
                 </div>
                 <div class="mp-actions">
+                    <button class="mp-button star ${listing.isFavourite ? 'on' : ''}" data-fav="${listing.id}">${listing.isFavourite ? '★' : '☆'}</button>
                     <button class="mp-button buy" data-rent="${listing.id}" ${available ? '' : 'disabled'}>${available ? 'Арендовать' : 'В аренде'}</button>
                 </div>
             `;
@@ -729,24 +813,33 @@ function renderMpShop(list) {
             <div class="mp-image">${imageHtml}</div>
             <div class="mp-info">
                 <div class="mp-title">${listing.itemLabel}${amountHtml}</div>
-                <div class="mp-sub">Продавец: ${listing.sellerName}</div>
+                <div class="mp-sub">${listing.sellerName}</div>
                 <div class="mp-price">$${Number(listing.price).toLocaleString('ru-RU')}</div>
+                <div class="mp-meta">👁 ${listing.views || 0} • ☆ ${listing.favouritesCount || 0}</div>
             </div>
             <div class="mp-actions">
+                <button class="mp-button star ${listing.isFavourite ? 'on' : ''}" data-fav="${listing.id}">${listing.isFavourite ? '★' : '☆'}</button>
                 <button class="mp-button buy" data-id="${listing.id}">Купить</button>
             </div>
         `;
         container.appendChild(card);
     });
 
+    container.querySelectorAll('.star').forEach((button) => {
+        button.addEventListener('click', () => {
+            post('mpFav', { id: button.dataset.fav });
+            setTimeout(() => post('mpList'), 400);
+        });
+    });
+
     container.querySelectorAll('.buy').forEach((button) => {
         button.addEventListener('click', () => {
+            post('mpView', { id: button.dataset.id || button.dataset.rent });
             if (button.dataset.rent) {
                 post('mpRent', { id: button.dataset.rent });
-                setTimeout(() => post('mpList'), 500);
-                return;
+            } else {
+                post('mpBuy', { id: button.dataset.id });
             }
-            post('mpBuy', { id: button.dataset.id });
             setTimeout(() => post('mpList'), 500);
         });
     });

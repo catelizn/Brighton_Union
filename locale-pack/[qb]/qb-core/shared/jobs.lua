@@ -246,3 +246,73 @@ for jobName, job in pairs(QBCore.Shared.Jobs) do
 		end
 	end
 end
+
+
+-- Brighton Union: государственные структуры
+QBCore.Shared.Jobs['fib'] = {
+    label = 'FIB',
+    defaultDuty = true,
+    offDutyPay = false,
+    grades = {
+        ['0'] = { name = 'Агент', payment = 300 },
+        ['1'] = { name = 'Старший агент', payment = 500 },
+        ['2'] = { name = 'Специальный агент', payment = 800 },
+        ['3'] = { name = 'Заместитель директора', isboss = true, payment = 1200 },
+        ['4'] = { name = 'Директор', isboss = true, payment = 1500 }
+    }
+}
+
+QBCore.Shared.Jobs['weazel'] = {
+    label = 'Weazel News',
+    defaultDuty = true,
+    offDutyPay = false,
+    grades = {
+        ['0'] = { name = 'Стажёр', payment = 150 },
+        ['1'] = { name = 'Журналист', payment = 250 },
+        ['2'] = { name = 'Редактор', payment = 400 },
+        ['3'] = { name = 'Главный редактор', isboss = true, payment = 600 }
+    }
+}
+
+-- Brighton Union: пресетные банды (ранги: 0 новичок, 1 боец, 2 ветеран, 3 правая рука, 4 босс)
+local gangGrades = {
+    ['0'] = { name = 'Новичок', payment = 0 },
+    ['1'] = { name = 'Боец', payment = 0 },
+    ['2'] = { name = 'Ветеран', payment = 0 },
+    ['3'] = { name = 'Правая рука', payment = 0 },
+    ['4'] = { name = 'Босс', isboss = true, payment = 0 }
+}
+for gangName, gangLabel in pairs({ families = 'The Families', ballas = 'Ballas', vagos = 'Vagos', bloods = 'Bloods', marabunta = 'Marabunta' }) do
+    QBCore.Shared.Jobs[gangName] = { label = gangLabel, defaultDuty = true, offDutyPay = false, grades = gangGrades }
+end
+
+-- Brighton Union: банды — 10 рангов, мафии — 8 рангов
+local buGangGrades = {
+    ['0'] = { name = 'Рекрут', payment = 0 },
+    ['1'] = { name = 'Боец', payment = 0 },
+    ['2'] = { name = 'Ветеран', payment = 0 },
+    ['3'] = { name = 'Авторитет', payment = 0 },
+    ['4'] = { name = 'Бригадир', payment = 0 },
+    ['5'] = { name = 'Младший лидер', payment = 0 },
+    ['6'] = { name = 'Лидер', payment = 0 },
+    ['7'] = { name = 'Правая рука', payment = 0 },
+    ['8'] = { name = 'Заместитель', payment = 0 },
+    ['9'] = { name = 'Босс', isboss = true, payment = 0 }
+}
+for gangName, gangLabel in pairs({ families = 'The Families', ballas = 'Ballas', vagos = 'Vagos', bloods = 'Bloods', marabunta = 'Marabunta' }) do
+    QBCore.Shared.Jobs[gangName] = { label = gangLabel, defaultDuty = true, offDutyPay = false, grades = buGangGrades }
+end
+
+local buMafiaGrades = {
+    ['0'] = { name = 'Ассоциат', payment = 0 },
+    ['1'] = { name = 'Солдат', payment = 0 },
+    ['2'] = { name = 'Капо', payment = 0 },
+    ['3'] = { name = 'Консильери', payment = 0 },
+    ['4'] = { name = 'Младший босс', payment = 0 },
+    ['5'] = { name = 'Заместитель босса', payment = 0 },
+    ['6'] = { name = 'Босс', isboss = true, payment = 0 },
+    ['7'] = { name = 'Крёстный отец', isboss = true, payment = 0 }
+}
+for mafiaName, mafiaLabel in pairs({ italian_mafia = 'Итальянская мафия', russian_mafia = 'Русская мафия', mexican_mafia = 'Мексиканская мафия', yakuza = 'Японская мафия' }) do
+    QBCore.Shared.Jobs[mafiaName] = { label = mafiaLabel, defaultDuty = true, offDutyPay = false, grades = buMafiaGrades }
+end

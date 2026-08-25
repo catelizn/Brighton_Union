@@ -7,7 +7,8 @@ description 'Business properties purchase via marker (Brighton Union)'
 version '1.0.0'
 
 shared_scripts {
-    'config.lua'
+    'config.lua',
+    '@oxmysql/lib/MySQL.lua'
 }
 
 client_scripts {
@@ -20,5 +21,8 @@ server_scripts {
 
 dependencies {
     'qb-core',
-    'qb-target'
+    'bu-interact',
+    'qb-menu',
+    'qb-input',
+    'oxmysql'
 }

@@ -46,10 +46,6 @@
                         <div class="app-icon app-icon-family">👪</div>
                         <div class="app-label">Семья</div>
                     </div>
-                    <div class="app" data-app="faction">
-                        <div class="app-icon app-icon-faction">🏛</div>
-                        <div class="app-label">Фракция</div>
-                    </div>
                     <div class="app" data-app="taxi">
                         <div class="app-icon app-icon-taxi">🚖</div>
                         <div class="app-label">Brighton Taxi</div>
@@ -57,6 +53,10 @@
                     <div class="app" data-app="trucker">
                         <div class="app-icon app-icon-trucker">🚚</div>
                         <div class="app-label">Дальнобой</div>
+                    </div>
+                    <div class="app" data-app="darknet">
+                        <div class="app-icon app-icon-dark">🕶️</div>
+                        <div class="app-label">Даркнет</div>
                     </div>
                 </div>
             </div>
@@ -91,6 +91,7 @@
                         <button class="tab active" data-tab="shop">Витрина</button>
                         <button class="tab" data-tab="mine">Мои лоты</button>
                     </div>
+                    <div class="mp-filters" id="mp-filters"></div>
                     <div id="mp-shop"></div>
                     <div id="mp-mine" class="hidden"></div>
                 </div>
@@ -179,6 +180,16 @@
                     <div id="trucker-mine" class="hidden"></div>
                 </div>
             </div>
+            <div id="view-darknet" class="view view-app hidden">
+                <div class="app-header">
+                    <button class="back-button" data-back="home">←</button>
+                    <span class="app-title">Даркнет</span>
+                </div>
+                <div class="app-content">
+                    <div class="empty-note" id="darknet-notice"></div>
+                    <div id="darknet-list"></div>
+                </div>
+            </div>
             <div class="dock">
                 <div class="app dock-app" data-app="documents">
                     <div class="app-icon app-icon-docs">📄</div>
@@ -199,10 +210,6 @@
                 <div class="app dock-app" data-app="family">
                     <div class="app-icon app-icon-family">👪</div>
                     <div class="app-label">Семья</div>
-                </div>
-                <div class="app dock-app" data-app="faction">
-                    <div class="app-icon app-icon-faction">🏛</div>
-                    <div class="app-label">Фракция</div>
                 </div>
             </div>
         </div>

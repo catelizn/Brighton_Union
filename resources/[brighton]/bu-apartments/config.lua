@@ -31,3 +31,10 @@ Config.InteriorOffsetStep = 3
 
 Config.TargetLabel = 'Жилой дом'
 Config.MaxApartmentsPerBuilding = 1
+
+-- Мебель: наборы интерьера, покупаются в меню квартиры
+Config.Interiors = {
+    { id = 'standard', label = 'Мебель: стандарт', price = 50000,  shell = 'CreateApartmentFurnished' },
+    { id = 'office',   label = 'Мебель: офис',     price = 120000, shell = 'CreateOffice1' },
+    { id = 'loft',     label = 'Мебель: лофт',     price = 90000,  shell = 'CreateFurniMid' }
+}

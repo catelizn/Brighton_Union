@@ -9,19 +9,21 @@ body {
     user-select: none;
 }
 
-/* Индикатор у миникарты: палитра Brighton Union, зелёный акцент */
+/* Строчка над миникартой: на ширину карты, компактная, палитра Brighton Union */
 .zone-badge {
     position: absolute;
-    right: 33vh;
-    bottom: 6.5vh;
+    left: 0.8vh;
+    bottom: 23vh;
+    width: 26vh;
     display: none;
     align-items: center;
+    justify-content: center;
     gap: 6px;
-    padding: 5px 10px;
+    padding: 4px 10px;
     background: rgba(22, 25, 27, 0.88);
     border: 1px solid #3A434B;
-    border-left: 3px solid #6BB38A;
-    border-radius: 6px;
+    border-bottom: 2px solid #6BB38A;
+    border-radius: 5px;
     font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
 }
 

@@ -22,45 +22,16 @@ end
 
 local function spawnSchools()
     for schoolName, school in pairs(Config.Schools) do
-        if spawnedSchools[schoolName] then return end
+        if spawnedSchools[schoolName] then goto continue end
 
-        local model = school.model
-        local coords = school.coords
-        local z = snapZ(coords.x, coords.y, coords.z)
-
-        RequestModel(model)
-        while not HasModelLoaded(model) do Wait(0) end
-
-        local ped = CreatePed(0, model, coords.x, coords.y, z, coords.w, false, false)
-        FreezeEntityPosition(ped, true)
-        SetEntityInvincible(ped, true)
-        SetBlockingOfNonTemporaryEvents(ped, true)
-        TaskStartScenarioInPlace(ped, school.scenario, 0, true)
-
-        local blip = AddBlipForCoord(coords.x, coords.y, z)
-        SetBlipSprite(blip, school.blip.sprite)
-        SetBlipDisplay(blip, 4)
-        SetBlipScale(blip, school.blip.scale)
-        SetBlipColour(blip, school.blip.color)
-        SetBlipAsShortRange(blip, true)
-        BeginTextCommandSetBlipName('STRING')
-        AddTextComponentSubstringPlayerName(school.blip.name)
-        EndTextCommandSetBlipName(blip)
-
-        exports['qb-target']:AddTargetEntity(ped, {
-            options = {
-                {
-                    icon = 'fas fa-graduation-cap',
-                    label = school.label,
-                    action = function()
-                        openMenu()
-                    end
-                }
-            },
-            distance = 2.5
+        spawnedSchools[schoolName] = exports['bu-interact']:spawnPed(school.model, school.coords, {
+            label = school.label,
+            scenario = school.scenario,
+            blip = school.blip,
+            action = openMenu
         })
 
-        spawnedSchools[schoolName] = true
+        ::continue::
     end
 end
 

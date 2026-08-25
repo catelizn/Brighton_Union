@@ -3,6 +3,9 @@ local charPed = nil
 local loadScreenCheckState = false
 local QBCore = exports['qb-core']:GetCoreObject({ 'Functions' })
 local cached_player_skins = {}
+local roomObjects = {}
+local roomPedPos = nil
+local roomCamPos = nil
 
 local randommodels = { -- models possible to load when choosing empty slot
     'mp_m_freemode_01',
@@ -14,7 +17,7 @@ local randommodels = { -- models possible to load when choosing empty slot
 CreateThread(function()
     while true do
         Wait(0)
-        if NetworkIsSessionStarted() then
+        if NetworkIsSessionStarted() and LocalPlayer.state.buAuthed then
             TriggerEvent('qb-multicharacter:client:chooseChar')
             return
         end
@@ -38,10 +41,16 @@ local function initializePedModel(model, data)
         loadModel(model)
         charPed = CreatePed(2, model, Config.PedCoords.x, Config.PedCoords.y, Config.PedCoords.z - 0.98, Config.PedCoords.w, false, true)
         SetPedComponentVariation(charPed, 0, 0, 0, 2)
-        FreezeEntityPosition(charPed, false)
         SetEntityInvincible(charPed, true)
-        PlaceObjectOnGroundProperly(charPed)
         SetBlockingOfNonTemporaryEvents(charPed, true)
+        if roomPedPos then
+            SetEntityCoords(charPed, roomPedPos.x, roomPedPos.y, roomPedPos.z)
+            SetEntityHeading(charPed, 0.0)
+            FreezeEntityPosition(charPed, true)
+        else
+            PlaceObjectOnGroundProperly(charPed)
+            FreezeEntityPosition(charPed, false)
+        end
         if data then
             TriggerEvent('qb-clothing:client:loadPlayerClothing', data, charPed)
         end
@@ -55,7 +64,12 @@ local function skyCam(bool)
         SetTimecycleModifier('hud_def_blur')
         SetTimecycleModifierStrength(1.0)
         FreezeEntityPosition(PlayerPedId(), false)
-        cam = CreateCamWithParams('DEFAULT_SCRIPTED_CAMERA', Config.CamCoords.x, Config.CamCoords.y, Config.CamCoords.z, 0.0, 0.0, Config.CamCoords.w, 60.00, false, 0)
+        if roomCamPos and roomPedPos then
+            cam = CreateCamWithParams('DEFAULT_SCRIPTED_CAMERA', roomCamPos.x, roomCamPos.y, roomCamPos.z, 0.0, 0.0, 0.0, 50.00, false, 0)
+            PointCamAtCoord(cam, roomPedPos.x, roomPedPos.y, roomPedPos.z + 0.1)
+        else
+            cam = CreateCamWithParams('DEFAULT_SCRIPTED_CAMERA', Config.CamCoords.x, Config.CamCoords.y, Config.CamCoords.z, 0.0, 0.0, Config.CamCoords.w, 60.00, false, 0)
+        end
         SetCamActive(cam, true)
         RenderScriptCams(true, false, 1, true, true)
     else
@@ -64,6 +78,31 @@ local function skyCam(bool)
         DestroyCam(cam, true)
         RenderScriptCams(false, false, 1, true, true)
         FreezeEntityPosition(PlayerPedId(), false)
+    end
+end
+
+-- Раздевалка: скорлупа квартиры с вешалками вокруг зоны предпросмотра
+local function buildRoom()
+    CreateThread(function()
+        while GetResourceState('qb-interior') ~= 'started' do Wait(250) end
+        local origin = vec3(Config.PedCoords.x, Config.PedCoords.y, Config.PedCoords.z - 0.9)
+        local result = exports['qb-interior']:CreateApartmentFurnished(origin)
+        if result and result[1] then
+            roomObjects = result[1]
+            -- Перед вешалками, камера от двери
+            roomPedPos = vec3(origin.x - 4.0, origin.y - 7.0, origin.z + 1.0)
+            roomCamPos = vec3(origin.x - 4.0, origin.y - 4.0, origin.z + 1.65)
+        end
+    end)
+end
+
+local function despawnRoom()
+    if #roomObjects > 0 then
+        exports['qb-interior']:DespawnInterior(roomObjects, function()
+            roomObjects = {}
+            roomPedPos = nil
+            roomCamPos = nil
+        end)
     end
 end
 
@@ -100,7 +139,13 @@ RegisterNetEvent('qb-multicharacter:client:closeNUIdefault', function() -- This 
     SetNuiFocus(false, false)
     DoScreenFadeOut(500)
     Wait(2000)
-    SetEntityCoords(PlayerPedId(), Config.DefaultSpawn.x, Config.DefaultSpawn.y, Config.DefaultSpawn.z)
+    -- Настройка внешности идёт в раздевалке, в аэропорт — только после
+    -- подтверждения персонажа (bu-tutorial).
+    FreezeEntityPosition(PlayerPedId(), false)
+    if roomPedPos then
+        SetEntityCoords(PlayerPedId(), roomPedPos.x, roomPedPos.y, roomPedPos.z)
+        SetEntityHeading(PlayerPedId(), 0.0)
+    end
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
     TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
     TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
@@ -109,9 +154,13 @@ RegisterNetEvent('qb-multicharacter:client:closeNUIdefault', function() -- This 
     SetEntityVisible(PlayerPedId(), true)
     Wait(500)
     DoScreenFadeIn(250)
-    TriggerEvent('bu-tutorial:client:arrival')
     TriggerEvent('qb-weathersync:client:EnableSync')
     TriggerEvent('qb-clothes:client:CreateFirstCharacter')
+end)
+
+-- Персонаж подтверждён: раздевалка больше не нужна
+RegisterNetEvent('qb-clothing:client:onMenuClose', function()
+    despawnRoom()
 end)
 
 RegisterNetEvent('qb-multicharacter:client:closeNUI', function()
@@ -133,6 +182,7 @@ RegisterNetEvent('qb-multicharacter:client:chooseChar', function()
     Wait(1500)
     ShutdownLoadingScreen()
     ShutdownLoadingScreenNui()
+    buildRoom()
     openCharMenu(true)
 end)
 
@@ -176,6 +226,7 @@ RegisterNUICallback('closeUI', function(_, cb)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
+    despawnRoom()
     if Config.SkipSelection then
         SetNuiFocus(false, false)
         skyCam(false)
@@ -188,6 +239,7 @@ end)
 RegisterNUICallback('disconnectButton', function(_, cb)
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
+    despawnRoom()
     TriggerServerEvent('qb-multicharacter:server:disconnect')
     cb('ok')
 end)
@@ -199,6 +251,7 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
+    despawnRoom()
     cb('ok')
 end)
 

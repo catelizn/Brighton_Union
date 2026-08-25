@@ -25,3 +25,16 @@ Config.CategoryNames = {
     ['LV'] = 'Вертолёты',
     ['LS'] = 'Самолёты'
 }
+
+-- Даркнет: теневой маркет в планшете, заказ забирается в точке выдачи
+Config.Darknet = {
+    pickup = vector3(-1450.0, -520.0, 40.0),
+    cooldownMinutes = 10,
+    items = {
+        { id = 'weapon_pistol',   label = 'Пистолет Walther P99', price = 25000 },
+        { id = 'weapon_smg',      label = 'ПП SMG',               price = 60000 },
+        { id = 'weapon_knife',    label = 'Нож',                  price = 3000 },
+        { id = 'armor',           label = 'Бронежилет',           price = 5000 },
+        { id = 'weapon_pumpshotgun', label = 'Помповый дробовик', price = 45000 }
+    }
+}

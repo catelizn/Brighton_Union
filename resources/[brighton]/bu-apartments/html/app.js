@@ -3,8 +3,11 @@ const buildingLabel = document.getElementById('building-label');
 const flatsGrid = document.getElementById('flats-grid');
 const notice = document.getElementById('notice');
 const leaveButton = document.getElementById('leave-button');
+const interiorSection = document.getElementById('interior-section');
+const interiorButtons = document.getElementById('interior-buttons');
 
 let buildingKey = '';
+let interiors = [];
 
 function post(action, data) {
     fetch(`https://bu-apartments/${action}`, {
@@ -14,8 +17,20 @@ function post(action, data) {
     });
 }
 
+function renderInteriors() {
+    interiorButtons.innerHTML = '';
+    interiors.forEach((item) => {
+        const button = document.createElement('button');
+        button.className = 'interior-button';
+        button.textContent = `${item.label} — $${Number(item.price).toLocaleString('ru-RU')}`;
+        button.addEventListener('click', () => post('interior', { interior: item.id }));
+        interiorButtons.appendChild(button);
+    });
+}
+
 function render(data, inside, flat) {
     buildingKey = data.key;
+    interiors = data.interiors || [];
     buildingLabel.textContent = data.label;
     flatsGrid.innerHTML = '';
 
@@ -41,9 +56,14 @@ function render(data, inside, flat) {
         flatsGrid.appendChild(cell);
     });
 
+    interiorSection.classList.toggle('hidden', !inside);
+    if (inside) {
+        renderInteriors();
+    }
+
     leaveButton.classList.toggle('hidden', !inside);
     notice.textContent = inside
-        ? `Квартира №${flat}. Ты внутри — выйди через кнопку ниже.`
+        ? `Квартира №${flat}. Мебель покупается и меняется ниже.`
         : 'Серые квартиры куплены, зелёные — твои. Нажми на свободную, чтобы купить.';
 }
 

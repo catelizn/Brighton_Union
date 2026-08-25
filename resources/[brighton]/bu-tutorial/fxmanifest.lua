@@ -7,7 +7,8 @@ description 'Onboarding quest chain for new players (Brighton Union)'
 version '1.0.0'
 
 shared_scripts {
-    'config.lua'
+    'config.lua',
+    '@oxmysql/lib/MySQL.lua'
 }
 
 client_scripts {
@@ -28,5 +29,6 @@ files {
 
 dependencies {
     'qb-core',
-    'qb-target'
+    'bu-interact',
+    'oxmysql'
 }

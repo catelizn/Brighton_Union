@@ -1,6 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
--- Создание и управление семьёй/фракцией — из планшета, здесь только команды
+-- Создание и управление семьёй — из планшета, здесь только команды
 
 RegisterNetEvent('bu-families:client:notify', function(message, notifyType)
     QBCore.Functions.Notify(message, notifyType or 'primary', 6000)
@@ -15,11 +15,10 @@ RegisterCommand('family', function()
     QBCore.Functions.TriggerCallback('bu-families:server:getInfo', function(info)
         if not info then return end
         if not info.name then
-            QBCore.Functions.Notify('Ты не состоишь в организации. Создай её в планшете (вкладки «Семья» или «Фракция»).', 'error', 6000)
+            QBCore.Functions.Notify('Ты не состоишь в семье. Создай её в планшете (приложение «Семья»).', 'error', 6000)
             return
         end
-        local kind = info.type == 'faction' and 'Фракция' or 'Семья'
-        local message = string.format('%s «%s» | Ранг: %d | Участников: %d | Казна: $%d', kind, info.name, info.rank, info.memberCount, info.money)
+        local message = string.format('Семья «%s» | Ранг: %d | Участников: %d | Казна: $%d', info.name, info.rank, info.memberCount, info.money)
         QBCore.Functions.Notify(message, 'inform', 8000)
     end)
 end, false)

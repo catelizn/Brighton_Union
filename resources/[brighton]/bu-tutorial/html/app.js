@@ -82,6 +82,9 @@ window.addEventListener('message', (event) => {
 
     if (message.type === 'bu:tutorial:arrival') {
         document.getElementById('arrival').classList.toggle('visible', message.show);
+        if (message.flight) {
+            document.getElementById('arrival-flight').textContent = message.flight;
+        }
     }
 
     if (message.type === 'bu:tutorial:open') {

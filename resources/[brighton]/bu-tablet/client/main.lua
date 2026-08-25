@@ -71,6 +71,16 @@ RegisterNUICallback('mpCancel', function(data, cb)
     cb('ok')
 end)
 
+RegisterNUICallback('mpFav', function(data, cb)
+    TriggerServerEvent('bu-marketplace:server:toggleFavourite', data.id)
+    cb('ok')
+end)
+
+RegisterNUICallback('mpView', function(data, cb)
+    TriggerServerEvent('bu-marketplace:server:view', data.id)
+    cb('ok')
+end)
+
 RegisterNUICallback('mpCreateProperty', function(data, cb)
     TriggerServerEvent('bu-marketplace:server:createProperty', data.key, data.price)
     cb('ok')
@@ -96,6 +106,24 @@ end)
 
 RegisterNUICallback('newsSubmit', function(data, cb)
     TriggerServerEvent('bu-news:server:submit', data.text)
+    cb('ok')
+end)
+
+-- Даркнет
+RegisterNUICallback('darknetList', function(_, cb)
+    QBCore.Functions.TriggerCallback('bu-darknet:server:getCatalog', function(data)
+        SendNUIMessage({ type = 'bu:darknet:list', data = data })
+        cb('ok')
+    end)
+end)
+
+RegisterNUICallback('darknetBuy', function(data, cb)
+    TriggerServerEvent('bu-darknet:server:buy', data.item)
+    SetTimeout(600, function()
+        QBCore.Functions.TriggerCallback('bu-darknet:server:getCatalog', function(catalog)
+            SendNUIMessage({ type = 'bu:darknet:list', data = catalog })
+        end)
+    end)
     cb('ok')
 end)
 
@@ -168,4 +196,17 @@ RegisterNUICallback('truckerAction', function(data, cb)
         TriggerServerEvent('bu-jobs:server:finishTruckerOrder', data.key)
     end
     cb('ok')
+end)
+
+-- Точка выдачи даркнета
+local darknetPoint = nil
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    if darknetPoint then return end
+    darknetPoint = exports['bu-interact']:addPoint(Config.Darknet.pickup, 1.5, {
+        label = 'Даркнет: забрать заказ',
+        color = { 214, 69, 69, 150 },
+        action = function()
+            TriggerServerEvent('bu-darknet:server:pickup')
+        end
+    })
 end)

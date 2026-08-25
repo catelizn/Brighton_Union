@@ -7,15 +7,13 @@
 [![Lua](https://img.shields.io/badge/Lua-5.4-2C2D72?style=for-the-badge&logo=lua)](https://www.lua.org/)
 [![QBCore](https://img.shields.io/badge/QBCore-2.2.4-ee4f4f?style=for-the-badge)](https://github.com/qbcore-framework/qb-core)
 
-**Made by [catelizn](https://github.com/catelizn)**
-
 ---
 
 Brighton Union is an open-source RolePlay server for GTA V on the [FiveM](https://fivem.net/) platform, built on QBCore and fully localized in Russian. It ports the classic RAGE MP experience — newcomers arriving at the airport, a driving school with real exams, family and faction systems, a player marketplace, a casino and an auction house — into FiveM, with every mechanic redesigned rather than copied.
 
 ## Why it exists
 
-This is a complete, ready-to-adapt RP server. Every system is server-authoritative, documented in its own README, and designed to survive a full server without falling over. Think of it as a reference architecture for the genre: the mechanics you normally see on Majestic RP, GTA5RP or NoPixel, implemented from scratch on an open codebase.
+This is a complete RP server. Every system is server-authoritative, documented in its own README, and designed to survive a full server without falling over. The mechanics you'd expect on Majestic RP, GTA5RP or NoPixel are here, written from scratch on an open codebase.
 
 ## Feature map
 
@@ -23,7 +21,7 @@ This is a complete, ready-to-adapt RP server. Every system is server-authoritati
 | --- | --- | --- |
 | [Newcomer path](resources/[brighton]/bu-tutorial/README.md) | Airport arrival cinematic, Mike Ford quest chain | 8 stages, bank account number, server-side checks |
 | [Vehicle rental](resources/[brighton]/bu-rental/README.md) | Steve Carter's rental stand at the airport | 1–3 hour terms, phone timer, auto return |
-| [Tablet](resources/[brighton]/bu-tablet/README.md) | Apple-style tablet with 8 applications | Documents, marketplace, news, family, faction, taxi, trucking |
+| [Tablet](resources/[brighton]/bu-tablet/README.md) | Apple-style tablet with 9 applications | Documents, marketplace, news, family, faction, taxi, trucking, darknet |
 | [Driving school](resources/[brighton]/bu-drivingschool/README.md) | Theory exam + driving tests in a private instance | Categories A/B/C/LV/LS, white training cars |
 | [Jobs engine](resources/[brighton]/bu-jobs/README.md) | Leveled jobs 0–10 with on-site hiring | Uniformed NPCs, central market, taxi & trucking orders |
 | [Safe zones](resources/[brighton]/bu-safezones/README.md) | Green zones with a minimap indicator | Weapons blocked, zero chat spam |
@@ -32,10 +30,21 @@ This is a complete, ready-to-adapt RP server. Every system is server-authoritati
 | [Properties](resources/[brighton]/bu-properties/README.md) | Buyable businesses via markers | Supply orders, trucking integration |
 | [Apartments](resources/[brighton]/bu-apartments/README.md) | Apartment grid purchase at building doors | Per-flat state, walk-in interiors |
 | [Casino](resources/[brighton]/bu-casino/README.md) | Roulette, slots, blackjack, poker, mafia | Server-side RNG, player-only poker/mafia |
-| [Auction house](resources/[brighton]/bu-auction/README.md) | Live auctions for property, vehicles, items | 10% commission, auto-settlement |
-| [HUD](resources/[brighton]/bu-hud/README.md) | Custom status HUD | Money, location, quest progress, hotkeys |
+| [Auction house](resources/[brighton]/bu-auction/README.md) | Live auctions for property, vehicles, items | 10% commission, ×1/×3/×5 bids, anti-snipe |
+| [HUD](resources/[brighton]/bu-hud/README.md) | Custom status HUD | Status rings, money, location, collapsible hints |
 | [Weazel News](resources/[brighton]/bu-news/README.md) | Paid ads broadcast to chat and the tablet | $500 per ad, 60s cooldown |
 | [Locale pack](resources/[brighton]/bu-locale/README.md) | Russian item/job labels on top of QBCore | In-memory overrides |
+| [Account auth](resources/[brighton]/bu-auth/README.md) | Login and registration before character select | SHA-256 hashed passwords, brute-force lockout |
+| [Gang territories](resources/[brighton]/bu-gangs/README.md) | Preset gangs with 60 capture squares | Adjacent-only captures, member-only visibility, hourly payday |
+| [Mafia business wars](resources/[brighton]/bu-mafias/README.md) | 4 mafias fighting over 7 businesses | Rank-gated wars, hourly payday |
+| [Faction bases](resources/[brighton]/bu-factions/README.md) | Bases with interiors, stashes and quests | Spawn selection, wardrobe for government factions |
+| [Shop UI](resources/[brighton]/bu-shops-ui/README.md) | 24/7 storefront with categories and search | Cash/card payment, server-side stock |
+| [Weapon on back](resources/[brighton]/bu-weaponback/README.md) | Weapons visible on the character | Rifles on the back, pistols in holsters |
+| [Utility bills](resources/[brighton]/bu-bills/README.md) | Hourly bills for owned property | Skipped when the bank account is short |
+| [GPS hints](resources/[brighton]/bu-gps/README.md) | Text directions to the waypoint | Turn-by-turn street names |
+| [Firefighter](resources/[brighton]/bu-firefighter/README.md) | Random fires across the map | Hose them down, paid by the jobs engine |
+| [Loading screen](resources/[brighton]/bu-loading/README.md) | Branded loading screen with a background image | Rotating tips, theme switch |
+| [Interactions](resources/[brighton]/bu-interact/README.md) | Shared marker, ped and blip library | Powers every NPC and door on the server |
 
 ## What's under the hood
 

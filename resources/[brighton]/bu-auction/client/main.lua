@@ -2,6 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 local hallObjects = {}
 local inHall = false
+local exitPointId = nil
 
 local function hallSpawn()
     local door = Config.Hall.door
@@ -20,21 +21,10 @@ local function enterHall()
     inHall = true
 
     local exitPoint = spawn + Config.Hall.exitOffset
-    exports['qb-target']:AddCircleZone('bu_auction_exit', vec3(exitPoint.x, exitPoint.y, exitPoint.z), 1.2, {
-        name = 'bu_auction_exit',
-        useZ = true,
-        debugPoly = false
-    }, {
-        options = {
-            {
-                icon = 'fas fa-door-open',
-                label = Config.ExitLabel,
-                action = function()
-                    leaveHall()
-                end
-            }
-        },
-        distance = 2.0
+    exitPointId = exports['bu-interact']:addPoint(vec3(exitPoint.x, exitPoint.y, exitPoint.z), 1.2, {
+        label = Config.ExitLabel,
+        color = { 214, 69, 69, 150 },
+        action = leaveHall
     })
 
     Wait(400)
@@ -44,7 +34,10 @@ end
 local function leaveHall()
     if not inHall then return end
 
-    exports['qb-target']:RemoveZone('bu_auction_exit')
+    if exitPointId then
+        exports['bu-interact']:removePoint(exitPointId)
+        exitPointId = nil
+    end
     SendNUIMessage({ type = 'bu:auction:close' })
     SetNuiFocus(false, false)
 
@@ -75,31 +68,10 @@ end
 local function setupDoor()
     local door = Config.Hall.door
 
-    local blip = AddBlipForCoord(door.x, door.y, door.z)
-    SetBlipSprite(blip, Config.Hall.blip.sprite)
-    SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, Config.Hall.blip.scale)
-    SetBlipColour(blip, Config.Hall.blip.color)
-    SetBlipAsShortRange(blip, true)
-    BeginTextCommandSetBlipName('STRING')
-    AddTextComponentSubstringPlayerName(Config.Hall.blip.name)
-    EndTextCommandSetBlipName(blip)
-
-    exports['qb-target']:AddCircleZone('bu_auction_door', vec3(door.x, door.y, door.z), 1.0, {
-        name = 'bu_auction_door',
-        useZ = true,
-        debugPoly = false
-    }, {
-        options = {
-            {
-                icon = 'fas fa-gavel',
-                label = Config.TargetLabel,
-                action = function()
-                    enterHall()
-                end
-            }
-        },
-        distance = 2.0
+    exports['bu-interact']:addBlip(vec3(door.x, door.y, door.z), Config.Hall.blip)
+    exports['bu-interact']:addPoint(vec3(door.x, door.y, door.z), 1.0, {
+        label = Config.TargetLabel,
+        action = enterHall
     })
 end
 
@@ -126,7 +98,7 @@ RegisterNUICallback('create', function(data, cb)
 end)
 
 RegisterNUICallback('bid', function(data, cb)
-    TriggerServerEvent('bu-auction:server:bid', data.id)
+    TriggerServerEvent('bu-auction:server:bid', data.id, data.mult)
     SetTimeout(800, openMenu)
     cb('ok')
 end)

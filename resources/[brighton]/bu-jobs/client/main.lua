@@ -2,34 +2,14 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 local spawnedPeds = {}
 
-local function snapToGround(x, y, z)
-    local found, groundZ = GetGroundZFor_3dCoord(x, y, z, true)
-    return found and groundZ or z
-end
-
-local function spawnTargetPed(model, coords, label, action, icon)
-    RequestModel(model)
-    while not HasModelLoaded(model) do Wait(0) end
-
-    local z = snapToGround(coords.x, coords.y, coords.z)
-    local ped = CreatePed(0, model, coords.x, coords.y, z, coords.w, false, false)
-    FreezeEntityPosition(ped, true)
-    SetEntityInvincible(ped, true)
-    SetBlockingOfNonTemporaryEvents(ped, true)
-    TaskStartScenarioInPlace(ped, 'WORLD_HUMAN_STAND_MOBILE', 0, true)
-
-    exports['qb-target']:AddTargetEntity(ped, {
-        options = {
-            {
-                icon = icon or 'fas fa-user',
-                label = label,
-                action = action
-            }
-        },
-        distance = 2.5
+local function spawnTargetPed(model, coords, label, action)
+    local ped = exports['bu-interact']:spawnPed(model, coords, {
+        label = label,
+        scenario = 'WORLD_HUMAN_STAND_MOBILE',
+        action = action
     })
-
     spawnedPeds[#spawnedPeds + 1] = ped
+    return ped
 end
 
 local function setupHireNpcs()
@@ -37,12 +17,27 @@ local function setupHireNpcs()
         if job.hire then
             spawnTargetPed(job.hire.model, job.hire.coords, 'Устроиться: ' .. job.label, function()
                 TriggerServerEvent('bu-jobs:server:hire', jobKey)
-            end, 'fas fa-briefcase')
+            end)
+
+            -- Блип найма: у каждой работы своя метка на карте
+            exports['bu-interact']:addBlip(vec3(job.hire.coords.x, job.hire.coords.y, job.hire.coords.z), {
+                sprite = 498,
+                color = 2,
+                scale = 0.7,
+                name = 'Работа: ' .. job.label
+            })
         end
     end
 end
 
 local function setupMarket()
+    exports['bu-interact']:addBlip(Config.Market.coords, {
+        sprite = 52,
+        color = 2,
+        scale = 0.8,
+        name = Config.Market.name
+    })
+
     for i = 1, #Config.Market.stands do
         local stand = Config.Market.stands[i]
         local coords = vector4(
@@ -53,7 +48,7 @@ local function setupMarket()
         )
         spawnTargetPed(stand.model, coords, stand.label, function()
             TriggerServerEvent('bu-jobs:server:marketSell', stand.job)
-        end, 'fas fa-hand-holding-usd')
+        end)
     end
 end
 
@@ -76,21 +71,13 @@ local function setupJobZones()
         if job.zones then
             for zoneIndex = 1, #job.zones do
                 local zone = job.zones[zoneIndex]
-                exports['qb-target']:AddCircleZone('bu_job_' .. jobKey .. '_' .. zoneIndex, zone.coords, zone.radius or Config.DefaultZoneRadius, {
-                    name = 'bu_job_' .. jobKey .. '_' .. zoneIndex,
-                    useZ = true,
-                    debugPoly = false
-                }, {
-                    options = {
-                        {
-                            icon = 'fas fa-briefcase',
-                            label = zone.label,
-                            action = function()
-                                doProgress(jobKey, 'bu-jobs:server:gather', zoneIndex)
-                            end
-                        }
-                    },
-                    distance = 2.5
+                exports['bu-interact']:addPoint(zone.coords, zone.radius or Config.DefaultZoneRadius, {
+                    label = zone.label,
+                    size = 1.2,
+                    color = { 214, 153, 6, 150 },
+                    action = function()
+                        doProgress(jobKey, 'bu-jobs:server:gather', zoneIndex)
+                    end
                 })
             end
         end
@@ -98,21 +85,13 @@ local function setupJobZones()
         if job.route then
             for pointIndex = 1, #job.route do
                 local point = job.route[pointIndex]
-                exports['qb-target']:AddCircleZone('bu_job_postman_' .. pointIndex, point, 3.0, {
-                    name = 'bu_job_postman_' .. pointIndex,
-                    useZ = true,
-                    debugPoly = false
-                }, {
-                    options = {
-                        {
-                            icon = 'fas fa-envelope',
-                            label = 'Доставить письмо',
-                            action = function()
-                                doProgress(jobKey, 'bu-jobs:server:deliver', pointIndex)
-                            end
-                        }
-                    },
-                    distance = 2.5
+                exports['bu-interact']:addPoint(point, 3.0, {
+                    label = job.routeLabel or 'Доставить письмо',
+                    size = 0.7,
+                    color = { 46, 90, 68, 150 },
+                    action = function()
+                        doProgress(jobKey, 'bu-jobs:server:deliver', pointIndex)
+                    end
                 })
             end
         end

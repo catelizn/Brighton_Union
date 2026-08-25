@@ -92,6 +92,10 @@ window.addEventListener('message', (event) => {
         overlay.classList.add('visible');
         render(message.data.vehicles);
     }
+
+    if (message.type === 'bu:rental:close') {
+        overlay.classList.remove('visible');
+    }
 });
 
 document.getElementById('close-button').addEventListener('click', () => post('close'));

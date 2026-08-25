@@ -449,6 +449,50 @@ body {
     color: #E88282;
 }
 
+/* Фильтры витрины и метаданные карточки */
+.mp-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.mp-chip {
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--bu-border);
+    background: transparent;
+    color: var(--bu-text-dim);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.mp-chip.active {
+    background: var(--bu-accent);
+    border-color: var(--bu-accent);
+    color: #FFFFFF;
+}
+
+.mp-meta {
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--bu-text-dim);
+    opacity: 0.75;
+}
+
+.mp-button.star {
+    background: var(--bu-surface);
+    border: 1px solid var(--bu-border);
+    color: var(--bu-text-dim);
+    padding: 7px 10px;
+}
+
+.mp-button.star.on {
+    color: #EAB308;
+    border-color: rgba(234, 179, 8, 0.5);
+}
+
 .mp-form {
     background: var(--bu-surface);
     border: 1px solid var(--bu-border);

@@ -7,47 +7,42 @@
 </head>
 <body>
     <div id="hud" class="hud">
-        <div class="status-panel">
-            <div class="status-bar">
-                <div class="bar-fill health" id="bar-health"></div>
+        <div class="vitals">
+            <div class="armor-wrap" id="armor-wrap">
+                <div class="ring" id="ring-health"><span class="ring-text" id="text-health">100%</span></div>
             </div>
-            <div class="status-bar">
-                <div class="bar-fill armor" id="bar-armor"></div>
+            <div class="ring ring-small hidden" id="ring-stamina">
+                <span class="ring-icon">⚡</span>
+                <span class="ring-text" id="text-stamina">100%</span>
             </div>
-            <div class="status-bar">
-                <div class="bar-fill hunger" id="bar-hunger"></div>
+            <div class="ring ring-small" id="ring-hunger">
+                <span class="ring-icon">🍔</span>
+                <span class="ring-text" id="text-hunger">100%</span>
             </div>
-            <div class="status-bar">
-                <div class="bar-fill thirst" id="bar-thirst"></div>
-            </div>
-            <div class="status-bar">
-                <div class="bar-fill stress" id="bar-stress"></div>
+            <div class="ring ring-small" id="ring-thirst">
+                <span class="ring-icon">🥤</span>
+                <span class="ring-text" id="text-thirst">100%</span>
             </div>
         </div>
 
         <div class="money-panel">
-            <div class="money-line"><span class="money-label">Наличные</span><span class="money-value" id="money-cash">$0</span></div>
-            <div class="money-line"><span class="money-label">Банк</span><span class="money-value" id="money-bank">$0</span></div>
-            <div class="money-line location"><span id="location">—</span></div>
-            <div class="money-line"><span id="clock">00:00</span></div>
+            <div class="money-line"><span class="money-value" id="money-cash">$0</span><span class="money-label">нал</span></div>
+            <div class="money-line"><span class="money-value" id="money-bank">$0</span><span class="money-label">банк</span></div>
+            <div class="money-line location" id="location">—</div>
+            <div class="money-line clock" id="clock">00:00</div>
+        </div>
+
+        <div class="hints" id="hints">
+            <button class="hints-hide" id="hints-hide">✕</button>
+            <div class="hint quest" id="quest">Путь новичка: —</div>
+            <div class="hint"><span id="online">0</span> онлайн</div>
+            <div class="hint"><b>↑</b> Телефон</div>
+            <div class="hint"><b>↓</b> Планшет</div>
+            <div class="hint"><b>I</b> Инвентарь</div>
+            <div class="hint"><b>F2</b> Меню</div>
         </div>
 
         <div class="made-by">Made by catelizn</div>
-
-        <div class="side-panel">
-            <div class="side-header">
-                <span class="logo">BU</span>
-                <span class="server-name">Brighton Union</span>
-            </div>
-            <div class="online">Онлайн: <span id="online">0</span></div>
-            <div class="quest" id="quest">Путь новичка: —</div>
-            <div class="hotkeys">
-                <div class="hotkey"><span class="key">↑</span> Телефон</div>
-                <div class="hotkey"><span class="key">↓</span> Планшет</div>
-                <div class="hotkey"><span class="key">I</span> Инвентарь</div>
-                <div class="hotkey"><span class="key">F2</span> Меню</div>
-            </div>
-        </div>
     </div>
     <script src="app.js"></script>
 </body>

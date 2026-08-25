@@ -510,7 +510,7 @@ end
 
 -- Command
 
-RegisterCommand('phone', function()
+RegisterCommand('openphone', function()
     local PlayerData = QBCore.Functions.GetPlayerData()
     if not PhoneData.isOpen and LocalPlayer.state.isLoggedIn then
         if not PlayerData.metadata['ishandcuffed'] and not PlayerData.metadata['inlaststand'] and not PlayerData.metadata['isdead'] and not IsPauseMenuActive() then
@@ -521,7 +521,7 @@ RegisterCommand('phone', function()
     end
 end)
 
-RegisterKeyMapping('phone', 'Open Phone', 'keyboard', Config.OpenPhone)
+RegisterKeyMapping('openphone', 'Open Phone', 'keyboard', Config.OpenPhone)
 
 -- NUI Callbacks
 

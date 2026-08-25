@@ -2,7 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 local shown = false
 local lastSnapshot = ''
-local questState = { stage = 0, completed = false, total = 8 }
+local questState = { stage = 0, completed = false, total = 7 }
 
 local function fetchQuest()
     QBCore.Functions.TriggerCallback('bu-tutorial:server:getState', function(state)
@@ -35,20 +35,21 @@ local function tick()
 
     local health = math.max(0, GetEntityHealth(playerPed) - 100)
     local armor = GetPedArmour(playerPed)
+    local stamina = math.max(0, math.min(100, GetPlayerSprintStaminaRemaining(playerPed) * 100))
     local hunger = metadata.hunger or 100
     local thirst = metadata.thirst or 100
-    local stress = metadata.stress or 0
 
     local snapshot = {
         health = health,
         armor = armor,
+        stamina = stamina,
         hunger = hunger,
         thirst = thirst,
-        stress = stress,
         cash = playerData.money.cash or 0,
         bank = playerData.money.bank or 0,
         location = getLocation(),
         online = GetNumPlayerIndices(),
+        time = { hour = GetClockHours(), minute = GetClockMinutes() },
         quest = questState.completed and '' or ('Путь новичка: ' .. questState.stage .. '/' .. questState.total)
     }
 
@@ -80,6 +81,17 @@ CreateThread(function()
         Wait(15000)
         if LocalPlayer.state.isLoggedIn and not questState.completed then
             fetchQuest()
+        end
+    end
+end)
+
+-- Скрываем штатные полоски здоровья/брони GTA V под миникартой
+CreateThread(function()
+    while true do
+        Wait(0)
+        if LocalPlayer.state.isLoggedIn then
+            HideHudComponentThisFrame(4)
+            HideHudComponentThisFrame(6)
         end
     end
 end)
