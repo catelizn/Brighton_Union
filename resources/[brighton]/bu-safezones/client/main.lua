@@ -24,7 +24,12 @@ CreateThread(function()
 
         local playerPed = PlayerPedId()
         local position = GetEntityCoords(playerPed)
-        local zone = findZone(position)
+        -- Пока игрок в меню выбора/создания/кат-сцене — плашку не показываем.
+        -- Внимание: здесь нельзя писать `flag and nil or zone` — вернёт zone.
+        local zone = nil
+        if LocalPlayer.state.isLoggedIn and not LocalPlayer.state.buSelecting then
+            zone = findZone(position)
+        end
 
         if zone then
             local weapon = GetSelectedPedWeapon(playerPed)

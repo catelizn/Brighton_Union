@@ -40,6 +40,8 @@ local function OpenATM()
         rotation = vector3(0.0, 0.0, 180.0),
     }, {}, function()
         QBCore.Functions.TriggerCallback('qb-banking:server:openATM', function(accounts, playerData, acceptablePins)
+            -- Счёт ещё не открыт: банкомат денег не покажет, отправляем в отделение
+            if not accounts then return end
             SetNuiFocus(true, true)
             SendNUIMessage({
                 action = 'openATM',
@@ -226,3 +228,57 @@ if not Config.useTarget then
         end)
     end)
 end
+
+-- Brighton Union: видимые точки [E] у банков и банкоматов.
+-- В qb-target зонах подсказок нет, и игрок не понимает, где взаимодействовать.
+CreateThread(function()
+    while GetResourceState('bu-interact') ~= 'started' do
+        Wait(500)
+    end
+
+    for i = 1, #Config.locations do
+        local coords = Config.locations[i]
+        exports['bu-interact']:spawnPed('a_m_m_business_01', vector4(coords.x, coords.y, coords.z, 0.0), {
+            label = 'Сотрудник банка',
+            hint = 'Банковские услуги',
+            scenario = 'WORLD_HUMAN_STAND_MOBILE',
+            action = OpenBank,
+            face = true
+        })
+    end
+
+    -- Банкомат: одна точка, которая следует за ближайшим аппаратом
+    local pointId, pointPos
+    while true do
+        Wait(700)
+        local playerPos = GetEntityCoords(PlayerPedId())
+        local atmPos
+
+        for i = 1, #Config.atmModels do
+            local obj = GetClosestObjectOfType(playerPos.x, playerPos.y, playerPos.z, 8.0, joaat(Config.atmModels[i]), false, false, false)
+            if obj ~= 0 then
+                atmPos = GetEntityCoords(obj)
+                break
+            end
+        end
+
+        if atmPos then
+            if not pointId or #(atmPos - pointPos) > 2.0 then
+                if pointId then
+                    exports['bu-interact']:removePoint(pointId)
+                end
+                pointId = exports['bu-interact']:addPoint(atmPos, 1.6, {
+                    label = 'Банкомат',
+                    hint = 'Снять или внести деньги',
+                    size = 0.8,
+                    action = OpenATM
+                })
+                pointPos = atmPos
+            end
+        elseif pointId then
+            exports['bu-interact']:removePoint(pointId)
+            pointId = nil
+            pointPos = nil
+        end
+    end
+end)

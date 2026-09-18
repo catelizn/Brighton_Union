@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    user-select: none;
+    font-family: -apple-system, 'SF Pro Text', 'Segoe UI', Arial, sans-serif;
+}
+
+/* Подсказка [E]: строго по центру экрана */
+.hint {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 14px 5px 6px;
+    background: rgba(13, 18, 26, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.hint.visible {
+    display: flex;
+}
+
+.key {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(95, 195, 180, 0.92);
+    color: #0E141C;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text {
+    color: #E9EEF3;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+}

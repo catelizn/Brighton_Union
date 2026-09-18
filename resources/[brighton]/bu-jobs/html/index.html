@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Работа</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="dialog" class="dialog">
+        <div class="card">
+            <div class="job-title" id="job-title">Работа</div>
+            <div class="job-row">
+                <span class="row-label">Оплата за действие</span>
+                <span class="row-value" id="job-pay">$0</span>
+            </div>
+            <div class="job-row">
+                <span class="row-label">Твой уровень</span>
+                <span class="row-value" id="job-level">0/10</span>
+            </div>
+            <div class="job-row">
+                <span class="row-label">Сейчас ты получаешь</span>
+                <span class="row-value accent" id="job-current">$0</span>
+            </div>
+            <div class="job-row">
+                <span class="row-label">На 10-м уровне</span>
+                <span class="row-value accent-bright" id="job-max">$0</span>
+            </div>
+            <div class="buttons">
+                <button class="btn" id="btn-hire">Взять работу</button>
+                <button class="btn ghost" id="btn-cancel">Отмена</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

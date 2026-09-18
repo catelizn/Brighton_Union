@@ -1,0 +1,111 @@
+:root {
+    --bu-bg: #131A24;
+    --bu-surface: #1F2A38;
+    --bu-border: #33445A;
+    --bu-accent: #2F8F83;
+    --bu-accent-bright: #5FC3B4;
+    --bu-accent-orange: #D97706;
+    --bu-accent-yellow: #EAB308;
+    --bu-text: #E9EEF3;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, 'SF Pro Text', 'Segoe UI', Arial, sans-serif;
+    overflow: hidden;
+    user-select: none;
+    color: var(--bu-text);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(7, 7, 7, 0.6);
+}
+
+.overlay.visible { display: flex; }
+
+.wheel-box {
+    position: relative;
+    width: 380px;
+    height: 380px;
+}
+
+.pointer {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 26px solid var(--bu-accent-orange);
+    z-index: 3;
+}
+
+.wheel {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 6px solid var(--bu-border);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    transition: transform 3.2s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+}
+
+.wheel-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--bu-accent);
+    border: 3px solid var(--bu-accent-bright);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.center-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.seg-label {
+    position: absolute;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    transform-origin: center;
+    white-space: nowrap;
+}
+
+.spin-btn, .close-btn {
+    position: absolute;
+    bottom: -8px;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 160px;
+}
+
+.spin-btn { left: 4px; background: var(--bu-accent-orange); color: #fff; }
+.spin-btn:hover { background: #E8943A; }
+.spin-btn:disabled { opacity: 0.5; cursor: default; }
+
+.close-btn { right: 4px; background: transparent; border: 1px solid var(--bu-border); color: var(--bu-text); }
+.close-btn:hover { border-color: var(--bu-text); }

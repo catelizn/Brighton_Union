@@ -1,11 +1,11 @@
 :root {
-    --bu-bg: #16191B;
-    --bu-surface: #2A3036;
-    --bu-border: #3A434B;
-    --bu-accent: #2E5A44;
-    --bu-accent-bright: #6BB38A;
-    --bu-text: #E2E8F0;
-    --bu-text-dim: #9AA7B4;
+    --bu-bg: #131A24;
+    --bu-surface: #1F2A38;
+    --bu-border: #33445A;
+    --bu-accent: #2F8F83;
+    --bu-accent-bright: #5FC3B4;
+    --bu-text: #E9EEF3;
+    --bu-text-dim: #96A7BA;
 }
 
 * {

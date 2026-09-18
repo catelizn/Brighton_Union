@@ -2,6 +2,7 @@ const overlay = document.getElementById('overlay');
 const vehiclesContainer = document.getElementById('vehicles');
 const notice = document.getElementById('notice');
 const hoursSelect = document.getElementById('hours-select');
+const returnButton = document.getElementById('return-button');
 
 let activeRental = false;
 let currentVehicles = [];
@@ -86,6 +87,7 @@ window.addEventListener('message', (event) => {
 
     if (message.type === 'bu:rental:open') {
         activeRental = message.data.active;
+        returnButton.style.display = activeRental ? 'block' : 'none';
         notice.textContent = activeRental
             ? 'У тебя уже есть арендованный транспорт. Сначала верни его через «Вернуть транспорт».'
             : 'Выбери транспорт и срок аренды. Машины требуют права категории B.';
@@ -99,6 +101,7 @@ window.addEventListener('message', (event) => {
 });
 
 document.getElementById('close-button').addEventListener('click', () => post('close'));
+returnButton.addEventListener('click', () => post('return'));
 
 document.addEventListener('keyup', (event) => {
     if (event.key === 'Escape') {

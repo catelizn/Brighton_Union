@@ -120,20 +120,33 @@ local function IsNumberInContacts(num)
     return retval
 end
 
+local timeOffsetMs = nil
+
+local function fetchMskTime()
+    QBCore.Functions.TriggerCallback('qb-phone:server:GetMskTime', function(epoch)
+        if epoch then
+            timeOffsetMs = epoch * 1000 - GetGameTimer()
+        end
+    end)
+end
+
 local function CalculateTimeToDisplay()
-    local hour = GetClockHours()
-    local minute = GetClockMinutes()
+    -- MSK (UTC+3): реальное время берём с сервера, на клиенте os.* недоступен
+    if timeOffsetMs then
+        local daySec = math.floor((GetGameTimer() + timeOffsetMs) / 1000) % 86400
+        local hour = math.floor(daySec / 3600)
+        local minute = math.floor((daySec % 3600) / 60)
 
-    local obj = {}
+        local obj = { hour = hour, minute = minute }
 
-    if minute <= 9 then
-        minute = '0' .. minute
+        if minute <= 9 then
+            obj.minute = '0' .. minute
+        end
+
+        return obj
     end
 
-    obj.hour = hour
-    obj.minute = minute
-
-    return obj
+    return { hour = GetClockHours(), minute = GetClockMinutes() }
 end
 
 local function GetClosestPlayer()
@@ -320,9 +333,32 @@ local function LoadPhone()
     end)
 end
 
+local flashlightOn = false
+local flashlightHash = GetHashKey('weapon_flashlight')
+
+-- Фонарик телефона: включает свет вперёд, пока игрок держит фонарик
+RegisterNUICallback('Flashlight', function(_, cb)
+    local ped = PlayerPedId()
+    SetFlashLightKeepOnWhileMoving(true)
+    flashlightOn = not flashlightOn
+    if flashlightOn then
+        if not HasWeapon(ped, flashlightHash) then
+            GiveWeaponToPed(ped, flashlightHash, 0, false, true)
+        end
+        SetCurrentPedWeapon(ped, flashlightHash, true)
+        _SET_FLASH_LIGHT_ENABLED(ped, true)
+    else
+        _SET_FLASH_LIGHT_ENABLED(ped, false)
+        RemoveWeaponFromPed(ped, flashlightHash)
+    end
+    cb('ok')
+end)
+
 local function OpenPhone()
     QBCore.Functions.TriggerCallback('qb-phone:server:HasPhone', function(HasPhone)
         if HasPhone then
+            -- Для этапа «Разобраться с техникой» в квестах новичка
+            TriggerServerEvent('bu-tutorial:server:action', 'phone')
             PhoneData.PlayerData = QBCore.Functions.GetPlayerData()
             SetNuiFocus(true, true)
             SendNUIMessage({
@@ -510,18 +546,28 @@ end
 
 -- Command
 
-RegisterCommand('openphone', function()
+-- Занят ли экран: пауза, любой NUI или открытая панель администратора.
+-- MenuV — чужой ресурс, его глобалы другому ресурсу не видны, поэтому
+-- menuv сам выставляет LocalPlayer.state.menuvOpen (см. патч менuv в txData).
+local function phoneUiBlocked()
+    if IsPauseMenuActive() or IsNuiFocused() then return true end
+    if LocalPlayer.state.menuvOpen == true then return true end
+    return false
+end
+
+RegisterCommand('bu_phone_open', function()
+    if phoneUiBlocked() then return end
     local PlayerData = QBCore.Functions.GetPlayerData()
     if not PhoneData.isOpen and LocalPlayer.state.isLoggedIn then
-        if not PlayerData.metadata['ishandcuffed'] and not PlayerData.metadata['inlaststand'] and not PlayerData.metadata['isdead'] and not IsPauseMenuActive() then
+        if not PlayerData.metadata['ishandcuffed'] and not PlayerData.metadata['inlaststand'] and not PlayerData.metadata['isdead'] then
             OpenPhone()
         else
-            QBCore.Functions.Notify('Action not available at the moment..', 'error')
+            QBCore.Functions.Notify('Действие сейчас недоступно.', 'error')
         end
     end
 end)
 
-RegisterKeyMapping('openphone', 'Open Phone', 'keyboard', Config.OpenPhone)
+RegisterKeyMapping('bu_phone_open', 'Телефон', 'keyboard', Config.OpenPhone)
 
 -- NUI Callbacks
 
@@ -2063,16 +2109,8 @@ end)
 
 RegisterNetEvent('qb-phone:client:RemoveBankMoney', function(amount)
     if amount > 0 then
-        SendNUIMessage({
-            action = 'PhoneNotification',
-            PhoneNotify = {
-                title = 'Bank',
-                text = '$' .. amount .. ' has been removed from your balance!',
-                icon = 'fas fa-university',
-                color = '#ff002f',
-                timeout = 3500,
-            },
-        })
+        -- Все уведомления — внизу по центру; телефон из-за списания не всплывает
+        QBCore.Functions.Notify('Списание со счёта: $' .. amount, 'warning', 5000)
     end
 end)
 
@@ -2250,6 +2288,7 @@ end)
 
 CreateThread(function()
     Wait(500)
+    fetchMskTime()
     LoadPhone()
 end)
 
@@ -2268,6 +2307,7 @@ end)
 CreateThread(function()
     while true do
         Wait(60000)
+        fetchMskTime()
         if LocalPlayer.state.isLoggedIn then
             QBCore.Functions.TriggerCallback('qb-phone:server:GetPhoneData', function(pData)
                 if pData.PlayerContacts ~= nil and next(pData.PlayerContacts) ~= nil then

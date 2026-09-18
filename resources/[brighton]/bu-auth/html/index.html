@@ -6,28 +6,32 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <!-- Чёрная подложка: страница живёт с момента запуска ресурса и до входа
+         в игру закрывает мир — между лоадером и формой ничего не мелькает -->
+    <div class="blackout"></div>
     <div class="bg-image"></div>
     <div class="bg-vignette"></div>
 
     <div class="panel" id="panel">
-        <div class="brand">
-            <div class="brand-logo">BU</div>
-            <div class="brand-name">Brighton Union</div>
-        </div>
-
         <div class="tabs">
             <button class="tab active" id="tab-login">Вход</button>
             <button class="tab" id="tab-register">Регистрация</button>
         </div>
 
         <div class="form">
-            <input type="text" id="username" maxlength="16" placeholder="Логин" autocomplete="off" />
-            <input type="password" id="password" maxlength="32" placeholder="Пароль" />
+            <label class="field">
+                <span class="field-label">Логин</span>
+                <input type="text" id="username" maxlength="16" placeholder="Ваш логин" autocomplete="off" />
+            </label>
+            <label class="field">
+                <span class="field-label">Пароль</span>
+                <input type="password" id="password" maxlength="32" placeholder="••••••••" />
+            </label>
             <div class="error" id="error"></div>
-            <button class="submit" id="submit">Войти</button>
+            <button class="submit" id="submit" type="button">Войти</button>
         </div>
 
-        <div class="foot">Made by catelizn</div>
+        <div class="foot">made by <span>catelizn</span></div>
     </div>
 
     <script src="app.js"></script>

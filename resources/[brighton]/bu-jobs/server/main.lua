@@ -18,9 +18,11 @@ CreateThread(function()
     end)
 end)
 
-RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(Player)
+RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(src)
+    local Player = QBCore.Functions.GetPlayer(src)
+    if not Player then return end
     progressCache[Player.PlayerData.citizenid] = nil
-    cooldowns[source] = nil
+    cooldowns[src] = nil
 end)
 
 local function loadJobProgress(cid, job)
@@ -64,6 +66,12 @@ local function payForAction(Player, src, jobKey)
 
     Player.Functions.AddMoney('cash', pay, 'job-' .. jobKey)
 
+    -- Опыт боевого пропуска за действие
+    local bp = exports['bu-battlepass']
+    if bp and bp.addXp then
+        pcall(function() bp.addXp(Player.PlayerData.citizenid, 10) end)
+    end
+
     -- Заработок учитывается в цепочке новичка (этап «заработай $1000»)
     TriggerEvent('bu-tutorial:server:jobEarned', Player.PlayerData.citizenid, pay)
 
@@ -94,6 +102,25 @@ local function checkJob(Player, src, jobKey, job)
     end
     return true
 end
+
+-- Данные для диалога найма: оплата за действие и её рост от уровня
+QBCore.Functions.CreateCallback('bu-jobs:server:getJobOffer', function(source, cb, jobKey)
+    local Player = QBCore.Functions.GetPlayer(source)
+    if not Player then return cb(nil) end
+    local job = Config.Jobs[jobKey]
+    if not job then return cb(nil) end
+    local level = loadJobProgress(Player.PlayerData.citizenid, jobKey).level or 0
+    local multiplier = Config.PayMultipliers[level] or 1.0
+    local maxMultiplier = Config.PayMultipliers[Config.MaxLevel] or 2.0
+    cb({
+        key = jobKey,
+        label = job.label,
+        basePay = job.basePay,
+        level = level,
+        currentPay = math.floor(job.basePay * multiplier),
+        maxPay = math.floor(job.basePay * maxMultiplier)
+    })
+end)
 
 -- Найм на работу: только у NPC на месте работы
 RegisterNetEvent('bu-jobs:server:hire', function(jobKey)
@@ -261,8 +288,6 @@ local function spawnDeer()
     local z = hunterJob.zone.z
 
     local deer = CreatePed(28, GetHashKey('a_c_deer'), x, y, z, 0.0, true, false)
-    SetEntityAsMissionEntity(deer, false, false)
-    SetBlockingOfNonTemporaryEvents(deer, true)
     return deer
 end
 
@@ -276,14 +301,13 @@ if hunterJob then
             Wait(1000)
             for i = 1, #deerList do
                 local deer = deerList[i]
-                if not DoesEntityExist(deer) or IsEntityDead(deer) then
+                if not DoesEntityExist(deer) or GetEntityHealth(deer) <= 0 then
                     local killer = nil
                     local killerDistance = 51.0
 
-                    for _, playerId in ipairs(GetActivePlayers()) do
-                        local target = QBCore.Functions.GetPlayer(playerId)
-                        if target and target.PlayerData.job.name == 'hunter' and target.Functions.GetItemByName('hunting_license') then
-                            local distance = #(GetEntityCoords(GetPlayerPed(playerId)) - hunterJob.zone)
+                    for _, target in pairs(QBCore.Functions.GetQBPlayers()) do
+                        if target.PlayerData.job.name == 'hunter' and target.Functions.GetItemByName('hunting_license') then
+                            local distance = #(GetEntityCoords(GetPlayerPed(target.PlayerData.source)) - hunterJob.zone)
                             if distance < killerDistance then
                                 killer = target
                                 killerDistance = distance
@@ -326,10 +350,9 @@ local function taxiPrice(pickup, destCoords)
 end
 
 local function notifyTaxiDrivers(message)
-    for _, playerId in ipairs(GetActivePlayers()) do
-        local Player = QBCore.Functions.GetPlayer(playerId)
-        if Player and Player.PlayerData.job.name == 'taxi' and Player.PlayerData.job.onduty then
-            TriggerClientEvent('bu-jobs:client:notify', playerId, message, 'inform')
+    for _, Player in pairs(QBCore.Functions.GetQBPlayers()) do
+        if Player.PlayerData.job.name == 'taxi' and Player.PlayerData.job.onduty then
+            TriggerClientEvent('bu-jobs:client:notify', Player.PlayerData.source, message, 'inform')
         end
     end
 end

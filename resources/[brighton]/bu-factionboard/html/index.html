@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Доска</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="overlay" class="overlay">
+        <div class="card">
+            <div class="title">Доска</div>
+            <div class="board" id="board"></div>
+            <div class="deposit">
+                <input id="amount" class="input" type="number" min="100" step="100" placeholder="Пополнить казну" />
+                <button class="btn" id="deposit-btn">Пополнить</button>
+            </div>
+            <button class="btn ghost" id="close-btn">Закрыть</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

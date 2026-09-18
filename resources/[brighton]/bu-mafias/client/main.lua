@@ -46,7 +46,7 @@ RegisterNetEvent('bu-mafias:client:businesses', function(list)
         businessPoints[#businessPoints + 1] = exports['bu-interact']:addPoint(business.coords, 1.0, {
             label = business.label .. ' — $' .. business.value .. '/час' .. (business.owner and (' (' .. business.ownerLabel .. ')') or ' (ничья)'),
             size = 1.5,
-            color = isMine and { 62, 142, 90, 150 } or business.owner and { 214, 69, 69, 150 } or { 154, 167, 180, 150 },
+            color = isMine and { 62, 142, 90, 150 } or business.owner and { 214, 69, 69, 150 } or { 150, 167, 180, 150 },
             action = function()
                 TriggerServerEvent('bu-mafias:server:war', business.key)
             end

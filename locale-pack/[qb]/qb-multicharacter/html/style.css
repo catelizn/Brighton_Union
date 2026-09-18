@@ -4,28 +4,29 @@
   #VARIABLES
 \*------------------------------------*/
 :root {
-    /* Color Palette */
-    --md-dark-primary: #f44336;
-    --md-dark-on-primary: #ffffff;
-    --md-dark-surface: #1c1b1f;
-    --md-dark-on-surface: #e6e1e5;
-    --md-dark-surface-container: #211f26;
-    --md-dark-success: #9bd880;
-    --md-dark-success-hover: #8bc570;
-    --md-dark-error: #b3261e;
-    --md-dark-shadow: rgba(0, 0, 0, 0.15);
-    --md-dark-outline: #79747e;
+    /* Color Palette — Brighton Beach */
+    --md-dark-primary: #2F8F83;
+    --md-dark-primary-hover: #3FA79A;
+    --md-dark-on-primary: #E9EEF3;
+    --md-dark-surface: #131A24;
+    --md-dark-on-surface: #E9EEF3;
+    --md-dark-surface-container: #1F2A38;
+    --md-dark-success: #5FC3B4;
+    --md-dark-success-hover: #78D6C6;
+    --md-dark-error: #D96A5A;
+    --md-dark-shadow: rgba(0, 0, 0, 0.4);
+    --md-dark-outline: #33445A;
 
     /* Border Radius */
     --md-radius-small: 8px;
     --md-radius-medium: 12px;
 
     /* Elevation/Shadow */
-    --md-elevation-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
-    --md-elevation-3: 0px 3px 8px rgba(0, 0, 0, 0.3);
+    --md-elevation-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.4);
+    --md-elevation-3: 0px 3px 8px rgba(0, 0, 0, 0.5);
 
     /* Typography */
-    --font-primary: "Exo 2", sans-serif;
+    --font-primary: -apple-system, "Segoe UI", Arial, sans-serif;
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 700;
@@ -49,6 +50,12 @@
     left: 0;
     top: 0;
     z-index: var(--z-overlay);
+    /* Пустой слой не должен перехватывать клики (например, во время создания персонажа) */
+    pointer-events: none;
+}
+
+.main-screen > * {
+    pointer-events: auto;
 }
 
 /*------------------------------------*\
@@ -80,14 +87,14 @@
 }
 
 .character-square:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-color: #5FC3B4;
+    box-shadow: 0 0 16px rgba(95, 195, 180, 0.28);
 }
 
 .character-selected {
     background-color: var(--md-dark-surface-container);
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 2px solid #5FC3B4;
+    box-shadow: 0 0 18px rgba(95, 195, 180, 0.35);
 }
 
 .character-selected .character-actions {
@@ -509,71 +516,88 @@
   #BRIGHTON UNION THEME
 \*------------------------------------*/
 :root {
-    --md-dark-primary: #2E5A44;
-    --md-dark-on-primary: #E2E8F0;
-    --md-dark-surface: #16191B;
-    --md-dark-on-surface: #E2E8F0;
-    --md-dark-surface-container: #2A3036;
-    --md-dark-success: #6BB38A;
-    --md-dark-error: #D64545;
-    --md-dark-outline: #3A434B;
+    --md-dark-primary: #2F8F83;
+    --md-dark-on-primary: #E9EEF3;
+    --md-dark-surface: #131A24;
+    --md-dark-on-surface: #E9EEF3;
+    --md-dark-surface-container: #1F2A38;
+    --md-dark-success: #5FC3B4;
+    --md-dark-error: #D96A5A;
+    --md-dark-outline: #33445A;
 }
 
 .theme--dark.v-application {
-    background: radial-gradient(ellipse at 50% -15%, #2E5A44 0%, #16191B 60%) !important;
-    color: #E2E8F0 !important;
+    background: radial-gradient(ellipse at 50% -15%, rgba(47, 143, 131, 0.55) 0%, rgba(19, 26, 36, 0.78) 60%) !important;
+    color: #E9EEF3 !important;
+}
+
+/* После выбора персонажа страница остаётся в памяти — мир должен быть виден */
+body.nui-hidden .theme--dark.v-application {
+    background: transparent !important;
 }
 
 .character-square {
-    background: rgba(42, 48, 54, 0.92);
-    border: 1px solid #3A434B;
+    background: rgba(31, 42, 56, 0.92);
+    border: 1px solid #33445A;
     border-radius: 14px;
 }
 
 .character-square:hover {
-    border-color: #6BB38A;
+    border-color: #5FC3B4;
 }
 
 .character-square.character-selected {
-    border: 2px solid #6BB38A;
-    box-shadow: 0 0 18px rgba(107, 179, 138, 0.35);
+    border: 2px solid #5FC3B4;
+    box-shadow: 0 0 18px rgba(95, 195, 180, 0.35);
 }
 
 .action-btn {
-    background: #2E5A44;
+    background: rgba(19, 26, 36, 0.6);
+    border: 1px solid #33445A;
+    border-radius: 9px;
+}
+
+.action-btn i {
+    font-size: 13px;
+    color: #96A7BA;
 }
 
 .action-btn:hover {
-    background: #3E8E5A;
+    background: rgba(47, 143, 131, 0.45);
+    border-color: #5FC3B4;
 }
 
-.play-btn {
-    background: #3E8E5A !important;
+.action-btn:hover i {
+    color: #E9EEF3;
 }
 
-.delete-btn {
-    background: #D64545 !important;
+.play-btn i {
+    color: #5FC3B4 !important;
+}
+
+.delete-btn i {
+    color: #D96A5A !important;
 }
 
 .welcomescreen {
-    background: #16191B;
+    background: #131A24;
 }
 
 .loading-circle div {
-    background: #6BB38A;
+    background: #5FC3B4;
 }
 
 .theme--dark.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
-    background-color: #2E5A44 !important;
+    background-color: #2F8F83 !important;
 }
 
 .theme--dark.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover {
-    background-color: #3E8E5A !important;
+    background-color: #3FA79A !important;
 }
 
 .theme--dark.v-card {
-    background-color: #2A3036 !important;
-    border: 1px solid #3A434B;
+    background-color: #1F2A38 !important;
+    border: 1px solid #33445A;
 }
 
 .theme--dark.v-stepper {
@@ -581,36 +605,24 @@
 }
 
 .theme--dark.v-stepper__step__step {
-    background: #2E5A44 !important;
+    background: #2F8F83 !important;
 }
 
 .theme--dark.v-stepper__label {
-    color: #E2E8F0 !important;
+    color: #E9EEF3 !important;
 }
 
 .theme--dark.v-text-field > .v-input__control > .v-input__slot:before,
 .theme--dark.v-text-field > .v-input__control > .v-input__slot:after {
-    border-color: #3A434B !important;
+    border-color: #33445A !important;
 }
 
 .theme--dark.v-input input,
 .theme--dark.v-select__selections {
-    color: #E2E8F0 !important;
+    color: #E9EEF3 !important;
 }
 
 .theme--dark.v-menu__content {
-    background-color: #2A3036 !important;
-    border: 1px solid #3A434B;
-}
-
-.made-by-catelizn {
-    position: fixed;
-    left: 16px;
-    bottom: 10px;
-    color: #E2E8F0;
-    opacity: 0.7;
-    font-family: -apple-system, 'Segoe UI', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.4px;
-    z-index: 300;
+    background-color: #1F2A38 !important;
+    border: 1px solid #33445A;
 }

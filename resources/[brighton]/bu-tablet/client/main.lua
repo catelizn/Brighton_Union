@@ -5,6 +5,8 @@ local tabletOpen = false
 local function fetchData()
     QBCore.Functions.TriggerCallback('bu-tablet:server:getData', function(data)
         if not data then return end
+        -- Для этапа «Разобраться с техникой» в квестах новичка
+        TriggerServerEvent('bu-tutorial:server:action', 'tablet')
         SendNUIMessage({ type = 'bu:tablet:open', data = data })
         SetNuiFocus(true, true)
         tabletOpen = true
@@ -17,12 +19,21 @@ local function closeTablet()
     SendNUIMessage({ type = 'bu:tablet:close' })
 end
 
-RegisterKeyMapping('bu_tablet', 'Планшет', 'keyboard', Config.OpenKey)
+-- Занят ли экран: пауза, любой NUI или открытая панель администратора.
+-- MenuV — чужой ресурс, его глобалы другому ресурсу не видны, поэтому
+-- menuv сам выставляет LocalPlayer.state.menuvOpen (см. патч менuv в txData).
+local function uiBlocked()
+    if IsPauseMenuActive() or IsNuiFocused() then return true end
+    if LocalPlayer.state.menuvOpen == true then return true end
+    return false
+end
 
-RegisterCommand('bu_tablet', function()
+RegisterKeyMapping('bu_tablet_open', 'Планшет', 'keyboard', Config.OpenKey)
+
+RegisterCommand('bu_tablet_open', function()
     if tabletOpen then
         closeTablet()
-    else
+    elseif not uiBlocked() then
         fetchData()
     end
 end, false)

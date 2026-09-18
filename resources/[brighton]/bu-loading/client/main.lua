@@ -3,9 +3,14 @@
 local theme = GetConvar('bu_loading_theme', 'asphalt')
 
 CreateThread(function()
-    SendNUIMessage({
-        type = 'init',
-        theme = theme,
-        maxClients = tonumber(GetConvar('sv_maxclients', '48')) or 48
-    })
+    SendLoadingScreenMessage(json.encode({ type = 'init', theme = theme }))
+end)
+
+-- Экран закрывается вручную из bu-auth: пока форма авторизации не отрисована,
+-- лоадер остаётся. Запасной таймаут на две минуты страхует от белого экрана,
+-- если NUI почему-то не ответит.
+SetTimeout(120000, function()
+    ShutdownLoadingScreen()
+    ShutdownLoadingScreenNui()
+    SendLoadingScreenMessage(json.encode({ action = 'hide' }))
 end)

@@ -1,10 +1,10 @@
 Config = Config or {}
 
--- Прокат транспорта на верхнем ярусе аэропорта Лос-Сантос: Steve Carter
+-- Прокат транспорта у выхода из терминала аэропорта Лос-Сантос: Steve Carter
 Config.Stand = {
     model = 'a_m_y_business_03',
     npcName = 'Steve Carter',
-    coords = vector4(-1043.0, -2730.0, 28.6, 150.0),
+    coords = vector4(-1030.42, -2732.28, 13.76, 102.67),
     scenario = 'WORLD_HUMAN_CLIPBOARD',
     blip = {
         sprite = 225,
@@ -12,12 +12,11 @@ Config.Stand = {
         scale = 0.7,
         name = 'Прокат транспорта'
     },
-    spawn = vector4(-1041.0, -2726.0, 28.6, 90.0),
-    returnPoint = vector3(-1040.0, -2728.0, 28.6),
+    spawn = vector4(-1024.41, -2728.48, 13.67, 237.12),
     returnDistance = 25.0
 }
 
-Config.TargetLabel = 'Прокат транспорта'
+Config.TargetLabel = 'Steve Carter (АРЕНДА)'
 Config.ReturnLabel = 'Вернуть транспорт'
 
 -- Аренда от 1 до 3 часов, цена умножается на срок

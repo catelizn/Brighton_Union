@@ -27,6 +27,7 @@ local function getClosestHall()
 end
 
 local function getClosestSchool()
+    if #Config.DrivingSchools == 0 then return nil end
     local distance = #(playerCoords - Config.DrivingSchools[1].coords)
     local closest = 1
     for i = 1, #Config.DrivingSchools do
@@ -210,7 +211,7 @@ local function spawnPeds()
         current.pedHandle = ped
         if Config.UseTarget then
             local opts = nil
-            if current.drivingschool then
+            if current.drivingschool and closestDrivingSchool then
                 opts = {
                     label = 'Уроки вождения',
                     icon = 'fa-solid fa-car-side',

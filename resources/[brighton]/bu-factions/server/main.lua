@@ -346,7 +346,8 @@ RegisterNetEvent('bu-factions:server:hookerDeliver', function()
 end)
 
 -- Очистка состояний при выходе
-AddEventHandler('QBCore:Server:OnPlayerUnload', function(Player)
+AddEventHandler('QBCore:Server:OnPlayerUnload', function(src)
+    local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
     local cid = Player.PlayerData.citizenid
     activeRobbery[cid] = nil

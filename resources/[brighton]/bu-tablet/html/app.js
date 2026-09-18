@@ -10,12 +10,7 @@ const viewTaxi = document.getElementById('view-taxi');
 const viewTrucker = document.getElementById('view-trucker');
 const viewDarknet = document.getElementById('view-darknet');
 
-const docIcons = {
-    'fa-id-card': '🪪',
-    'fa-car': '🚘',
-    'fa-gun': '🔫',
-    'fa-gavel': '⚖️'
-};
+const docIcons = {};
 
 function post(action, data) {
     fetch(`https://bu-tablet/${action}`, {
@@ -34,6 +29,10 @@ function updateClock() {
     const now = new Date();
     const time = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
     document.getElementById('statusbar-time').textContent = time;
+    const wd = document.getElementById('widget-date');
+    const wt = document.getElementById('widget-time');
+    if (wd) wd.textContent = now.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+    if (wt) wt.textContent = time;
 }
 
 function renderPersonal(data) {
@@ -69,7 +68,7 @@ function renderLicenses(data) {
         const card = document.createElement('div');
         card.className = 'document-card';
         card.innerHTML = `
-            <div class="document-icon">${docIcons[license.icon] || '📄'}</div>
+            <div class="document-icon"><i class="fas ${license.icon || 'fa-file-alt'}"></i></div>
             <div>
                 <div class="document-label">${license.label}</div>
                 ${license.category ? `<div class="document-category">${license.category}</div>` : ''}
@@ -102,7 +101,7 @@ function render(data) {
         const card = document.createElement('div');
         card.className = 'document-card';
         card.innerHTML = `
-            <div class="document-icon">🚗</div>
+            <div class="document-icon"><i class="fas fa-car-side"></i></div>
             <div>
                 <div class="document-label">${vehicle.label}</div>
                 <div class="document-category">${vehicle.plate} • ${vehicle.garage}</div>

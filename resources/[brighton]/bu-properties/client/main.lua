@@ -4,6 +4,9 @@ local states = {}
 local pointIds = {}
 local blips = {}
 
+-- Прямые объявления: функции ссылаются друг на друга по кругу
+local setupMarkers, refreshStates, openManageMenu
+
 local function formatMoney(value)
     local text = tostring(math.floor(value))
     local formatted = ''
@@ -29,7 +32,7 @@ local function clearMarkers()
     blips = {}
 end
 
-local function refreshStates()
+refreshStates = function()
     QBCore.Functions.TriggerCallback('bu-properties:server:getStates', function(data)
         states = data or {}
         clearMarkers()
@@ -37,7 +40,7 @@ local function refreshStates()
     end)
 end
 
-local function setupMarkers()
+setupMarkers = function()
     for key, config in pairs(Config.Properties) do
         local state = states[key]
         local owner = state and state.owner or ''
@@ -90,7 +93,7 @@ RegisterNetEvent('bu-properties:client:notify', function(message, notifyType)
     QBCore.Functions.Notify(message, notifyType or 'primary', 6000)
 end)
 
-local function openManageMenu(key)
+openManageMenu = function(key)
     local config = Config.Properties[key]
     exports['qb-menu']:openMenu({
         { header = 'Управление: ' .. config.label, isMenuHeader = true },

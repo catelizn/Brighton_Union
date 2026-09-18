@@ -820,7 +820,9 @@ RegisterNetEvent('bu-casino:server:pokerAction', function(tableId, action)
     pokerNextTurn(tableId)
 end)
 
-RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(Player)
+RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(src)
+    local Player = QBCore.Functions.GetPlayer(src)
+    if not Player then return end
     local cid = Player.PlayerData.citizenid
     for _, tableData in pairs(pokerTables) do
         for seat, player in pairs(tableData.seats) do

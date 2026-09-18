@@ -9,20 +9,21 @@ body {
     user-select: none;
 }
 
-/* Строчка над миникартой: на ширину карты, компактная, палитра Brighton Union */
+/* Строчка над миникартой: по её ширине, вплотную к верхнему краю карты */
 .zone-badge {
     position: absolute;
-    left: 0.8vh;
-    bottom: 23vh;
-    width: 26vh;
+    left: 2vw;
+    bottom: 18.6vh;
+    width: 12.2vw;
+    white-space: nowrap;
     display: none;
     align-items: center;
     justify-content: center;
     gap: 6px;
     padding: 4px 10px;
-    background: rgba(22, 25, 27, 0.88);
-    border: 1px solid #3A434B;
-    border-bottom: 2px solid #6BB38A;
+    background: rgba(19, 26, 36, 0.88);
+    border: 1px solid #33445A;
+    border-bottom: 2px solid #5FC3B4;
     border-radius: 5px;
     font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
 }
@@ -36,23 +37,23 @@ body {
     height: 8px;
     border-radius: 50%;
     background: #3E8E5A;
-    box-shadow: 0 0 8px rgba(107, 179, 138, 0.8);
+    box-shadow: 0 0 8px rgba(95, 195, 180, 0.8);
 }
 
 .zone-icon {
-    color: #6BB38A;
+    color: #5FC3B4;
     font-size: 13px;
 }
 
 .zone-text {
-    color: #E2E8F0;
+    color: #E9EEF3;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
 
 .zone-name {
-    color: #9AA7B4;
+    color: #96A7BA;
     font-size: 11px;
     margin-left: 4px;
 }

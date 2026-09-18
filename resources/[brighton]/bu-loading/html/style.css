@@ -1,17 +1,17 @@
 :root {
-    --bg: #16191B;
-    --surface: #2A3036;
-    --border: #3A434B;
-    --accent: #2E5A44;
-    --accent-bright: #6BB38A;
-    --text: #E2E8F0;
-    --muted: #9AA7B4;
-    --tint: rgba(10, 13, 15, 0.62);
+    --bg: #131A24;
+    --surface: #1F2A38;
+    --border: #33445A;
+    --accent: #2F8F83;
+    --accent-bright: #5FC3B4;
+    --text: #E9EEF3;
+    --muted: #96A7BA;
+    --tint: rgba(10, 14, 20, 0.62);
 }
 
 body.theme-brooklyn {
-    --accent: #B35C10;
-    --accent-bright: #D97706;
+    --accent: #2F8F83;
+    --accent-bright: #5FC3B4;
     --tint: rgba(8, 10, 12, 0.7);
 }
 
@@ -36,7 +36,7 @@ body {
 .bg-image {
     position: fixed;
     inset: 0;
-    background: url('images/background.png') center / cover no-repeat;
+    background: url('images/background.jpg') center / cover no-repeat;
     transform: scale(1.04);
     animation: bg-breathe 14s ease-in-out infinite alternate;
 }
@@ -50,8 +50,8 @@ body {
     position: fixed;
     inset: 0;
     background:
-        linear-gradient(180deg, rgba(8, 10, 12, 0.55) 0%, rgba(8, 10, 12, 0.1) 40%, rgba(8, 10, 12, 0.75) 100%),
-        radial-gradient(90% 70% at 50% 45%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
+        linear-gradient(180deg, rgba(8, 10, 12, 0.45) 0%, rgba(8, 10, 12, 0.05) 45%, rgba(8, 10, 12, 0.6) 100%),
+        radial-gradient(90% 70% at 50% 45%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
 }
 
 .bg-grid {
@@ -79,42 +79,35 @@ body {
     justify-content: center;
     text-align: center;
     padding: 40px;
-}
-
-.logo {
-    width: 86px;
-    height: 86px;
-    border-radius: 20px;
-    background: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 34px;
-    letter-spacing: 1px;
-    margin-bottom: 22px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+    background: radial-gradient(58% 55% at 50% 50%, rgba(8, 10, 12, 0.66) 0%, rgba(8, 10, 12, 0.28) 62%, transparent 100%);
 }
 
 .server-name {
-    font-size: 30px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
+    font-size: 84px;
+    font-weight: 800;
+    font-family: 'Montserrat', -apple-system, 'SF Pro Text', Arial, sans-serif;
+    letter-spacing: 8px;
+    background: linear-gradient(180deg, #F5F7FA 0%, #B9C4CF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 3px 20px rgba(0, 0, 0, 0.95));
+    margin-bottom: 8px;
 }
 
 .tagline {
-    margin-top: 8px;
-    font-size: 14px;
-    color: var(--muted);
-    letter-spacing: 0.5px;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+    margin-top: 10px;
+    font-size: 15px;
+    color: #CBD5E1;
+    letter-spacing: 0.6px;
+    font-weight: 500;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
 }
 
 .progress {
     width: 320px;
     height: 6px;
-    background: rgba(22, 25, 27, 0.8);
+    background: rgba(19, 26, 36, 0.8);
     border-radius: 3px;
     overflow: hidden;
     margin-top: 42px;
@@ -137,10 +130,11 @@ body {
 .progress-label {
     margin-top: 12px;
     font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 1px;
+    color: #CBD5E1;
+    letter-spacing: 1.4px;
     text-transform: uppercase;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+    font-weight: 600;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
 }
 
 .tips {
@@ -153,15 +147,17 @@ body {
 
 .tip {
     font-size: 14px;
-    color: var(--text);
+    color: #E9EEF3;
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 0.5s ease, transform 0.5s ease;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+    max-width: 640px;
+    line-height: 1.5;
 }
 
 .tip.visible {
-    opacity: 0.9;
+    opacity: 1;
     transform: translateY(0);
 }
 
@@ -175,8 +171,9 @@ body {
     align-items: center;
     gap: 4px;
     font-size: 12px;
-    color: var(--muted);
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+    color: #CBD5E1;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.92);
 }
 
 .made-by {

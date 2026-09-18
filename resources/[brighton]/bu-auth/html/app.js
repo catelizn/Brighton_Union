@@ -49,16 +49,25 @@ password.addEventListener('keydown', (event) => {
     }
 });
 
+// Страница отрисована: клиент закроет лоадер только после этого сигнала
+post('ready', {});
+
 window.addEventListener('message', (event) => {
     const message = event.data;
     if (!message) return;
 
     if (message.type === 'bu:auth:open') {
+        document.body.classList.remove('done');
         document.body.classList.add('open');
+        // Лоадер закрывается в тот же момент: держим чёрный кадр чуть дольше,
+        // чтобы стык двух экранов не выглядел вспышкой
+        setTimeout(() => document.body.classList.add('reveal'), 250);
     }
 
     if (message.type === 'bu:auth:hide') {
         document.body.classList.remove('open');
+        document.body.classList.remove('reveal');
+        document.body.classList.add('done');
     }
 
     if (message.type === 'bu:auth:error') {

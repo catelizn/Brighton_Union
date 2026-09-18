@@ -11,7 +11,7 @@
             <div class="armor-wrap" id="armor-wrap">
                 <div class="ring" id="ring-health"><span class="ring-text" id="text-health">100%</span></div>
             </div>
-            <div class="ring ring-small hidden" id="ring-stamina">
+            <div class="ring ring-small" id="ring-stamina">
                 <span class="ring-icon">⚡</span>
                 <span class="ring-text" id="text-stamina">100%</span>
             </div>
@@ -25,24 +25,29 @@
             </div>
         </div>
 
-        <div class="money-panel">
-            <div class="money-line"><span class="money-value" id="money-cash">$0</span><span class="money-label">нал</span></div>
-            <div class="money-line"><span class="money-value" id="money-bank">$0</span><span class="money-label">банк</span></div>
-            <div class="money-line location" id="location">—</div>
-            <div class="money-line clock" id="clock">00:00</div>
+        <div class="side-panel">
+            <div class="quest-panel hidden" id="quest-panel">
+                <div class="quest-head">
+                    <span class="quest-dot"></span>
+                    <span>Путь новичка</span>
+                    <span class="quest-step" id="quest-step">0/7</span>
+                </div>
+                <div class="quest-row">
+                    <span class="quest-check" id="quest-check"></span>
+                    <span class="quest-hint" id="quest-hint">—</span>
+                </div>
+            </div>
+            <div class="hints" id="hints">
+                <div class="hint"><b>↑</b> Телефон</div>
+                <div class="hint"><b>↓</b> Планшет</div>
+                <div class="hint"><b>I</b> Инвентарь</div>
+                <div class="hint"><b>L</b> Замок машины</div>
+                <div class="hint"><b>G</b> Двигатель</div>
+                <div class="hint"><b>F6</b> Скрыть подсказки</div>
+            </div>
         </div>
 
-        <div class="hints" id="hints">
-            <button class="hints-hide" id="hints-hide">✕</button>
-            <div class="hint quest" id="quest">Путь новичка: —</div>
-            <div class="hint"><span id="online">0</span> онлайн</div>
-            <div class="hint"><b>↑</b> Телефон</div>
-            <div class="hint"><b>↓</b> Планшет</div>
-            <div class="hint"><b>I</b> Инвентарь</div>
-            <div class="hint"><b>F2</b> Меню</div>
-        </div>
-
-        <div class="made-by">Made by catelizn</div>
+        <div class="made-by">made by catelizn</div>
     </div>
     <script src="app.js"></script>
 </body>

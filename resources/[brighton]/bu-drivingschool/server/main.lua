@@ -15,11 +15,6 @@ CreateThread(function()
     end)
 end)
 
-local function snapPoint(point)
-    local found, groundZ = GetGroundZFor_3dCoord(point.x, point.y, 300.0, false)
-    return vec3(point.x, point.y, (found and groundZ or point.z) + 0.5)
-end
-
 local function cleanExam(cid)
     local exam = activeExams[cid]
     if not exam then return end
@@ -35,7 +30,7 @@ local function sendBack(src, school)
 
     SetPlayerRoutingBucket(src, 0)
     local returnPos = Config.Schools[school].returnPos
-    local target = returnPos.z > 0 and vec3(returnPos.x, returnPos.y, returnPos.z) or snapPoint(returnPos)
+    local target = vec3(returnPos.x, returnPos.y, returnPos.z)
     local ped = GetPlayerPed(src)
     SetEntityCoords(ped, target.x, target.y, target.z)
     SetEntityHeading(ped, returnPos.w)
@@ -57,11 +52,13 @@ local function getOwnedCategories(Player)
     return owned
 end
 
-RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(Player)
+RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(src)
+    local Player = QBCore.Functions.GetPlayer(src)
+    if not Player then return end
     local cid = Player.PlayerData.citizenid
     local exam = activeExams[cid]
     if exam then
-        SetPlayerRoutingBucket(Player.PlayerData.source, 0)
+        SetPlayerRoutingBucket(src, 0)
         cleanExam(cid)
     end
 end)
@@ -163,7 +160,7 @@ RegisterNetEvent('bu-drivingschool:server:startExam', function(category, payment
 
     local school = Config.Schools[cat.school]
     local spawn = school.spawn
-    local spawnPos = spawn.z > 0 and vec3(spawn.x, spawn.y, spawn.z) or snapPoint(spawn)
+    local spawnPos = vec3(spawn.x, spawn.y, spawn.z)
 
     -- Личный мир: игрок сдаёт практику без других игроков
     local bucket = Config.ExamBucketBase + src
@@ -221,8 +218,9 @@ RegisterNetEvent('bu-drivingschool:server:finishExam', function()
     local distance
 
     if exam.school == 'ground' then
-        local finishPoint = snapPoint(last)
-        distance = #(position - finishPoint)
+        local dx = position.x - last.x
+        local dy = position.y - last.y
+        distance = math.sqrt(dx * dx + dy * dy)
     else
         distance = #(position - vec3(last.x, last.y, last.z))
     end

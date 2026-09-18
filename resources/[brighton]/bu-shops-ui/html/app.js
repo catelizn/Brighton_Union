@@ -25,6 +25,9 @@ const categoryOf = (item) => {
     return 'Другое';
 };
 
+// Название из общей базы предметов; если позиции там нет — читаемые слова
+const labelOf = (item) => item.label || String(item.name || '').replace(/_/g, ' ');
+
 function renderChips() {
     const categories = ['Всё'];
     items.forEach((item) => {
@@ -52,7 +55,7 @@ function renderProducts() {
 
     items
         .filter((item) => category === 'Всё' || categoryOf(item) === category)
-        .filter((item) => !query || (item.label || item.name).toLowerCase().includes(query))
+        .filter((item) => !query || labelOf(item).toLowerCase().includes(query))
         .forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'product-card';
@@ -63,7 +66,7 @@ function renderProducts() {
 
             card.innerHTML = `
                 <div class="product-head">
-                    <span class="product-name">${item.label || item.name}</span>
+                    <span class="product-name">${labelOf(item)}</span>
                     <span class="product-stock">${item.amount && item.amount > 0 ? item.amount + ' шт' : '∞'}</span>
                 </div>
                 <img class="product-image" src="nui://qb-inventory/html/images/${imageName}" alt=""

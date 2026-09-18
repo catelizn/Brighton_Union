@@ -14,7 +14,7 @@
 ## How it works
 
 - The player picks a vehicle and a term of **1, 2 or 3 hours**. The total is `price * hours` and is charged to cash or bank.
-- The vehicle is spawned **by the server** at the stand with a `RENTxxx` plate and snapped to the ground; keys are issued through `qb-vehiclekeys`.
+- The vehicle is spawned **by the server** at the stand with a `RENTxxx` plate; keys are issued through `qb-vehiclekeys`.
 - The menu closes with ESC or the close button; the client watches for the key press even while NUI focus is active.
 - An active rental is tracked in memory with its expiry timestamp. A 30-second server loop despawns the vehicle when the term runs out and notifies the player.
 - Returning early is only possible within 25 m of the stand. Rentals are also cleaned up on disconnect.

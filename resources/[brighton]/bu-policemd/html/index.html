@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Полицейский компьютер</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="mdt" class="mdt">
+        <div class="sidebar">
+            <div class="logo">LSPD MDT</div>
+            <div class="tab active" data-tab="player">Поиск игрока</div>
+            <div class="tab" data-tab="vehicle">Поиск ТС</div>
+        </div>
+        <div class="content">
+            <div class="panel" id="panel-player">
+                <div class="row">
+                    <input id="p-query" class="input" placeholder="Имя или citizenid" />
+                    <button class="btn" id="p-search">Найти</button>
+                </div>
+                <div class="results" id="p-results"></div>
+            </div>
+            <div class="panel hidden" id="panel-profile">
+                <div class="profile-head">
+                    <span class="profile-name" id="pp-name">—</span>
+                    <span class="profile-cid" id="pp-cid">—</span>
+                </div>
+                <div class="profile-row">
+                    <span>Транспорт</span>
+                    <span id="pp-vehicles">—</span>
+                </div>
+                <div class="profile-section">Розыск</div>
+                <div class="warrants" id="pp-warrants"></div>
+                <div class="warrant-add">
+                    <input id="w-reason" class="input" placeholder="Причина" />
+                    <select id="w-level" class="select">
+                        <option value="low">Низкий</option>
+                        <option value="medium">Средний</option>
+                        <option value="high">Высокий</option>
+                    </select>
+                    <button class="btn warn" id="w-add">Добавить</button>
+                </div>
+                <button class="btn ghost" id="pp-back">Назад</button>
+            </div>
+            <div class="panel hidden" id="panel-vehicle">
+                <div class="row">
+                    <input id="v-plate" class="input" placeholder="Госномер" />
+                    <button class="btn" id="v-search">Найти</button>
+                </div>
+                <div class="results" id="v-results"></div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

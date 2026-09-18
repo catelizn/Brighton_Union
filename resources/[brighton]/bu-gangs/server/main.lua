@@ -365,7 +365,7 @@ CreateThread(function()
     end)
 end)
 
-RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(Player)
+RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function()
     SetTimeout(2000, sendZonesToGangMembers)
 end)
 

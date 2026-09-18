@@ -11,6 +11,10 @@
 
 Brighton Union is an open-source RolePlay server for GTA V on the [FiveM](https://fivem.net/) platform, built on QBCore and fully localized in Russian. It ports the classic RAGE MP experience — newcomers arriving at the airport, a driving school with real exams, family and faction systems, a player marketplace, a casino and an auction house — into FiveM, with every mechanic redesigned rather than copied.
 
+## Screenshots
+
+Playtest screenshots are collected for this section — they land here as the project gets recorded footage.
+
 ## Why it exists
 
 This is a complete RP server. Every system is server-authoritative, documented in its own README, and designed to survive a full server without falling over. The mechanics you'd expect on Majestic RP, GTA5RP or NoPixel are here, written from scratch on an open codebase.
@@ -76,7 +80,6 @@ locale-pack/            # localized copies of the stock QBCore files that were p
 docs/research/          # design notes, brand palette, mechanics map
 server.cfg              # reference configuration
 install-locale.ps1      # applies locale-pack to a QBCore server
-BRIEF.md                # project brief and design decisions (Russian)
 ```
 
 ## License

@@ -219,3 +219,22 @@ if not Config.UseTarget then
         end)
     end)
 end
+
+-- Brighton Union: видимая подсказка [E] на кассе магазина.
+-- qb-target открывается только при прицеливании — игрок не догадывается.
+CreateThread(function()
+    while GetResourceState('bu-interact') ~= 'started' do
+        Wait(500)
+    end
+
+    for k, v in pairs(Config.Locations) do
+        exports['bu-interact']:addPoint(v.coords, 1.6, {
+            label = v.targetLabel or 'Магазин',
+            hint = 'Открыть магазин',
+            size = 0.9,
+            action = function()
+                TriggerServerEvent('qb-shops:server:openShop', { shop = k })
+            end
+        })
+    end
+end)

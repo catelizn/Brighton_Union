@@ -92,7 +92,9 @@ CreateThread(function()
     end)
 end)
 
-RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(Player)
+RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(src)
+    local Player = QBCore.Functions.GetPlayer(src)
+    if not Player then return end
     finishRental(Player.PlayerData.citizenid)
 end)
 
@@ -160,16 +162,8 @@ RegisterNetEvent('bu-rental:server:rent', function(vehicleId, hours, payment)
     local entity = CreateVehicle(joaat(vehicleData.model), spawn.x, spawn.y, spawn.z, spawn.w, true, false)
     while not DoesEntityExist(entity) do Wait(0) end
 
-    -- Ставим машину на землю (верхний ярус у стойки)
-    local found, groundZ = GetGroundZFor_3dCoord(spawn.x, spawn.y, spawn.z + 40.0, false)
-    if found then
-        SetEntityCoords(entity, spawn.x, spawn.y, groundZ)
-    end
-    PlaceObjectOnGroundProperly(entity)
-
     SetVehicleNumberPlateText(entity, plate)
     SetVehicleDirtLevel(entity, 0.0)
-    SetVehicleEngineOn(entity, false, false)
 
     activeRentals[cid] = {
         entity = entity,
@@ -178,7 +172,7 @@ RegisterNetEvent('bu-rental:server:rent', function(vehicleId, hours, payment)
         label = vehicleData.label,
         expiresAt = os.time() + hours * 3600
     }
-    exports['qb-vehiclekeys']:GiveKeys(plate, cid)
+    exports['qb-vehiclekeys']:GiveKeys(src, plate)
 
     MySQL.insert('INSERT INTO bu_rental_log (citizenid, vehicle, price, hours) VALUES (?, ?, ?, ?)', {
         cid, vehicleData.model, totalPrice, hours

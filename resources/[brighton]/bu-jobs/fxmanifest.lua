@@ -19,6 +19,14 @@ server_scripts {
     'server/main.lua'
 }
 
+ui_page 'html/index.html'
+
+files {
+    'html/index.html',
+    'html/style.css',
+    'html/app.js'
+}
+
 dependencies {
     'qb-core',
     'bu-interact',

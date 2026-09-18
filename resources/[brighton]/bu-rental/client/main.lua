@@ -24,20 +24,14 @@ local function spawnStand()
 
     exports['bu-interact']:spawnPed(Config.Stand.model, Config.Stand.coords, {
         label = Config.TargetLabel,
+        hint = 'Арендовать транспорт',
+        plate = { text = Config.TargetLabel, range = 22.0 },
         scenario = Config.Stand.scenario,
         blip = Config.Stand.blip,
         action = openMenu
     })
 
-    -- Точка возврата арендованного транспорта рядом со стойкой
-    exports['bu-interact']:addPoint(Config.Stand.returnPoint, 1.5, {
-        label = Config.ReturnLabel,
-        color = { 74, 123, 166, 150 },
-        action = function()
-            TriggerServerEvent('bu-rental:server:returnVehicle')
-        end
-    })
-
+    -- Точка возврата убрана: возврат доступен через NPC (кнопка в меню)
     spawned = true
 end
 
@@ -70,5 +64,11 @@ end)
 
 RegisterNUICallback('close', function(_, cb)
     closeMenu()
+    cb('ok')
+end)
+
+RegisterNUICallback('return', function(_, cb)
+    closeMenu()
+    TriggerServerEvent('bu-rental:server:returnVehicle')
     cb('ok')
 end)

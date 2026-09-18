@@ -11,3 +11,6 @@
 # Secrets — never commit these
 server.cfg.local
 .env
+
+# Disabled resource: huge map tiles and a black-screen bug, not shipped
+/resources/\[brighton\]/bu-bigmap/

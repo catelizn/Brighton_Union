@@ -70,7 +70,7 @@ QB.Phone.Functions.SetupApplications = function(data) {
             if (app.app == "meos") {
                 icon = '<img src="./img/politie.png" class="police-icon">';
             }
-            $(applicationSlot).html(icon+'<div class="app-unread-alerts">0</div>');
+            $(applicationSlot).html(icon+'<span class="app-label">'+(app.tooltipText || app.app)+'</span><div class="app-unread-alerts">0</div>');
             $(applicationSlot).prop('title', app.tooltipText);
             $(applicationSlot).data('app', app.app);
 
@@ -329,7 +329,37 @@ QB.Phone.Functions.Open = function(data) {
     QB.Phone.Animations.BottomSlideUp('.container', 300, 0);
     QB.Phone.Notifications.LoadTweets(data.Tweets);
     QB.Phone.Data.IsOpen = true;
+    QB.Phone.Functions.ShowLockScreen();
 }
+
+// Экран блокировки в стиле iPhone
+QB.Phone.Functions.ShowLockScreen = function() {
+    var lock = $('#lock-screen');
+    lock.removeClass('unlocked');
+    // Прячем стоковый макет телефона, пока висит лок — убирает «двойной телефон»
+    $('.phone-frame').hide();
+    $('.phone-header').hide();
+    $('.phone-applications').hide();
+    var time = $('#phone-time').text() || '0:00';
+    $('#lock-time').text(time);
+    var now = new Date(Date.now() + 3 * 3600 * 1000); // MSK
+    var days = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
+    var months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+    $('#lock-date').text(days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()]);
+};
+
+$(document).on('click', '#lock-screen', function() {
+    $('#lock-screen').addClass('unlocked');
+    // После разблокировки показываем рабочий экран телефона
+    $('.phone-header').show();
+    $('.phone-applications').show();
+});
+
+// Кнопка «Фонарик» на замке — включить/выключить свет в игре
+$('#lock-flash').on('click', function(e) {
+    e.stopPropagation();
+    $.post('https://qb-phone/Flashlight', JSON.stringify({}));
+});
 
 QB.Phone.Functions.ToggleApp = function(app, show) {
     $("."+app+"-app").css({"display":show});

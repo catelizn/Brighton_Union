@@ -1,6 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
 local spawnedPeds = {}
+local dialogOpen = false
 
 local function spawnTargetPed(model, coords, label, action)
     local ped = exports['bu-interact']:spawnPed(model, coords, {
@@ -12,19 +13,29 @@ local function spawnTargetPed(model, coords, label, action)
     return ped
 end
 
+local function openHireDialog(jobKey)
+    QBCore.Functions.TriggerCallback('bu-jobs:server:getJobOffer', function(job)
+        if not job then return end
+        dialogOpen = true
+        SetNuiFocus(true, true)
+        SendNUIMessage({ action = 'open', job = job })
+    end, jobKey)
+end
+
 local function setupHireNpcs()
     for jobKey, job in pairs(Config.Jobs) do
         if job.hire then
-            spawnTargetPed(job.hire.model, job.hire.coords, 'Устроиться: ' .. job.label, function()
-                TriggerServerEvent('bu-jobs:server:hire', jobKey)
+            spawnTargetPed(job.hire.model, job.hire.coords, 'Поговорить: ' .. job.label, function()
+                openHireDialog(jobKey)
             end)
 
-            -- Блип найма: у каждой работы своя метка на карте
+            -- Блип найма: каждой работе свой значок, виден на большой карте
             exports['bu-interact']:addBlip(vec3(job.hire.coords.x, job.hire.coords.y, job.hire.coords.z), {
-                sprite = 498,
+                sprite = Config.JobBlips[jobKey] or 498,
                 color = 2,
                 scale = 0.7,
-                name = 'Работа: ' .. job.label
+                name = 'Работа: ' .. job.label,
+                shortRange = false
             })
         end
     end
@@ -88,7 +99,7 @@ local function setupJobZones()
                 exports['bu-interact']:addPoint(point, 3.0, {
                     label = job.routeLabel or 'Доставить письмо',
                     size = 0.7,
-                    color = { 46, 90, 68, 150 },
+                    color = { 47, 143, 131, 150 },
                     action = function()
                         doProgress(jobKey, 'bu-jobs:server:deliver', pointIndex)
                     end
@@ -117,6 +128,33 @@ end)
 
 RegisterNetEvent('bu-jobs:client:taxiWaypoint', function(point)
     SetNewWaypoint(point.x, point.y)
+end)
+
+-- Диалог найма: NUI
+RegisterNUICallback('hire', function(data, cb)
+    SetNuiFocus(false, false)
+    dialogOpen = false
+    SendNUIMessage({ action = 'close' })
+    TriggerServerEvent('bu-jobs:server:hire', data.job)
+    cb('ok')
+end)
+
+RegisterNUICallback('close', function(_, cb)
+    SetNuiFocus(false, false)
+    dialogOpen = false
+    cb('ok')
+end)
+
+-- Закрытие диалога по Esc
+CreateThread(function()
+    while true do
+        if dialogOpen and IsControlJustPressed(0, 202) then
+            SetNuiFocus(false, false)
+            dialogOpen = false
+            SendNUIMessage({ action = 'close' })
+        end
+        Wait(0)
+    end
 end)
 
 RegisterNetEvent('bu-jobs:client:truckerWaypoint', function(point)

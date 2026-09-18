@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Тотализатор</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="overlay" class="overlay">
+        <div class="card">
+            <div class="title">Тотализатор</div>
+            <div class="subtitle" id="status">Загрузка…</div>
+            <div class="horses" id="horses"></div>
+            <div class="bet-row">
+                <input id="amount" class="amount" type="number" min="100" step="100" placeholder="Сумма" />
+                <button class="bet-btn" id="bet-btn">Сделать ставку</button>
+            </div>
+            <div class="pool" id="pool">Банк: $0</div>
+            <button class="close-btn" id="close-btn">Закрыть</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

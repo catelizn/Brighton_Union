@@ -313,7 +313,8 @@ CreateThread(function()
 
     while true do
         Wait(60000) -- синхронизация игрового времени с МСК каждую минуту
-        local msk = os.date('*t', os.time() + 3 * 3600)
+        local tzOffset = os.time() - os.time(os.date('!*t', os.time()))
+        local msk = os.date('*t', os.time() - (tzOffset - 3 * 3600))
         baseTime = msk.hour * 60 + msk.min
         timeOffset = 0
     end

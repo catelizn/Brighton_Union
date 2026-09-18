@@ -160,6 +160,13 @@ RegisterNetEvent('qb-shops:server:openShop', function(data)
 
         if addProduct then
             curProduct.slot = i
+            -- В конфиге магазина есть только name: название и картинку берём
+            -- из общей базы предметов (там они уже переведены)
+            local sharedItem = QBCore.Shared.Items[curProduct.name]
+            if sharedItem then
+                curProduct.label = sharedItem.label
+                curProduct.image = sharedItem.image
+            end
             items[#items + 1] = curProduct
         end
     end

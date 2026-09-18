@@ -206,7 +206,10 @@ QBCore.Functions.CreateCallback('qb-banking:server:openATM', function(source, cb
     local Player, citizenid = getPlayerAndCitizenId(src)
     if not Player or not citizenid then return end
     local bankCards = exports['qb-inventory']:GetItemsByName(src, 'bank_card') -- inventory method, not on Player API
-    if not bankCards then return TriggerClientEvent('QBCore:Notify', src, Lang:t('error.card'), 'error') end
+    -- Карта выдаётся вместе с открытием счёта: без неё показывать окно с пин-кодом нечего
+    if not bankCards or #bankCards == 0 then
+        return TriggerClientEvent('QBCore:Notify', src, 'Сначала откройте счёт в отделении банка', 'error', 6000)
+    end
     local acceptablePins = {}
     for _, bankCard in ipairs(bankCards) do acceptablePins[#acceptablePins + 1] = bankCard.info.cardPin end
     local job = Player.PlayerData.job
@@ -486,7 +489,7 @@ end)
 -- Threads
 
 CreateThread(function()
-    MySQL.query([[CREATE TABLE IF NOT EXISTS `bu_bank_accounts` (
+    MySQL.query.await([[CREATE TABLE IF NOT EXISTS `bu_bank_accounts` (
         `citizenid` varchar(50) NOT NULL,
         `account_number` varchar(16) NOT NULL,
         PRIMARY KEY (`citizenid`),
@@ -507,6 +510,18 @@ CreateThread(function()
 end)
 
 CreateThread(function()
+    MySQL.query.await([[CREATE TABLE IF NOT EXISTS `bank_statements` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `citizenid` varchar(11) DEFAULT NULL,
+        `account_name` varchar(50) DEFAULT 'checking',
+        `amount` int(11) DEFAULT NULL,
+        `reason` varchar(50) DEFAULT NULL,
+        `statement_type` enum('deposit','withdraw') DEFAULT NULL,
+        `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+        PRIMARY KEY (`id`),
+        KEY `citizenid` (`citizenid`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci]])
+
     local statements = MySQL.query.await('SELECT * FROM bank_statements')
     for _, statement in ipairs(statements) do
         if statement.account_name == 'checking' then

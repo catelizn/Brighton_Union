@@ -1,8 +1,6 @@
 const hud = document.getElementById('hud');
 const armorWrap = document.getElementById('armor-wrap');
 
-const money = (value) => '$' + Number(value || 0).toLocaleString('ru-RU');
-
 function setRing(id, textId, percent) {
     const ring = document.getElementById(id);
     const p = Math.max(0, Math.min(100, Math.round(percent)));
@@ -22,6 +20,24 @@ window.addEventListener('message', (event) => {
         hud.classList.remove('visible');
     }
 
+    if (message.type === 'bu:hud:quest') {
+        const panel = document.getElementById('quest-panel');
+        if (message.hide) {
+            panel.classList.add('hidden');
+            return;
+        }
+        const data = message.data;
+        document.getElementById('quest-hint').textContent = data.hint;
+        document.getElementById('quest-step').textContent = data.stage + '/' + data.total;
+        document.getElementById('quest-check').classList.toggle('done', data.done === true);
+        panel.classList.remove('hidden');
+    }
+
+    if (message.type === 'bu:hud:toggleHints') {
+        const hidden = hints.classList.toggle('hidden');
+        localStorage.setItem('bu-hud-hints', hidden ? '0' : '1');
+    }
+
     if (message.type === 'bu:hud:update') {
         const data = message.data;
 
@@ -37,43 +53,16 @@ window.addEventListener('message', (event) => {
             armorWrap.classList.remove('on');
         }
 
-        // Выносливость видна, только когда персонаж устал
-        const stamina = document.getElementById('ring-stamina');
-        if (data.stamina < 99) {
-            setRing('ring-stamina', 'text-stamina', data.stamina);
-            stamina.classList.remove('hidden');
-        } else {
-            stamina.classList.add('hidden');
-        }
+        // Выносливость всегда видна
+        setRing('ring-stamina', 'text-stamina', data.stamina);
+        const staminaEl = document.getElementById('ring-stamina');
+        staminaEl.classList.remove('hidden');
 
-        document.getElementById('money-cash').textContent = money(data.cash);
-        document.getElementById('money-bank').textContent = money(data.bank);
-        document.getElementById('location').textContent = data.location;
-        document.getElementById('online').textContent = data.online;
-
-        if (data.time) {
-            const hh = String(data.time.hour).padStart(2, '0');
-            const mm = String(data.time.minute).padStart(2, '0');
-            document.getElementById('clock').textContent = hh + ':' + mm;
-        }
-
-        const quest = document.getElementById('quest');
-        if (data.quest) {
-            quest.style.display = 'block';
-            quest.textContent = data.quest;
-        } else {
-            quest.style.display = 'none';
-        }
     }
 });
 
-// Скрытие подсказок запоминается
+// Скрытие подсказок запоминается (переключается клавишей F6)
 const hints = document.getElementById('hints');
 if (localStorage.getItem('bu-hud-hints') === '0') {
     hints.classList.add('hidden');
 }
-
-document.getElementById('hints-hide').addEventListener('click', () => {
-    const hidden = hints.classList.toggle('hidden');
-    localStorage.setItem('bu-hud-hints', hidden ? '0' : '1');
-});

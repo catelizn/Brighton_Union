@@ -24,7 +24,7 @@ files {
     'html/index.html',
     'html/style.css',
     'html/app.js',
-    'html/images/background.png'
+    'html/images/background.jpg'
 }
 
 dependencies {

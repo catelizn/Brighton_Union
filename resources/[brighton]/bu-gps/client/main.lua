@@ -26,7 +26,7 @@ end
 local function drawHint(text)
     SetTextFont(4)
     SetTextScale(0.42, 0.42)
-    SetTextColour(226, 232, 240, 235)
+    SetTextColour(233, 238, 243, 235)
     SetTextOutline()
     SetTextCentre(true)
     SetTextEntry('STRING')

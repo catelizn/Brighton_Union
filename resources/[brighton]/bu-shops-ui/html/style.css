@@ -1,11 +1,11 @@
 :root {
-    --bu-bg: #16191B;
-    --bu-surface: #2A3036;
-    --bu-border: #3A434B;
-    --bu-accent: #2E5A44;
-    --bu-accent-bright: #6BB38A;
-    --bu-text: #E2E8F0;
-    --bu-text-dim: #9AA7B4;
+    --bu-bg: #131A24;
+    --bu-surface: #1F2A38;
+    --bu-border: #33445A;
+    --bu-accent: #2F8F83;
+    --bu-accent-bright: #5FC3B4;
+    --bu-text: #E9EEF3;
+    --bu-text-dim: #96A7BA;
 }
 
 * {
@@ -58,7 +58,7 @@ body.open {
     justify-content: center;
     font-weight: 800;
     font-size: 16px;
-    color: #E2E8F0;
+    color: #E9EEF3;
 }
 
 .shop-title {
@@ -102,7 +102,7 @@ body.open {
 
 .chip.active {
     background: var(--bu-text);
-    color: #16191B;
+    color: #131A24;
     opacity: 1;
     font-weight: 600;
 }
@@ -193,21 +193,22 @@ body.open {
 .product-image {
     position: absolute;
     left: 50%;
-    bottom: -40px;
+    bottom: -18px;
     transform: translateX(-50%);
-    width: 180%;
-    height: 80%;
+    width: 128%;
+    height: 66%;
     object-fit: contain;
     pointer-events: none;
     filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
 }
 
 .product-image.missing {
-    width: 70%;
-    height: 55%;
-    bottom: 6px;
+    width: 58%;
+    height: 48%;
+    bottom: 12px;
     object-fit: contain;
-    font-size: 64px;
+    font-size: 54px;
+    line-height: 1;
     text-align: center;
     filter: none;
 }
@@ -249,8 +250,8 @@ body.open {
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
-    color: #16191B;
-    background: #E2E8F0;
+    color: #131A24;
+    background: #E9EEF3;
     transition: transform 0.1s ease;
 }
 

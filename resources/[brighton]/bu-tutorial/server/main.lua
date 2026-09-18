@@ -10,6 +10,9 @@ local progressCache = {}
 -- Заработано на работах с момента входа: citizenid -> сумма (для этапа «заработай $1000»)
 local earningsCache = {}
 
+-- Что игрок уже посмотрел (телефон/планшет) для этапа «Разобраться с техникой»
+local actionsCache = {}
+
 local function cacheEntry(cid)
     local entry = progressCache[cid]
     if not entry then
@@ -61,6 +64,14 @@ local function checkRequirement(Player, requirement)
         return (earningsCache[Player.PlayerData.citizenid] or 0) >= target
     end
 
+    if name == 'actions' then
+        local done = actionsCache[Player.PlayerData.citizenid] or {}
+        for action in arg:gmatch('[^,]+') do
+            if not done[action] then return false end
+        end
+        return true
+    end
+
     if name == 'vehicle' then
         local result = MySQL.query.await('SELECT 1 FROM player_vehicles WHERE citizenid = ? AND state = 1 LIMIT 1', { Player.PlayerData.citizenid })
         return result and result[1] ~= nil
@@ -89,14 +100,32 @@ CreateThread(function()
     end)
 end)
 
-RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function(Player)
+RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function()
+    local Player = QBCore.Functions.GetPlayer(source)
+    if not Player then return end
     earningsCache[Player.PlayerData.citizenid] = 0
     loadProgress(Player.PlayerData.citizenid)
 end)
 
-RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(Player)
+RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(src)
+    local Player = QBCore.Functions.GetPlayer(src)
+    if not Player then return end
     progressCache[Player.PlayerData.citizenid] = nil
     earningsCache[Player.PlayerData.citizenid] = nil
+    actionsCache[Player.PlayerData.citizenid] = nil
+end)
+
+-- Клиент отмечает, что игрок открыл телефон или планшет (для шага квеста)
+RegisterNetEvent('bu-tutorial:server:action', function(kind)
+    local src = source
+    if kind ~= 'phone' and kind ~= 'tablet' then return end
+    local Player = QBCore.Functions.GetPlayer(src)
+    if not Player then return end
+    local cid = Player.PlayerData.citizenid
+    actionsCache[cid] = actionsCache[cid] or {}
+    actionsCache[cid][kind] = true
+    -- Галочка в плашке квеста обновляется сразу после действия
+    TriggerClientEvent('bu-quest:client:request', src)
 end)
 
 -- Заработок на работах (бу-jobs): считаем для этапа «заработай $1000»
@@ -110,7 +139,22 @@ QBCore.Functions.CreateCallback('bu-tutorial:server:getState', function(source, 
     if not Player then return cb(nil) end
 
     local entry = cacheEntry(Player.PlayerData.citizenid)
-    cb({ stage = entry.stage, completed = entry.completed, isNew = entry.isNew, earned = earningsCache[Player.PlayerData.citizenid] or 0 })
+    local canTurnIn = false
+
+    if not entry.completed then
+        local task = stages[entry.stage + 1]
+        if task then
+            canTurnIn = checkRequirement(Player, task.requirement)
+        end
+    end
+
+    cb({
+        stage = entry.stage,
+        completed = entry.completed,
+        isNew = entry.isNew,
+        earned = earningsCache[Player.PlayerData.citizenid] or 0,
+        canTurnIn = canTurnIn
+    })
 end)
 
 RegisterNetEvent('bu-tutorial:server:advance', function()
@@ -128,7 +172,7 @@ RegisterNetEvent('bu-tutorial:server:advance', function()
     if not stageData then return end
 
     if not checkRequirement(Player, stageData.requirement) then
-        TriggerClientEvent('bu-tutorial:client:notify', src, stageData.hint or 'Условие ещё не выполнено. Загляни в описание шага.')
+        TriggerClientEvent('bu-tutorial:client:notify', src, stageData.hint or 'Условие ещё не выполнено. Загляни в описание шага.', 'error')
         return
     end
 
@@ -138,6 +182,19 @@ RegisterNetEvent('bu-tutorial:server:advance', function()
 
     if stageData.reward and stageData.reward > 0 then
         Player.Functions.AddMoney('bank', stageData.reward, 'tutorial-stage-' .. nextStage)
+        TriggerClientEvent('bu-tutorial:client:notify', src, '$' .. stageData.reward .. ' зачислены на банковский счёт', 'success')
+    end
+
+    -- Первый шаг: Mike выдаёт рабочий набор — телефон и планшет. Оба нужны
+    -- уже со второго шага, поэтому выдаём вместе, а не по одному предмету.
+    if nextStage == 1 then
+        if not Player.Functions.GetItemByName('phone') then
+            Player.Functions.AddItem('phone', 1)
+        end
+        if not Player.Functions.GetItemByName('tablet') then
+            Player.Functions.AddItem('tablet', 1)
+        end
+        TriggerClientEvent('bu-tutorial:client:notify', src, 'Mike выдал тебе телефон и планшет: телефон открывается стрелкой вверх, планшет — вниз.', 'primary')
     end
 
     TriggerClientEvent('bu-tutorial:client:update', src, entry.stage, entry.completed)

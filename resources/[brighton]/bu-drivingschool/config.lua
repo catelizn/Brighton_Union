@@ -1,15 +1,15 @@
 Config = Config or {}
 
 -- Автошкола: здание DMV в центре города, у мэрии.
--- Высота снимается с земли на клиенте и сервере (z = 0 в конфиге).
+-- Наземная школа: высоты зафиксированы в конфиге (улица у DMV).
 Config.Schools = {
     ground = {
         model = 'a_m_y_business_02',
         coords = vector4(240.4, -1379.8, 0.0, 140.0),
         scenario = 'WORLD_HUMAN_CLIPBOARD',
         blip = { sprite = 225, color = 2, scale = 0.7, name = 'Автошкола' },
-        spawn = vector4(247.0, -1372.0, 0.0, 140.0),
-        returnPos = vector4(240.4, -1379.8, 0.0, 140.0),
+        spawn = vector4(247.0, -1372.0, 33.74, 140.0),
+        returnPos = vector4(240.4, -1379.8, 33.74, 140.0),
         label = 'Автошкола'
     },
     air = {

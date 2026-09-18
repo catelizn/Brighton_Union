@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Агентство недвижимости</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="overlay" class="overlay">
+        <div class="card">
+            <div class="title">Агентство недвижимости</div>
+            <div class="tabs">
+                <button class="tab active" data-tab="buy">Купить</button>
+                <button class="tab" data-tab="mine">Мои бизнесы</button>
+            </div>
+            <div class="panel" id="panel-buy"><div class="list" id="buy-list"></div></div>
+            <div class="panel hidden" id="panel-mine"><div class="list" id="mine-list"></div></div>
+            <button class="btn ghost" id="close-btn">Закрыть</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

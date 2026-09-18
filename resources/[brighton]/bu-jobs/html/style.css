@@ -1,0 +1,129 @@
+:root {
+    --bu-bg: #131A24;
+    --bu-surface: #1F2A38;
+    --bu-border: #33445A;
+    --bu-accent: #2F8F83;
+    --bu-accent-bright: #5FC3B4;
+    --bu-accent-orange: #D97706;
+    --bu-accent-yellow: #EAB308;
+    --bu-text: #E9EEF3;
+    --bu-text-dim: #96A7BA;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, 'SF Pro Text', 'Segoe UI', Arial, sans-serif;
+    color: var(--bu-text);
+    user-select: none;
+    overflow: hidden;
+}
+
+.dialog {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(7, 7, 7, 0.5);
+}
+
+.dialog.visible {
+    display: flex;
+}
+
+.card {
+    width: 420px;
+    background: rgba(19, 26, 36, 0.96);
+    border: 1px solid var(--bu-border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    animation: pop 0.18s ease-out;
+}
+
+@keyframes pop {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.job-title {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--bu-text);
+}
+
+.job-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(51, 68, 90, 0.5);
+}
+
+.job-row:last-of-type {
+    border-bottom: none;
+}
+
+.row-label {
+    color: var(--bu-text-dim);
+    font-size: 13px;
+}
+
+.row-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--bu-text);
+}
+
+.row-value.accent {
+    color: var(--bu-accent-orange);
+}
+
+.row-value.accent-bright {
+    color: var(--bu-accent-bright);
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.btn {
+    flex: 1;
+    padding: 11px 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--bu-accent);
+    color: #FFFFFF;
+    transition: background 0.12s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background: var(--bu-accent-bright);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn.ghost {
+    background: transparent;
+    border: 1px solid var(--bu-border);
+    color: var(--bu-text-dim);
+}
+
+.btn.ghost:hover {
+    color: var(--bu-text);
+    border-color: var(--bu-text-dim);
+}

@@ -1,6 +1,6 @@
 # bu-drivingschool — Driving & flight school
 
-Two schools: the ground school on the parking lot at the Vinewood sign (white training cars parked nearby) and the flight school at LSIA.
+Two schools: the ground school at the DMV building downtown (white training cars parked nearby) and the flight school at LSIA.
 
 ## Categories
 

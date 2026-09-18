@@ -4,16 +4,29 @@
     <meta charset="UTF-8" />
     <title>Планшет</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 <body>
     <div id="overlay" class="overlay">
+        <div class="tablet-body">
         <div class="tablet">
             <div class="tablet-statusbar">
                 <span class="statusbar-time" id="statusbar-time">12:00</span>
                 <span class="statusbar-title">Brighton Union</span>
-                <span class="statusbar-right">📶 🔋 87%</span>
+                <span class="statusbar-right"><i class="fas fa-wifi"></i> <i class="fas fa-battery-three-quarters"></i> 87%</span>
             </div>
             <div id="view-home" class="view">
+                <div class="ipad-widgets">
+                    <div class="widget-clock">
+                        <div class="widget-date" id="widget-date">—</div>
+                        <div class="widget-time" id="widget-time">00:00</div>
+                    </div>
+                    <div class="widget-weather">
+                        <div class="weather-icon"><i class="fas fa-sun"></i></div>
+                        <div class="weather-temp">27°</div>
+                        <div class="weather-city">Лос-Сантос</div>
+                    </div>
+                </div>
                 <div class="profile-card">
                     <div class="profile-avatar" id="profile-avatar">?</div>
                     <div class="profile-info">
@@ -27,35 +40,39 @@
                 </div>
                 <div class="apps-grid">
                     <div class="app" data-app="documents">
-                        <div class="app-icon app-icon-docs">📄</div>
+                        <div class="app-icon app-icon-docs"><i class="fas fa-id-card"></i></div>
                         <div class="app-label">Документы</div>
                     </div>
                     <div class="app" data-app="vehicles">
-                        <div class="app-icon app-icon-cars">🚗</div>
+                        <div class="app-icon app-icon-cars"><i class="fas fa-car-side"></i></div>
                         <div class="app-label">Транспорт</div>
                     </div>
                     <div class="app" data-app="marketplace">
-                        <div class="app-icon app-icon-market">🛒</div>
+                        <div class="app-icon app-icon-market"><i class="fas fa-store"></i></div>
                         <div class="app-label">Маркетплейс</div>
                     </div>
                     <div class="app" data-app="news">
-                        <div class="app-icon app-icon-news">📰</div>
+                        <div class="app-icon app-icon-news"><i class="fas fa-newspaper"></i></div>
                         <div class="app-label">Weazel News</div>
                     </div>
                     <div class="app" data-app="family">
-                        <div class="app-icon app-icon-family">👪</div>
+                        <div class="app-icon app-icon-family"><i class="fas fa-users"></i></div>
                         <div class="app-label">Семья</div>
                     </div>
+                    <div class="app" data-app="faction">
+                        <div class="app-icon app-icon-faction"><i class="fas fa-shield-alt"></i></div>
+                        <div class="app-label">Фракция</div>
+                    </div>
                     <div class="app" data-app="taxi">
-                        <div class="app-icon app-icon-taxi">🚖</div>
+                        <div class="app-icon app-icon-taxi"><i class="fas fa-taxi"></i></div>
                         <div class="app-label">Brighton Taxi</div>
                     </div>
                     <div class="app" data-app="trucker">
-                        <div class="app-icon app-icon-trucker">🚚</div>
+                        <div class="app-icon app-icon-trucker"><i class="fas fa-truck"></i></div>
                         <div class="app-label">Дальнобой</div>
                     </div>
                     <div class="app" data-app="darknet">
-                        <div class="app-icon app-icon-dark">🕶️</div>
+                        <div class="app-icon app-icon-dark"><i class="fas fa-user-secret"></i></div>
                         <div class="app-label">Даркнет</div>
                     </div>
                 </div>
@@ -190,28 +207,7 @@
                     <div id="darknet-list"></div>
                 </div>
             </div>
-            <div class="dock">
-                <div class="app dock-app" data-app="documents">
-                    <div class="app-icon app-icon-docs">📄</div>
-                    <div class="app-label">Документы</div>
-                </div>
-                <div class="app dock-app" data-app="vehicles">
-                    <div class="app-icon app-icon-cars">🚗</div>
-                    <div class="app-label">Транспорт</div>
-                </div>
-                <div class="app dock-app" data-app="marketplace">
-                    <div class="app-icon app-icon-market">🛒</div>
-                    <div class="app-label">Маркет</div>
-                </div>
-                <div class="app dock-app" data-app="news">
-                    <div class="app-icon app-icon-news">📰</div>
-                    <div class="app-label">Новости</div>
-                </div>
-                <div class="app dock-app" data-app="family">
-                    <div class="app-icon app-icon-family">👪</div>
-                    <div class="app-label">Семья</div>
-                </div>
-            </div>
+        </div>
         </div>
     </div>
     <script src="app.js"></script>

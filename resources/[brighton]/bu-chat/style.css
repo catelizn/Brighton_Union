@@ -1,0 +1,94 @@
+/* Brighton Union: чат почти прозрачный — виден только текст.
+   Тема подключается к системному чату FiveM через chat_theme в манифесте. */
+* {
+    font-family: -apple-system, 'SF Pro Text', 'Segoe UI', Arial, sans-serif;
+}
+
+.chat-window {
+    left: 1.6vh;
+    top: 2vh;
+    width: 34vw;
+    max-width: 780px;
+    height: auto;
+    max-height: 20vh;
+    background: transparent !important;
+}
+
+/* Системный чат рисует надпись «When Active»/«Hidden» — она не нужна */
+.chat-hide-state {
+    display: none !important;
+}
+
+.chat-messages {
+    margin: 0;
+    padding: 0 1vh 0 0;
+    height: auto;
+    overflow-y: hidden;
+}
+
+.msg {
+    margin-bottom: 0.25vh;
+    font-size: 1.7vh;
+    line-height: 2.45vh;
+    color: #E9EEF3;
+    text-shadow: 0 0.1vh 0.35vh rgba(0, 0, 0, 0.95), 0 0 1.2vh rgba(0, 0, 0, 0.65);
+    user-select: none;
+}
+
+.msg b {
+    color: #5FC3B4;
+    font-weight: 700;
+    padding-right: 0.8vh;
+}
+
+.msg i:first-of-type {
+    font-style: normal;
+    color: #96A7BA;
+}
+
+.multiline {
+    margin-left: 0;
+    text-indent: 0;
+}
+
+/* Поле ввода: сразу под окном чата — миникарта остаётся свободной */
+.chat-input {
+    left: 1.6vh;
+    top: 23vh;
+    bottom: auto;
+    width: 34vw;
+    max-width: 780px;
+    background: transparent !important;
+}
+
+.chat-input > div.input {
+    background-color: rgba(19, 26, 36, 0.55) !important;
+    border: 1px solid rgba(95, 195, 180, 0.35);
+    border-radius: 0.5vh;
+}
+
+.prefix {
+    color: #5FC3B4;
+    font-weight: 700;
+}
+
+textarea {
+    color: #E9EEF3;
+}
+
+.suggestions {
+    background-color: rgba(19, 26, 36, 0.86) !important;
+    border: 1px solid rgba(51, 68, 90, 0.9);
+    border-radius: 0.5vh;
+}
+
+.help,
+.disabled {
+    color: #96A7BA;
+}
+
+.chat-hide-state {
+    color: #96A7BA;
+    font-size: 1.4vh;
+    letter-spacing: 0.1vh;
+}

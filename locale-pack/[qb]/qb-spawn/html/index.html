@@ -60,12 +60,10 @@
 
                 methods: {
                     click_location: function (type, name) {
-                        if (type == "normal" || type == "faction") {
-                            axios.post("https://qb-spawn/setCam", {
-                                posname: name,
-                                type: type,
-                            });
-                        }
+                        axios.post("https://qb-spawn/setCam", {
+                            posname: name,
+                            type: type,
+                        });
                         this.selectedValue = { type: type, name: name };
                     },
 

@@ -139,6 +139,7 @@ RegisterNUICallback('chooseAppa', function(data, cb)
     local ped = PlayerPedId()
     local appaYeet = data.appType
     SetDisplay(false)
+    LocalPlayer.state:set('buSelecting', false, true)
     DoScreenFadeOut(500)
     Wait(5000)
     TriggerServerEvent('apartments:server:CreateApartment', appaYeet, Apartments.Locations[appaYeet].label, true)
@@ -160,6 +161,7 @@ local function PreSpawnPlayer()
 end
 
 local function PostSpawnPlayer(ped)
+    LocalPlayer.state:set('buSelecting', false, true)
     FreezeEntityPosition(ped, false)
     RenderScriptCams(false, true, 500, true, true)
     SetCamActive(cam, false)

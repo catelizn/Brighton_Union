@@ -10,6 +10,23 @@ Config.PayMultipliers = {
 Config.GatherCooldown = 3
 Config.DefaultZoneRadius = 20.0
 
+-- Уникальные значки работ на карте (каждой работе — свой)
+Config.JobBlips = {
+    taxi = 198,
+    trucker = 478,
+    postman = 71,
+    lumberjack = 217,
+    mushroompicker = 498,
+    miner = 477,
+    oilworker = 467,
+    butcher = 116,
+    fisherman = 68,
+    hunter = 84,
+    garbage = 133,
+    security = 501,
+    firefighter = 199
+}
+
 -- Найм: у каждой работы стоит свой NPC в униформе, устроиться можно только у него
 Config.Jobs = {
     taxi = {

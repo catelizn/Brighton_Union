@@ -1,10 +1,10 @@
 -- Отключаем штатный qb-hud, чтобы вместо него работал HUD Brighton Union
 CreateThread(function()
-    for i = 1, 30 do
-        Wait(1000)
-        if GetResourceState('qb-hud') == 'started' then
+    while true do
+        local state = GetResourceState('qb-hud')
+        if state == 'started' or state == 'starting' then
             StopResource('qb-hud')
-            break
         end
+        Wait(30000)
     end
 end)

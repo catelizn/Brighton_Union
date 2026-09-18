@@ -1,0 +1,995 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+.container {
+    height: 100vh;
+}
+
+::-webkit-inner-spin-button {
+    display: none;
+}
+
+.clothing-menu-container {
+    display: none;
+    margin-top: .5vh;
+    margin-right: 5vh;
+    position: absolute;
+    height: 99vh;
+    width: 38vh;
+    background-color: rgba(19, 26, 36, 0.94);
+    right: -25vw;
+    border-radius: 1.3vh;
+}
+
+.clothing-menu-header {
+    position: relative;
+    height: 6vh;
+    width: 100%;
+    top: .9vh;
+}
+
+.clothing-menu-header-btn {
+    position: relative;
+    height: 80%;
+    top: 3.5vh;
+    float: left;
+    color: #ededed;
+    text-align: center;
+    line-height: 3.5vh;
+    transition: all 1s linear;
+}
+
+.clothing-menu-header-btn:hover {
+    color: #96A7BA;
+    cursor: pointer;
+}
+
+.selected {
+    color: #5FC3B4;
+}
+
+.clothing-menu-header-btn>p {
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    font-size: 1vh;
+    letter-spacing: 0.1vh;
+    margin-bottom: -10px;
+}
+
+.clothing-menu-header-cameras {
+    position: absolute;
+    height: 5.5vh;
+    width: 102%;
+    top: -2.3vh;
+}
+
+.clothing-menu-header-camera-btn {
+    position: relative;
+    height: 55%;
+    top: 3.2vh;
+    width: 24%;
+    float: left;
+    color: #ededed;
+    text-align: center;
+    line-height: 3.7vh;
+    transition: all 1s linear;
+}
+
+.selected-cam {
+    color: #5FC3B4;
+}
+
+.clothing-menu-header-camera-btn:hover {
+    color: #96A7BA;
+    cursor: pointer;
+}
+
+.clothing-menu-header-camera-btn>i {
+    font-size: 1.4vh;
+}
+
+.clothing-menu-roomOutfits-container {
+    display: none;
+    position: absolute;
+    margin: 0 auto;
+    left: 0.3vh;
+    right: 0;
+    top: 9vh;
+    height: 87vh;
+    width: 92%;
+    overflow-y: scroll !important;
+}
+
+.clothing-menu-myOutfits-container {
+    display: none;
+    position: absolute;
+    margin: 0 auto;
+    left: 0.3vh;
+    right: 0;
+    top: 9vh;
+    height: 77vh;
+    width: 92%;
+    overflow-y: scroll !important;
+}
+
+.clothing-menu-outfit-option-button {
+    position: relative;
+    text-align: center;
+    line-height: 4.8vh;
+    width: 60%;
+    height: 40%;
+    margin: 0 auto;
+    top: 2.3vh;
+    background-color: #2F8F83;
+    border-radius: 0.75vh;
+    transition: all 1s linear;
+}
+
+.clothing-menu-outfit-option-button:hover {
+    background-color: #96A7BA;
+    cursor: pointer;
+}
+
+.clothing-menu-outfit-option-button>p {
+    color: #ededed;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.1vh;
+    font-size: 1vh;
+}
+
+.clothing-menu-myOutfit-option-button {
+    position: absolute;
+    text-align: center;
+    line-height: 4.8vh;
+    width: 40%;
+    height: 40%;
+    left: 2vh;
+    top: 5.1vh;
+    background-color: #2F8F83;
+    border-radius: 0.4vh;
+    transition: all 1s linear;
+}
+
+.clothing-menu-myOutfit-option-button:hover {
+    background-color: #96A7BA;
+    cursor: pointer;
+}
+
+.clothing-menu-myOutfit-option-button>p {
+    color: #ededed;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.1vh;
+    font-size: 1.3vh;
+}
+
+.clothing-menu-myOutfit-option-button-remove {
+    position: absolute;
+    text-align: center;
+    line-height: 4.8vh;
+    width: 40%;
+    height: 40%;
+    right: 2vh;
+    top: 5.1vh;
+    background-color: #2F8F83;
+    border-radius: 0.4vh;
+    transition: all 1s linear;
+}
+
+.clothing-menu-myOutfit-option-button-remove:hover {
+    background-color: #96A7BA;
+}
+
+.clothing-menu-myOutfit-option-button-remove>p {
+    color: #ededed;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.1vh;
+    font-size: 1.3vh;
+}
+
+.clothing-menu-character-container {
+    display: none;
+    position: absolute;
+    margin: 0 auto;
+    left: 0.3vh;
+    right: 0;
+    top: 9vh;
+    height: 86vh;
+    width: 92%;
+    overflow-y: scroll !important;
+}
+
+.clothing-menu-clothing-container {
+    display: none;
+    position: absolute;
+    margin: 0 auto;
+    left: 0.3vh;
+    right: 0;
+    top: 9vh;
+    height: 86vh;
+    width: 92%;
+    overflow-y: scroll !important;
+}
+
+.clothing-menu-accessoires-container {
+    display: none;
+    position: absolute;
+    margin: 0 auto;
+    left: 0.3vh;
+    right: 0;
+    top: 9vh;
+    height: 86vh;
+    width: 92%;
+    overflow-y: scroll !important;
+}
+
+.clothing-menu-hair-container {
+    display: none;
+    position: absolute;
+    margin: 0 auto;
+    left: 0.3vh;
+    right: 0;
+    top: 9vh;
+    height: 86vh;
+    width: 92%;
+    overflow-y: scroll !important;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+    background-color: rgb(245 245 245 / 0%);
+}
+
+::-webkit-scrollbar {
+    width: 0.6vh;
+    background-color: rgb(245 245 245 / 0%);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #2F8F83;
+}
+
+.clothing-menu-option {
+    position: relative;
+    width: 100%;
+    height: 14%;
+}
+
+.clothing-menu-option-header {
+    color: #ededed;
+    padding: 0.8vh;
+    width: 100%;
+    margin-top: -0.5em;
+    margin-bottom: -15px;
+}
+
+.clothing-menu-option-header>p {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.4vh;
+    letter-spacing: 0.1vh;
+}
+
+.clothing-menu-option-item {
+    position: relative;
+    float: left;
+    height: 50%;
+    width: 40%;
+    margin-left: 2.4vh;
+    margin-top: 2vh;
+}
+
+.clothing-menu-option-item-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 50%;
+    width: 33%;
+    background-color: #2F8F83;
+    color: #e9e9e9;
+    text-align: center;
+    line-height: 3.6vh;
+    border-radius: .3vh;
+    transition: all 1s linear;
+}
+
+.clothing-menu-option-item-left:hover {
+    background-color: #96A7BA;
+    cursor: pointer;
+}
+
+.clothing-menu-option-item-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 50%;
+    width: 33%;
+    background-color: #2F8F83;
+    color: #e9e9e9;
+    text-align: center;
+    line-height: 3.6vh;
+    border-radius: .3vh;
+    transition: all 1s linear;
+}
+
+.clothing-menu-option-item-right:hover {
+    background-color: #96A7BA;
+    cursor: pointer;
+}
+
+.item-number {
+    position: absolute;
+    width: 25%;
+    height: 60%;
+    top: 2.8vh;
+    left: 5vh;
+    background: none;
+    border: none;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1vh;
+    letter-spacing: 0.1vh;
+    color: #E9EEF3;
+    outline: none;
+    transition: all 0.1s linear;
+}
+
+.clothing-menu-option-item-header {
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1vh;
+    letter-spacing: 0.1vh;
+    color: #ededed;
+}
+
+.clothing-menu-option-item-header>p {
+    font-family: 'Poppins', sans-serif;
+    padding: 0.2vh;
+}
+
+.clothing-menu-option-buttons {
+    position: absolute;
+    bottom: 0vh;
+    width: 100%;
+    height: 3vh;
+}
+
+.clothing-menu-option-button {
+    position: relative;
+    float: right;
+    height: 100%;
+    width: 33.33%;
+    background-color: #2F8F83;
+    transition: all 1s linear;
+}
+
+.clothing-menu-option-button:hover {
+    background-color: #96A7BA;
+    cursor: pointer;
+}
+
+.clothing-menu-option-button>p {
+    line-height: 3.1vh;
+    font-size: 1.3vh;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.1vh;
+    text-transform: uppercase;
+    color: #ededed;
+    text-align: center;
+}
+
+.clothing-menu-save-outfit-name {
+    display: none;
+    position: relative;
+    width: 30vh;
+    height: 18vh;
+    background-color: rgba(19, 26, 36, 0.94);
+    margin: 0 auto;
+    top: 40%;
+    border-radius: 0.7vh;
+}
+
+.clothing-menu-save-outfit-name-buttons {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 17%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
+.clothing-menu-save-outfit-name-button {
+    position: relative;
+    background: #2F8F83;
+    width: 50%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    line-height: 3vh;
+    transition: all 1s linear;
+}
+
+.clothing-menu-save-outfit-name-button:hover {
+    background: #444444;
+    cursor: pointer;
+}
+
+.clothing-menu-save-outfit-name-button>p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1vh;
+    letter-spacing: 0.1vh;
+    text-transform: uppercase;
+    color: #E9EEF3;
+    font-weight: bold;
+}
+
+.clothing-menu-save-outfit-name-header {
+    position: relative;
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    line-height: 5vh;
+}
+
+.clothing-menu-save-outfit-name-header>p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.7vh;
+    letter-spacing: 0.1vh;
+    text-transform: uppercase;
+    color: #ededed;
+    font-weight: bold;
+}
+
+#outfit-name {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    bottom: 40%;
+    background: none;
+    border: none;
+    outline: none;
+    width: 60%;
+    height: 27%;
+    text-align: center;
+    background: #444444;
+    transition: all 1s linear;
+    border-radius: .7vh;
+}
+
+#outfit-name {
+    color: #ededed;
+    font-family: sans-serif;
+    font-size: 1.75vh;
+    letter-spacing: 0.1vh;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#outfit-name::placeholder {
+    color: rgba(255, 255, 255, 0.404);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.7vh;
+    letter-spacing: 0.1vh;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.change-camera-buttons {
+    display: none;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    height: 7vh;
+    width: 20vh;
+}
+
+.change-camera-button {
+    position: relative;
+    height: 80%;
+    width: 50%;
+    float: left;
+    background-color: rgba(19, 26, 36, 0.94);
+    text-align: center;
+    transition: 0.08s;
+}
+
+.change-camera-button:hover {
+    background: #2F8F83;
+    cursor: pointer;
+}
+
+.change-camera-button>i {
+    font-size: 3vh;
+    color: #ededed;
+    line-height: 5.5vh;
+}
+
+.change-camera-footer {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    height: 20%;
+    background: #2F8F83;
+    line-height: 1.5vh;
+    border-bottom-left-radius: .8vh;
+    border-bottom-right-radius: .8vh;
+}
+
+.change-camera-footer>p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 0.8vh;
+    text-transform: uppercase;
+    color: #ededed;
+    letter-spacing: 0.1vh;
+}
+
+.slidecontainer {
+    width: 100%;
+}
+
+.slider {
+    appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+.slider {
+    position: absolute;
+    left: 0!important;
+    top: 1.5em!important;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #2F8F83;
+    cursor: pointer;
+}
+
+.facemix-labels {
+    display: block;
+}
+
+.facemix-label-left {
+    font-size: xx-small;
+    position: absolute;
+    text-transform: uppercase;
+    letter-spacing: 0.1vh;
+    color: #ededed;
+    bottom: 0px;
+    left: 0px;
+}
+
+.facemix-label-right {
+    font-size: xx-small;
+    position: absolute;
+    text-transform: uppercase;
+    letter-spacing: 0.1vh;
+    color: #ededed;
+    bottom: 0px;
+    right: 0px;
+}/* Brighton Union: скрываем выбор модели персонажа — сразу генетика (как GTA5 Online) */
+div[data-type="model"] {
+    display: none !important;
+}
+
+/* Brighton Union theme */
+.clothing-menu-container {
+    border: 1px solid #33445A;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+}
+.clothing-menu-header-btn {
+    color: #96A7BA;
+    transition: color 0.2s linear;
+}
+.clothing-menu-header-btn:hover {
+    color: #E9EEF3;
+}
+.clothing-menu-option-header {
+    border-left: 3px solid #2F8F83;
+    padding-left: 1.1vh;
+    text-align: left;
+}
+.clothing-menu-option-header > p {
+    text-align: left;
+}
+.clothing-menu-option-item-slider {
+    accent-color: #2F8F83;
+}
+.clothing-menu-save-outfit-name {
+    border: 1px solid #33445A;
+}
+
+/* Вкладки создания персонажа: длинные подписи обрезаем, а не ломаем вёрстку */
+.clothing-menu-header-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+}
+.clothing-menu-header-btn p {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    line-height: 1.2;
+    padding: 0 0.6vh;
+}
+
+/* Brighton Union: создание персонажа — наборы одежды */
+.clothing-menu-presets-container {
+    display: none;
+    position: absolute;
+    margin: 0 auto;
+    left: 0.3vh;
+    right: 0;
+    top: 9vh;
+    height: 87vh;
+    width: 92%;
+    overflow-y: scroll !important;
+}
+
+.clothing-menu-preset-option-button {
+    position: relative;
+    text-align: center;
+    line-height: 4.8vh;
+    width: 60%;
+    height: 40%;
+    margin: 0 auto;
+    top: 2.3vh;
+    background-color: #2F8F83;
+    border-radius: 0.75vh;
+    transition: all 0.2s linear;
+}
+
+.clothing-menu-preset-option-button:hover {
+    background-color: #96A7BA;
+    cursor: pointer;
+}
+
+.clothing-menu-preset-option-button>p {
+    color: #ededed;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.1vh;
+    font-size: 1vh;
+}
+
+.clothing-menu-option.selected-preset {
+    border-color: #5FC3B4;
+    box-shadow: 0 0 1vh rgba(95, 195, 180, 0.35);
+}
+
+/* =====================================================================
+   Brighton Union: окно создания персонажа - вкладки и сетка родителей
+   ===================================================================== */
+.clothing-menu-header {
+    display: flex;
+    gap: 6px;
+}
+
+.clothing-menu-header-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4.4vh;
+    margin: 0;
+    background: rgba(31, 42, 56, 0.92);
+    border: 1px solid #33445A;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.clothing-menu-header-btn p {
+    color: #CBD6E2;
+    font-size: 1.25vh;
+    font-weight: 700;
+    letter-spacing: 0.02vh;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0.7vh;
+}
+
+.clothing-menu-header-btn.selected {
+    background: #2F8F83;
+    border-color: #5FC3B4;
+}
+
+.clothing-menu-header-btn.selected p {
+    color: #FFFFFF;
+}
+
+.parents-strip {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 2px 8px;
+}
+
+.parents-strip::-webkit-scrollbar {
+    height: 4px;
+}
+
+.parents-strip::-webkit-scrollbar-thumb {
+    background: #33445A;
+    border-radius: 2px;
+}
+
+.parents-card {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    min-width: 8.4vh;
+    padding: 5px 6px 6px;
+    background: rgba(31, 42, 56, 0.85);
+    border: 1px solid #33445A;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+}
+
+/* Портреты родителей — официальные из редактора GTA Online */
+.parents-photo {
+    width: 6.4vh;
+    height: 7.2vh;
+    object-fit: cover;
+    object-position: 50% 12%;
+    border-radius: 7px;
+    border: 1px solid rgba(51, 68, 90, 0.9);
+    background: #1F2A38;
+    margin-bottom: 2px;
+}
+
+.parents-card span {
+    color: #E9EEF3;
+    font-size: 1.15vh;
+    font-weight: 700;
+}
+
+.parents-card small {
+    color: #96A7BA;
+    font-size: 0.85vh;
+}
+
+.parents-card:hover {
+    transform: translateY(-1px);
+    border-color: #5FC3B4;
+}
+
+.parents-card.selected {
+    background: #2F8F83;
+    border-color: #5FC3B4;
+}
+
+.parents-card.selected span {
+    color: #FFFFFF;
+}
+
+.parents-card.selected small {
+    color: rgba(255, 255, 255, 0.75);
+}
+/* =====================================================================
+   Brighton Union: режим создания персонажа - чистая вёрстка без наложений
+   ===================================================================== */
+body.creating .clothing-menu-container {
+    width: 44vh;
+    background-color: rgba(19, 26, 36, 0.96);
+    border-left: 1px solid rgba(51, 68, 90, 0.6);
+}
+
+body.creating .clothing-menu-header {
+    position: relative;
+    top: 0;
+    height: auto;
+    display: flex;
+    gap: 6px;
+    padding: 1.2vh 1vh 0;
+    margin-bottom: 1.2vh;
+}
+
+body.creating .clothing-menu-header-btn {
+    position: relative;
+    top: 0;
+    float: none;
+    height: 4.6vh;
+    line-height: normal;
+    margin: 0;
+    border-radius: 10px;
+    background: rgba(31, 42, 56, 0.92);
+    border: 1px solid #33445A;
+    transition: none;
+}
+
+body.creating .clothing-menu-header-btn.selected {
+    background: #2F8F83;
+    border-color: #5FC3B4;
+}
+
+body.creating .clothing-menu-header-btn p {
+    color: #CBD6E2;
+    font-size: 1.25vh;
+}
+
+body.creating .clothing-menu-header-btn.selected p {
+    color: #FFFFFF;
+}
+
+body.creating .clothing-menu-character-container,
+body.creating .clothing-menu-hair-container,
+body.creating .clothing-menu-presets-container {
+    top: 8.2vh;
+    height: 86vh;
+    overflow-y: auto;
+}
+
+/* Строка настройки: подпись сверху, ниже — элементы управления */
+body.creating .clothing-menu-option {
+    height: auto;
+    margin: 0 0 1vh;
+    padding-bottom: 1vh;
+    border-bottom: 1px solid rgba(51, 68, 90, 0.35);
+}
+
+body.creating .clothing-menu-option-header {
+    position: static;
+    padding: 0 0 0 1vh;
+    margin: 0;
+}
+
+body.creating .clothing-menu-option-header > p {
+    text-align: left;
+    font-size: 1.3vh;
+    letter-spacing: 0.08vh;
+}
+
+/* Модель и старые стрелки родителей не нужны: генетика выбирается карточками */
+body.creating .clothing-menu-option[data-type="model"],
+body.creating [data-type="face"] .clothing-menu-option-item,
+body.creating [data-type="face2"] .clothing-menu-option-item {
+    display: none !important;
+}
+
+/* Элементы строки встают в один flex-ряд: подпись, поле, стрелки */
+body.creating .clothing-menu-option-item {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 0.6vh;
+    float: none;
+    width: 100%;
+    height: 3.4vh;
+    margin: 0.5vh 0 0;
+}
+
+body.creating .clothing-menu-option-item-header {
+    position: static;
+    order: -1;
+    flex: 1 1 auto;
+    margin: 0;
+}
+
+body.creating .clothing-menu-option-item-header > p {
+    padding: 0;
+    font-size: 1vh;
+    color: #7E8C9C;
+    text-align: left;
+    letter-spacing: 0.05vh;
+}
+
+body.creating .clothing-menu-option-item-left,
+body.creating .clothing-menu-option-item-right {
+    position: static;
+    flex: 0 0 3.4vh;
+    width: 3.4vh;
+    height: 3.4vh;
+    line-height: 3.4vh;
+    font-size: 1.5vh;
+    text-align: center;
+    border-radius: 0.6vh;
+    background-color: #2F8F83;
+    color: #E9EEF3;
+    transition: background-color 0.15s linear;
+}
+
+body.creating .clothing-menu-option-item-left:hover,
+body.creating .clothing-menu-option-item-right:hover {
+    background-color: #3FA694;
+}
+
+/* Поля ввода: и числовое значение ползунка, и обычный счётчик */
+body.creating input.item-number {
+    position: static;
+    top: auto;
+    left: auto;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+body.creating input.item-number[type="number"] {
+    flex: 0 0 6.4vh;
+    width: 6.4vh;
+    height: 3.4vh;
+    background: rgba(31, 42, 56, 0.9);
+    border: 1px solid #33445A;
+    border-radius: 0.6vh;
+    font-size: 1.3vh;
+    text-align: center;
+    color: #E9EEF3;
+}
+
+body.creating input.item-number[type="number"]::-webkit-outer-spin-button,
+body.creating input.item-number[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+body.creating input.item-number[type="range"] {
+    flex: 1 1 auto;
+    width: auto;
+    height: 3.4vh;
+    margin: 0;
+    accent-color: #2F8F83;
+}
+
+body.creating .facemix-labels {
+    position: static;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.4vh;
+}
+
+body.creating .facemix-label-left,
+body.creating .facemix-label-right {
+    position: static;
+    font-size: 1vh;
+    color: #96A7BA;
+}
+
+body.creating .parents-strip {
+    margin-top: 0.8vh;
+}
+
+/* Набор одежды: карточка с кнопкой «Надеть» во всю ширину */
+body.creating .clothing-menu-option.clothing-preset {
+    padding: 1.1vh 1.2vh 1.2vh;
+    background: rgba(31, 42, 56, 0.55);
+    border: 1px solid rgba(51, 68, 90, 0.7);
+    border-radius: 0.8vh;
+}
+
+body.creating .clothing-menu-preset-option-button {
+    position: static;
+    width: 100%;
+    height: 4vh;
+    line-height: 4vh;
+    margin: 0.8vh 0 0;
+    top: auto;
+}

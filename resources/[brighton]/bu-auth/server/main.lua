@@ -44,10 +44,10 @@ CreateThread(function()
 end)
 
 -- Вход или регистрация. Пароль хэшируется прямо в SQL: SHA2(логин + пароль).
+-- Работает до выбора персонажа: QBCore-объекта игрока здесь ещё нет,
+-- поэтому используется только лицензия и FiveM-стейт игрока.
 QBCore.Functions.CreateCallback('bu-auth:server:auth', function(source, cb, mode, username, password)
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    if not Player then return cb({ ok = false, message = 'Ты ещё не подключился.' }) end
 
     local license = QBCore.Functions.GetIdentifier(src, 'license')
     if not license then return cb({ ok = false, message = 'Не удалось определить лицензию.' }) end
@@ -83,8 +83,7 @@ QBCore.Functions.CreateCallback('bu-auth:server:auth', function(source, cb, mode
             license, username, username, ':', password
         })
 
-        Player.state:set('buAuthed', true, true)
-        TriggerClientEvent('QBCore:Notify', src, 'Аккаунт создан. Добро пожаловать в Brighton Union!', 'success')
+        Player(src).state:set('buAuthed', true, true)
         return cb({ ok = true })
     end
 
@@ -99,8 +98,7 @@ QBCore.Functions.CreateCallback('bu-auth:server:auth', function(source, cb, mode
         end
 
         attempts[license] = nil
-        Player.state:set('buAuthed', true, true)
-        TriggerClientEvent('QBCore:Notify', src, 'С возвращением в Brighton Union!', 'success')
+        Player(src).state:set('buAuthed', true, true)
         return cb({ ok = true })
     end
 

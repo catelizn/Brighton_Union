@@ -47,7 +47,7 @@ RegisterNetEvent('bu-gangs:client:zones', function(list)
         zonePoints[#zonePoints + 1] = exports['bu-interact']:addPoint(zone.coords, 1.2, {
             label = zone.label .. (zone.owner and (' — ' .. zone.ownerLabel) or ' — ничья'),
             size = 2.0,
-            color = isMine and { 62, 142, 90, 150 } or zone.owner and { 214, 69, 69, 150 } or { 154, 167, 180, 150 },
+            color = isMine and { 62, 142, 90, 150 } or zone.owner and { 214, 69, 69, 150 } or { 150, 167, 180, 150 },
             action = function()
                 TriggerServerEvent('bu-gangs:server:capture', zone.key)
             end

@@ -672,7 +672,9 @@ RegisterNetEvent('bu-families:server:parkOwnVehicle', function(plate)
     TriggerClientEvent('bu-families:client:notify', src, 'Машина припаркована.', 'success')
 end)
 
-RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(Player)
+RegisterNetEvent('QBCore:Server:OnPlayerUnload', function(src)
+    local Player = QBCore.Functions.GetPlayer(src)
+    if not Player then return end
     local cid = Player.PlayerData.citizenid
     local own = activeOwnVehicles[cid]
     if own then
